@@ -1,4 +1,4 @@
-export class canvasProvider{
+class CanvasProvider{
     
 
     constructor(){

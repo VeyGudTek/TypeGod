@@ -1,6 +1,10 @@
 {
   "type": "module",
   "devDependencies": {
+    "http-server": "^14.1.1",
     "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "start": "http-server -o ./html/canvas.html -a localhost -p 8000 -c-1"
   }
 }

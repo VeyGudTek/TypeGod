@@ -1,10 +1,12 @@
 {
   "type": "module",
   "devDependencies": {
-    "http-server": "^14.1.1",
+    "live-server": "^1.2.2",
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "start": "http-server -o ./html/canvas.html -a localhost -p 8000 -c-1"
+    "build": "npx tsc --watch",
+    "server": "live-server --open=./html/canvas.html",
+    "start": "start npm run build && start npm run server"
   }
 }

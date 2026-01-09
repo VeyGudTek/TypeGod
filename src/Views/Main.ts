@@ -7,6 +7,6 @@ class Main{
     }
 
     private OnUpdate(){
-        DrawRect()
+        //DrawRect()
     }
 }

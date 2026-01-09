@@ -1,4 +1,5 @@
-export class CanvasProvider{
+
+export class WindowProvider{
     readonly CanvasElement: HTMLCanvasElement;
     readonly CanvasContext: CanvasRenderingContext2D;
 

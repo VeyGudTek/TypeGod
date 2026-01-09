@@ -1,12 +1,10 @@
+import type { Vector2 } from "../Models/Vector2.type.js";
+import { windowProvider } from "./WindowProvider.js";
+
 export type UpdateEvent = () => void;
 export type ClickEvent = (mousePosition: Vector2) => void;
 
-export interface Vector2{
-    x:number,
-    y:number
-}
-
-export class EventManager{
+class EventManager{
     readonly OnUpdateEvents:UpdateEvent[];
     readonly OnClickEvents:ClickEvent[];
 
@@ -34,6 +32,8 @@ export class EventManager{
         addEventListener("mousedown", () => {
             this.LeftClick = true;
         });
+
+        addEventListener("resize", () => {windowProvider.OnWindowResize()})
     }
 
     private OnUpdate(){
@@ -55,3 +55,5 @@ export class EventManager{
         this.OnClickEvents.push(clickEvent);
     }
 }
+
+export const eventManager = new EventManager();

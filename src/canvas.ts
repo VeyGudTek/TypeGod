@@ -1,4 +1,4 @@
-import { eventManager } from "@Services/EventManager.js";
+import { eventManager } from "./Services/EventManager.js";
 
 console.log("StartApp");
 

@@ -1,1 +1,0 @@
-{"version":3,"file":"canvasProvider.js","sourceRoot":"","sources":["../../src/Services/canvasProvider.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,cAAc;IACd,aAAa,CAAoB;IACjC,aAAa,CAA2B;IAEjD;QACI,IAAI,CAAC,aAAa,GAAG,QAAQ,CAAC,cAAc,CAAC,QAAQ,CAAsB,CAAC;QAC5E,IAAI,CAAC,aAAa,GAAG,IAAI,CAAC,aAAa,CAAC,UAAU,CAAC,IAAI,CAA6B,CAAC;IACzF,CAAC;CACJ"}

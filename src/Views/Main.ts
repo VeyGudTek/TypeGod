@@ -11,7 +11,7 @@ export class Main implements View{
         this.Children.push(movingButton);
     }
 
-    Render(){
+    OnRender(){
         this.ClearScreen();
     }
 

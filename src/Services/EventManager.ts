@@ -5,8 +5,6 @@ import { windowProvider } from "./WindowProvider";
 export type MouseCallBack = (mousePosition: Vector2) => void;
 
 class EventManager{
-    readonly OnUpdateEvents:MouseCallBack[];
-    readonly OnClickEvents:MouseCallBack[];
     MainView:View | null;
 
     MousePosition: Vector2;
@@ -14,8 +12,6 @@ class EventManager{
     ShouldRender:boolean;
 
     constructor(){
-        this.OnUpdateEvents = [];
-        this.OnClickEvents = [];
         this.MainView = null;
 
         this.MousePosition = {x:0, y:0};
@@ -48,48 +44,76 @@ class EventManager{
     }
 
     private OnUpdate(){
-        this.OnUpdateEvents.forEach(e => e(this.MousePosition));
+        this.UpdateViews();
 
         if (this.LeftClick){
-            this.OnClickEvents.forEach(e => e(this.MousePosition));
+            this.ClickViews();
             this.LeftClick = false;
         }
 
         if (this.ShouldRender){
-            this.Render();
+            this.RenderViews();
             this.ShouldRender = false;
         }
 
         window.requestAnimationFrame(() => this.OnUpdate());
     }
 
-    RegisterUpdateEvent(updateEvent:MouseCallBack){
-        this.OnUpdateEvents.push(updateEvent);
-    }
-
-    RegisterClickEvent(clickEvent:MouseCallBack){
-        this.OnClickEvents.push(clickEvent);
-    }
-
     TriggerRender(){
         this.ShouldRender = true;
     }
 
-    private Render(){
+    private UpdateViews(){
+        if (this.MainView === null){
+            throw new Error("Unable to Update: MainView has not been registered.");
+        }
+
+        this.MainView.OnUpdate?.(this.MousePosition);
+
+        this.MainView.Children.forEach(c => c.OnUpdate?.(this.MousePosition));
+        this.MainView.Children.forEach(c => this.UpdateChild(c));
+    }
+
+    private UpdateChild(currentView:View){
+        currentView.OnUpdate?.(this.MousePosition);
+
+        currentView.Children.forEach(c => c.OnUpdate?.(this.MousePosition));
+        currentView.Children.forEach(c => this.UpdateChild(c));
+    }
+
+    private ClickViews(){
+        if (this.MainView === null){
+            throw new Error("Unable to Click: MainView has not been registered.");
+        }
+
+        this.MainView.OnClick?.(this.MousePosition);
+
+        this.MainView.Children.forEach(c => c.OnClick?.(this.MousePosition));
+        this.MainView.Children.forEach(c => this.ClickChild(c));
+    }
+
+    private ClickChild(currentView:View){
+        currentView.OnClick?.(this.MousePosition);
+
+        currentView.Children.forEach(c => c.OnClick?.(this.MousePosition));
+        currentView.Children.forEach(c => this.ClickChild(c));
+    }
+
+    private RenderViews(){
         if (this.MainView === null){
             throw new Error("Unable to Render: MainView has not been registered.")
         }
 
-        this.MainView.Render();
+        this.MainView.OnRender?.();
 
-        this.MainView.Children.forEach(c => c.Render());
+        this.MainView.Children.forEach(c => c.OnRender?.());
         this.MainView.Children.forEach(c => this.RenderChild(c));
     }
 
     private RenderChild(currentView: View){
-        currentView.Render();
+        currentView.OnRender?.();
 
-        currentView.Children.forEach(c => c.Render());
+        currentView.Children.forEach(c => c.OnRender?.());
         currentView.Children.forEach(c => this.RenderChild(c));
     }
 }

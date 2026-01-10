@@ -17,15 +17,13 @@ export class Button implements View{
             x:width,
             y:height
         }
-
-        eventManager.RegisterUpdateEvent((mousePosition) => this.OnUpdate(mousePosition))
     }
 
-    Render(){
+    OnRender(){
         DrawRect(this.Position, this.Size, "Grey");
     }
 
-    private OnUpdate(mousePosition: Vector2){
+    OnUpdate(mousePosition: Vector2){
         this.Position = mousePosition;
         eventManager.TriggerRender();
     }

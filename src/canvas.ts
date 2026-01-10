@@ -5,7 +5,6 @@ console.log("StartApp");
 
 const mainView = new Main()
 
-eventManager.RegisterClickEvent(() => console.log("Click Event Fired"));
 eventManager.MainView = mainView;
 eventManager.TriggerRender();
 

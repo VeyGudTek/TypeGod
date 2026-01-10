@@ -1,4 +1,8 @@
+import type { Vector2 } from "@Models/.";
+
 export interface View{
     Children: View[],
-    Render: () => void,
+    OnUpdate?: (mousePosition: Vector2) => void,
+    OnClick?: (mousePosition: Vector2) => void,
+    OnRender?: () => void,
 }

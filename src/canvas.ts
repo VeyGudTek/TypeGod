@@ -1,12 +1,8 @@
 import { eventManager } from "@Services/.";
-import { Main } from "@Views/.";
 
 console.log("StartApp");
 
-eventManager.RegisterClickEvent((e) => console.log(e));
-eventManager.RegisterClickEvent(() => console.log("hei"));
-
-//@ts-ignore
-const mainView = new Main();
+eventManager.RegisterClickEvent(() => console.log("Click Event Fired"));
+eventManager.Render();
 
 console.log("Finish Startup");

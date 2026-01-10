@@ -1,12 +1,21 @@
 import { DrawRect } from "@Functions/.";
-import { eventManager, windowProvider } from "@Services/.";
+import { windowProvider } from "@Services/.";
+import type { View } from ".";
 
-export class Main{
+class Main implements View{
+    Children:View[] = [];
+
     constructor(){
-        eventManager.RegisterUpdateEvent(this.OnUpdate);
+
     }
 
-    private OnUpdate(){
+    Render(){
+        this.ClearScreen();
+    }
+
+    ClearScreen(){
         DrawRect(0, 0, windowProvider.WindowSize.x, windowProvider.WindowSize.y, "black");
     }
 }
+
+export const mainView = new Main();

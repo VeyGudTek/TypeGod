@@ -1,4 +1,5 @@
 import type { Vector2 } from "@Models/.";
+import { type View, mainView } from "@Views/.";
 
 export type UpdateEvent = () => void;
 export type ClickEvent = (mousePosition: Vector2) => void;
@@ -6,6 +7,7 @@ export type ClickEvent = (mousePosition: Vector2) => void;
 class EventManager{
     readonly OnUpdateEvents:UpdateEvent[];
     readonly OnClickEvents:ClickEvent[];
+    readonly MainView:View;
 
     MousePosition: Vector2;
     LeftClick:boolean;
@@ -13,6 +15,7 @@ class EventManager{
     constructor(){
         this.OnUpdateEvents = [];
         this.OnClickEvents = [];
+        this.MainView = mainView;
 
         this.MousePosition = {x:0, y:0};
         this.LeftClick = false;
@@ -50,6 +53,20 @@ class EventManager{
 
     RegisterClickEvent(clickEvent:ClickEvent){
         this.OnClickEvents.push(clickEvent);
+    }
+
+    Render(){
+        mainView.Render();
+
+        mainView.Children.forEach(c => c.Render());
+        mainView.Children.forEach(c => this.RenderChild(c));
+    }
+
+    private RenderChild(currentView: View){
+        currentView.Render();
+
+        currentView.Children.forEach(c => c.Render());
+        currentView.Children.forEach(c => this.RenderChild(c));
     }
 }
 

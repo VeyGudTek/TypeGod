@@ -3,7 +3,6 @@ import type { Vector2 } from "@Models/.";
 class WindowProvider{
     readonly CanvasElement: HTMLCanvasElement;
     readonly CanvasContext: CanvasRenderingContext2D;
-    readonly CanvasRatio: number = .95;
 
     WindowSize:Vector2 = {x:0, y:0};
 
@@ -11,19 +10,16 @@ class WindowProvider{
         this.CanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
         this.CanvasContext = this.CanvasElement.getContext("2d") as CanvasRenderingContext2D;
 
-        this.OnWindowResize();
+        this.ResizeWindow(1280, 640);
     }
 
-    OnWindowResize(){
-        this.CanvasElement.setAttribute("width", (window.innerWidth * this.CanvasRatio).toString());
-        this.CanvasElement.setAttribute("height", (window.innerHeight * this.CanvasRatio).toString());
-
-        const styling = `padding: ${Math.round((window.innerWidth * (1 - this.CanvasRatio))) / 2}px;`;
-        this.CanvasElement.setAttribute("style", styling);
+    ResizeWindow(width: number, height:number){
+        this.CanvasElement.setAttribute("width", width.toString());
+        this.CanvasElement.setAttribute("height", height.toString());
 
         this.WindowSize = {
-            x: window.innerWidth * this.CanvasRatio,
-            y: window.innerHeight * this.CanvasRatio
+            x: width,
+            y: height
         }
     }
 }

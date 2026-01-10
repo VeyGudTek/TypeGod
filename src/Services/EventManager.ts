@@ -1,5 +1,4 @@
 import type { Vector2 } from "@Models/.";
-import { windowProvider } from "@Services/.";
 
 export type UpdateEvent = () => void;
 export type ClickEvent = (mousePosition: Vector2) => void;
@@ -32,8 +31,6 @@ class EventManager{
         addEventListener("mousedown", () => {
             this.LeftClick = true;
         });
-
-        addEventListener("resize", () => {windowProvider.OnWindowResize()})
     }
 
     private OnUpdate(){

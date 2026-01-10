@@ -1,5 +1,4 @@
-import type { Vector2 } from "@Models/.";
-import { type View } from "@Views/.";
+import type { Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
 
 export type MouseCallBack = (mousePosition: Vector2) => void;
@@ -9,14 +8,12 @@ class EventManager{
 
     MousePosition: Vector2;
     LeftClick:boolean;
-    ShouldRender:boolean;
 
     constructor(){
         this.MainView = null;
 
         this.MousePosition = {x:0, y:0};
         this.LeftClick = false;
-        this.ShouldRender = false;
 
         this.HookUpEvents();
     }
@@ -51,16 +48,7 @@ class EventManager{
             this.LeftClick = false;
         }
 
-        if (this.ShouldRender){
-            this.RenderViews();
-            this.ShouldRender = false;
-        }
-
         window.requestAnimationFrame(() => this.OnUpdate());
-    }
-
-    TriggerRender(){
-        this.ShouldRender = true;
     }
 
     private UpdateViews(){
@@ -93,22 +81,6 @@ class EventManager{
     private ClickChild(currentView:View){
         currentView.Children.forEach(c => c.OnClick?.(this.MousePosition));
         currentView.Children.forEach(c => this.ClickChild(c));
-    }
-
-    private RenderViews(){
-        if (this.MainView === null){
-            throw new Error("Unable to Render: MainView has not been registered.")
-        }
-
-        this.MainView.OnRender?.();
-
-        this.MainView.Children.forEach(c => c.OnRender?.());
-        this.MainView.Children.forEach(c => this.RenderChild(c));
-    }
-
-    private RenderChild(currentView: View){
-        currentView.Children.forEach(c => c.OnRender?.());
-        currentView.Children.forEach(c => this.RenderChild(c));
     }
 }
 

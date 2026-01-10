@@ -1,6 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import type { View } from "@Views/.";
+import type { View } from "@Models/.";
 import { Button } from "@Views/Shared/.";
 
 export class Main implements View{
@@ -11,7 +11,7 @@ export class Main implements View{
         this.Children.push(movingButton);
     }
 
-    OnRender(){
+    OnUpdate(){
         this.ClearScreen();
     }
 

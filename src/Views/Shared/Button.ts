@@ -1,7 +1,5 @@
 import { DrawRect } from "@Functions/.";
-import type { Vector2 } from "@Models/.";
-import { eventManager } from "@Services/EventManager";
-import type { View } from "@Views/.";
+import type { Vector2, View } from "@Models/.";
 
 export class Button implements View{
     Children:View[] = [];
@@ -34,12 +32,13 @@ export class Button implements View{
         else{
             this.OnNoHover();
         }
+
+        this.Render();
     }
 
     private OnHover(){
         if (!this.IsHover){
             this.Color = "#6b749d";
-            eventManager.TriggerRender();
             this.IsHover = true;
         }
     }
@@ -47,7 +46,6 @@ export class Button implements View{
     private OnNoHover(){
         if (this.IsHover){
             this.Color = "#9da4c3";
-            eventManager.TriggerRender();
             this.IsHover = false;
         }
     }
@@ -58,7 +56,7 @@ export class Button implements View{
         }
     }
 
-    OnRender(){
+    Render(){
         DrawRect(this.Position, this.Size, this.Color);
     }
 }

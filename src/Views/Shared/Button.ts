@@ -22,7 +22,6 @@ export class Button implements View{
     }
 
     Render(){
-        console.log(`render button at ${this.Position.x}`);
         DrawRect(this.Position, this.Size, "Grey");
     }
 

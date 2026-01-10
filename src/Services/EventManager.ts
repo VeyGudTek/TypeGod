@@ -1,5 +1,6 @@
 import type { Vector2 } from "@Models/.";
 import { type View } from "@Views/.";
+import { windowProvider } from "./WindowProvider";
 
 export type MouseCallBack = (mousePosition: Vector2) => void;
 
@@ -28,13 +29,22 @@ class EventManager{
         window.requestAnimationFrame(() => this.OnUpdate());
 
         addEventListener("mousemove", (event) => {
-            this.MousePosition.x = event.clientX;
-            this.MousePosition.y = event.clientY;
+            this.SetMousePosition(event);
         });
 
-        addEventListener("mousedown", () => {
+        addEventListener("mousedown", (event) => {
+            this.SetMousePosition(event);
             this.LeftClick = true;
         });
+
+        addEventListener("scroll", () => {
+            windowProvider.OnScroll();
+        });
+    }
+
+    private SetMousePosition(event:MouseEvent){
+        this.MousePosition.x = event.clientX - windowProvider.LeftCanvasOffSet;
+        this.MousePosition.y = event.clientY - windowProvider.TopCanvasOffSet;
     }
 
     private OnUpdate(){

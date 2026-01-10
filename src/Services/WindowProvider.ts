@@ -3,6 +3,10 @@ import type { Vector2 } from "@Models/.";
 class WindowProvider{
     readonly CanvasElement: HTMLCanvasElement;
     readonly CanvasContext: CanvasRenderingContext2D;
+    LeftCanvasOffSet:number = 0;
+    TopCanvasOffSet:number = 0;
+
+    readonly CanvasBorderSize:number = 3;
 
     WindowSize:Vector2 = {x:0, y:0};
 
@@ -10,6 +14,10 @@ class WindowProvider{
         this.CanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
         this.CanvasContext = this.CanvasElement.getContext("2d") as CanvasRenderingContext2D;
 
+        const canvasStyle = `border: solid black ${this.CanvasBorderSize}px;`;
+        this.CanvasElement.setAttribute("style", canvasStyle);
+
+        this.OnScroll();
         this.ResizeWindow(1280, 640);
     }
 
@@ -21,6 +29,12 @@ class WindowProvider{
             x: width,
             y: height
         }
+    }
+
+    OnScroll(){
+        const canvasRect = this.CanvasElement.getBoundingClientRect();
+        this.LeftCanvasOffSet = canvasRect.left + this.CanvasBorderSize;
+        this.TopCanvasOffSet = canvasRect.top + this.CanvasBorderSize;
     }
 }
 

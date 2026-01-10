@@ -1,12 +1,12 @@
 import { DrawRect } from "@Functions/.";
-import { eventManager } from "@Services/.";
+import { eventManager, windowProvider } from "@Services/.";
 
-class Main{
+export class Main{
     constructor(){
         eventManager.RegisterUpdateEvent(this.OnUpdate);
     }
 
     private OnUpdate(){
-        //DrawRect()
+        DrawRect(0, 0, windowProvider.WindowSize.x, windowProvider.WindowSize.y, "black");
     }
 }

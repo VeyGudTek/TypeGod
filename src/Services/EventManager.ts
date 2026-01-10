@@ -1,5 +1,5 @@
-import type { Vector2 } from "../Models/Vector2.type.js";
-import { windowProvider } from "./WindowProvider.js";
+import type { Vector2 } from "@Models/.";
+import { windowProvider } from "@Services/.";
 
 export type UpdateEvent = () => void;
 export type ClickEvent = (mousePosition: Vector2) => void;

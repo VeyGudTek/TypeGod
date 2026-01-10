@@ -1,5 +1,5 @@
-import { DrawRect } from "../Functions/DrawRect.js";
-import { eventManager } from "../Services/EventManager.js";
+import { DrawRect } from "@Functions/.";
+import { eventManager } from "@Services/.";
 
 class Main{
     constructor(){

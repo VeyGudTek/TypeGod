@@ -1,4 +1,4 @@
-import type { Vector2 } from "../Models/Vector2.type.js";
+import type { Vector2 } from "@Models/.";
 
 class WindowProvider{
     readonly CanvasElement: HTMLCanvasElement;

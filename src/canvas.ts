@@ -1,8 +1,8 @@
-import { eventManager } from "./Services/EventManager.js";
+import { eventManager } from "@Services/.";
 
 console.log("StartApp");
 
 eventManager.RegisterClickEvent((e) => console.log(e));
-eventManager.RegisterClickEvent((e) => console.log("hei"));
+eventManager.RegisterClickEvent(() => console.log("hei"));
 
 console.log("Finish Startup");

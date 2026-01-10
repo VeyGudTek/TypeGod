@@ -1,9 +1,8 @@
-import { DrawRect } from "@Functions/.";
-import { IsWithinRectangle } from "@Functions/.";
+import { IsWithinRectangle, DrawRect } from "@Functions/.";
 import type { Vector2 } from "@Models/.";
 import { BaseView } from "@Views/Shared/.";
 
-export class Button extends BaseView{
+export class TextBox extends BaseView{
     Color:string;
     IsHover:boolean;
 

@@ -1,14 +1,15 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
-import { Button } from "@Views/Shared/.";
+import { Button, TextBox } from "@Views/Shared/.";
 
 export class Main implements View{
     Children:View[] = [];
 
     constructor(){
-        const movingButton = new Button(200, 100, 50, 25);
-        this.Children.push(movingButton);
+        const testButton = new Button({x:200, y:100}, {x:200, y:400});
+        const testTextBox = new TextBox({x:200, y:100}, {x:700, y:400});
+        this.Children.push(testButton, testTextBox);
     }
 
     OnUpdate(){

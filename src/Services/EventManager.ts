@@ -1,24 +1,25 @@
 import type { Vector2 } from "@Models/.";
-import { type View, mainView } from "@Views/.";
+import { type View } from "@Views/.";
 
-export type UpdateEvent = () => void;
-export type ClickEvent = (mousePosition: Vector2) => void;
+export type MouseCallBack = (mousePosition: Vector2) => void;
 
 class EventManager{
-    readonly OnUpdateEvents:UpdateEvent[];
-    readonly OnClickEvents:ClickEvent[];
-    readonly MainView:View;
+    readonly OnUpdateEvents:MouseCallBack[];
+    readonly OnClickEvents:MouseCallBack[];
+    MainView:View | null;
 
     MousePosition: Vector2;
     LeftClick:boolean;
+    ShouldRender:boolean;
 
     constructor(){
         this.OnUpdateEvents = [];
         this.OnClickEvents = [];
-        this.MainView = mainView;
+        this.MainView = null;
 
         this.MousePosition = {x:0, y:0};
         this.LeftClick = false;
+        this.ShouldRender = false;
 
         this.HookUpEvents();
     }
@@ -37,29 +38,42 @@ class EventManager{
     }
 
     private OnUpdate(){
-        this.OnUpdateEvents.forEach(e => e());
+        this.OnUpdateEvents.forEach(e => e(this.MousePosition));
 
         if (this.LeftClick){
             this.OnClickEvents.forEach(e => e(this.MousePosition));
+            this.LeftClick = false;
         }
-        this.LeftClick = false;
+
+        if (this.ShouldRender){
+            this.Render();
+            this.ShouldRender = false;
+        }
 
         window.requestAnimationFrame(() => this.OnUpdate());
     }
 
-    RegisterUpdateEvent(updateEvent:UpdateEvent){
+    RegisterUpdateEvent(updateEvent:MouseCallBack){
         this.OnUpdateEvents.push(updateEvent);
     }
 
-    RegisterClickEvent(clickEvent:ClickEvent){
+    RegisterClickEvent(clickEvent:MouseCallBack){
         this.OnClickEvents.push(clickEvent);
     }
 
-    Render(){
-        mainView.Render();
+    TriggerRender(){
+        this.ShouldRender = true;
+    }
 
-        mainView.Children.forEach(c => c.Render());
-        mainView.Children.forEach(c => this.RenderChild(c));
+    private Render(){
+        if (this.MainView === null){
+            throw new Error("Unable to Render: MainView has not been registered.")
+        }
+
+        this.MainView.Render();
+
+        this.MainView.Children.forEach(c => c.Render());
+        this.MainView.Children.forEach(c => this.RenderChild(c));
     }
 
     private RenderChild(currentView: View){

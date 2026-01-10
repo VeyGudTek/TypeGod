@@ -3,5 +3,5 @@ import { windowProvider } from "@Services/.";
 
 export function DrawRect(position:Vector2, size:Vector2, fill:string) {
     windowProvider.CanvasContext.fillStyle = fill;
-    windowProvider.CanvasContext.fillRect(position.x, position.y, size.x, size.y);
+    windowProvider.CanvasContext.fillRect(position.x - (size.x / 2), position.y - (size.y / 2), size.x, size.y);
 }

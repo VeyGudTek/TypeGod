@@ -75,8 +75,6 @@ class EventManager{
     }
 
     private UpdateChild(currentView:View){
-        currentView.OnUpdate?.(this.MousePosition);
-
         currentView.Children.forEach(c => c.OnUpdate?.(this.MousePosition));
         currentView.Children.forEach(c => this.UpdateChild(c));
     }
@@ -93,8 +91,6 @@ class EventManager{
     }
 
     private ClickChild(currentView:View){
-        currentView.OnClick?.(this.MousePosition);
-
         currentView.Children.forEach(c => c.OnClick?.(this.MousePosition));
         currentView.Children.forEach(c => this.ClickChild(c));
     }
@@ -111,8 +107,6 @@ class EventManager{
     }
 
     private RenderChild(currentView: View){
-        currentView.OnRender?.();
-
         currentView.Children.forEach(c => c.OnRender?.());
         currentView.Children.forEach(c => this.RenderChild(c));
     }

@@ -7,7 +7,7 @@ export class Main implements View{
     Children:View[] = [];
 
     constructor(){
-        const movingButton = new Button(0, 0, 10, 10);
+        const movingButton = new Button(200, 100, 50, 25);
         this.Children.push(movingButton);
     }
 
@@ -16,6 +16,10 @@ export class Main implements View{
     }
 
     ClearScreen(){
-        DrawRect({x:0, y:0}, windowProvider.WindowSize, "#d1c5b0");
+        const position = {
+            x: windowProvider.WindowSize.x / 2,
+            y: windowProvider.WindowSize.y / 2
+        }
+        DrawRect(position, windowProvider.WindowSize, "#d1c5b0");
     }
 }

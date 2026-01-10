@@ -1,12 +1,15 @@
 {
+  "name": "typegod",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "devDependencies": {
-    "live-server": "^1.2.2",
-    "typescript": "^5.9.3"
-  },
   "scripts": {
-    "build": "npx tsc --watch",
-    "server": "live-server --open=./html/canvas.html",
-    "start": "start npm run build && start npm run server"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4"
   }
 }

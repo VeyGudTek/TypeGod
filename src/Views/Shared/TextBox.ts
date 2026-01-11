@@ -1,5 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import { DrawText } from "@Functions/DrawText";
+import { GetCenterFromPosition } from "@Functions/PositionConversion";
 import type { Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
@@ -42,14 +43,16 @@ export class TextBox extends BaseHoverView{
     Render(){
         DrawRect(this.Position, this.Size, this.Hovering ? Colors.textBox.hover: Colors.textBox.base, Colors.border.base);
 
-        DrawText(this.GetSplicedText(), 
+        const center = GetCenterFromPosition(this.Position, this.Size);
+        DrawText(
+            this.GetSplicedText(), 
             "Black", 
-            {
-                x:this.Position.x,
-                y:this.Position.y + (this.Size.y / 2)
-            }, 
-            Sizes.text.base,
-            this.Size.x
+            { 
+                x: this.Position.x, 
+                y: center.y
+            },
+            "start",
+            Sizes.text.base
         );
     }
 

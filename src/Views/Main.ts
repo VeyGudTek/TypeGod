@@ -1,17 +1,19 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
-import { Button, TextBox, Panel } from "@Views/Shared/.";
+import { BaseView } from "@Views/Shared/.";
+import { Login } from "./Login/Login";
 import { Colors } from "@Static/.";
 
-export class Main implements View{
+export class Main extends BaseView{
     Children:View[] = [];
+    LoginPage: Login;
 
     constructor(){
-        const testPanel = new Panel({x:700, y: 350}, {x: 200, y:200});
-        const testButton = new Button({x:200, y:100}, {x:200, y:400}, () => {console.log("Button Clicked")});
-        const testTextBox = new TextBox({x:200, y:100}, {x:700, y:400});
-        this.Children.push(testPanel, testButton, testTextBox);
+        super(windowProvider.WindowSize, {x:0, y:0});
+
+        this.LoginPage = new Login();
+        this.Children.push(this.LoginPage);
     }
 
     OnUpdate(){
@@ -19,6 +21,6 @@ export class Main implements View{
     }
 
     ClearScreen(){
-        DrawRect({x:0, y:0}, windowProvider.WindowSize, Colors.background, Colors.border.base);
+        DrawRect(this.Position, this.Size, Colors.background, Colors.border.base);
     }
 }

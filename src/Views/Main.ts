@@ -7,7 +7,7 @@ export class Main implements View{
     Children:View[] = [];
 
     constructor(){
-        const testButton = new Button({x:200, y:100}, {x:200, y:400});
+        const testButton = new Button({x:200, y:100}, {x:200, y:400}, () => {console.log("Button Clicked")});
         const testTextBox = new TextBox({x:200, y:100}, {x:700, y:400});
         this.Children.push(testButton, testTextBox);
     }

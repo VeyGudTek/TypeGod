@@ -1,4 +1,4 @@
 export * from "./BaseView";
-export * from "./BaseHoverView";
+export * from "./BaseInteractableView";
 export * from "./TextBox";
 export * from "./Button";

@@ -1,8 +1,6 @@
 import type { Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
 
-export type MouseCallBack = (mousePosition: Vector2) => void;
-
 class EventManager{
     MainView:View | null;
 

@@ -1,9 +1,9 @@
 import { DrawRect } from "@Functions/.";
 import { DrawText } from "@Functions/DrawText";
 import type { Vector2 } from "@Models/.";
-import { BaseInteractableView } from "@Views/Shared/.";
+import { BaseHoverView } from "@Views/Shared/.";
 
-export class TextBox extends BaseInteractableView{
+export class TextBox extends BaseHoverView{
     static TextSizeRatio: number = .8;
     Text:string = "";
     Selected:boolean = false;

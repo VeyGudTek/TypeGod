@@ -1,8 +1,8 @@
 import { DrawRect } from "@Functions/.";
 import type { BasicCallback, Vector2 } from "@Models/.";
-import { BaseInteractableView } from "@Views/Shared/.";
+import { BaseHoverView } from "@Views/Shared/.";
 
-export class Button extends BaseInteractableView{
+export class Button extends BaseHoverView{
     ClickCallBack:BasicCallback;
 
     constructor(size:Vector2, position:Vector2, clickCallBack: BasicCallback){

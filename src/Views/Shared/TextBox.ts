@@ -3,22 +3,28 @@ import type { Vector2 } from "@Models/.";
 import { BaseInteractableView } from "@Views/Shared/.";
 
 export class TextBox extends BaseInteractableView{
-    text:string = "";
+    Text:string = "";
+    Selected:boolean = false;
 
     constructor(size:Vector2, position:Vector2){
-        super(size, position, () => {console.log("TextBoxClicked")});
+        super(size, position);
     }
 
     OnUpdate(mousePosition: Vector2){
         super.OnUpdate(mousePosition);
-        this.ClickCallBack = () => { console.log("TextBox Clicked"); }
 
         this.Render();
     }
 
+    OnClick(){
+        this.Selected = this.Hovering;
+    }
+
     OnKey(key:string){
-        this.text += key;
-        console.log(this.text);
+        if (this.Selected){
+            this.Text += key;
+            console.log(this.Text);
+        }
     }
 
     Render(){

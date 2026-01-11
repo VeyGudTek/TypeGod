@@ -3,8 +3,12 @@ import type { BasicCallback, Vector2 } from "@Models/.";
 import { BaseInteractableView } from "@Views/Shared/.";
 
 export class Button extends BaseInteractableView{
+    ClickCallBack:BasicCallback;
+
     constructor(size:Vector2, position:Vector2, clickCallBack: BasicCallback){
-        super(size, position, clickCallBack);
+        super(size, position);
+
+        this.ClickCallBack = clickCallBack;
     }
 
     OnUpdate(mousePosition: Vector2){
@@ -15,7 +19,7 @@ export class Button extends BaseInteractableView{
 
     OnClick(){
         if (this.Hovering){
-            console.log("ButtonClicked");
+            this.ClickCallBack();
         }
     }
 

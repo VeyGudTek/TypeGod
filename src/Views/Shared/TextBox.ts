@@ -3,6 +3,8 @@ import type { Vector2 } from "@Models/.";
 import { BaseInteractableView } from "@Views/Shared/.";
 
 export class TextBox extends BaseInteractableView{
+    text:string = "";
+
     constructor(size:Vector2, position:Vector2){
         super(size, position, () => {console.log("TextBoxClicked")});
     }
@@ -12,6 +14,11 @@ export class TextBox extends BaseInteractableView{
         this.ClickCallBack = () => { console.log("TextBox Clicked"); }
 
         this.Render();
+    }
+
+    OnKey(key:string){
+        this.text += key;
+        console.log(this.text);
     }
 
     Render(){

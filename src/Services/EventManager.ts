@@ -31,6 +31,10 @@ class EventManager{
         addEventListener("scroll", () => {
             windowProvider.OnScroll();
         });
+
+        addEventListener("keydown", (event) => {
+            this.InputKeyToViews(event.key);
+        })
     }
 
     private SetMousePosition(event:MouseEvent){
@@ -78,6 +82,22 @@ class EventManager{
 
     private ClickChild(currentView:View){
         currentView.Children.forEach(c => c.OnClick?.(this.MousePosition));
+        currentView.Children.forEach(c => this.ClickChild(c));
+    }
+
+    private InputKeyToViews(key:string){
+        if (this.MainView === null){
+            throw new Error("Unable input Key: MainView has not been registered.");
+        }
+
+        this.MainView.OnKey?.(key);
+
+        this.MainView.Children.forEach(c => c.OnKey?.(key));
+        this.MainView.Children.forEach(c => this.InputKeyToChild(c, key));
+    }
+
+    private InputKeyToChild(currentView:View, key:string){
+        currentView.Children.forEach(c => c.OnKey?.(key));
         currentView.Children.forEach(c => this.ClickChild(c));
     }
 }

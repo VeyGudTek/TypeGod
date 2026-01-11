@@ -23,11 +23,24 @@ export class TextBox extends BaseInteractableView{
     }
 
     OnKey(key:string){
-        const maxLength = (this.Size.x / this.Size.y) * 2;
+        if (!this.Selected) {
+            return;
+        }
 
-        if (this.Selected && this.Text.length < maxLength){
+        if (key === "Backspace"){
+            if (this.Text.length > 0){
+                this.Text = this.Text.slice(0, this.Text.length - 1);
+            }
+            return;
+        }
+
+        if (key.length > 1){
+            return;
+        }
+
+        const maxLength = (this.Size.x / this.Size.y) * 2;
+        if (this.Text.length < maxLength){
             this.Text += key;
-            console.log(this.Text);
         }
     }
 

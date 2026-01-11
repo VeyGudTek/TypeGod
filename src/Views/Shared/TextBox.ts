@@ -1,6 +1,7 @@
 import { DrawRect } from "@Functions/.";
 import { DrawText } from "@Functions/DrawText";
 import type { Vector2 } from "@Models/.";
+import { Colors } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
 export class TextBox extends BaseHoverView{
@@ -45,7 +46,7 @@ export class TextBox extends BaseHoverView{
     }
 
     Render(){
-        DrawRect(this.Position, this.Size, this.Hovering ? "#59549d": "#9390b9", "black");
+        DrawRect(this.Position, this.Size, this.Hovering ? Colors.textBox.hover: Colors.textBox.base, Colors.border.base);
 
         const height = this.Size.y;
         DrawText(this.Text, 

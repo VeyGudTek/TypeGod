@@ -28,6 +28,7 @@
       "@Functions/*": ["./src/Functions/*"],
       "@Models/*": ["./src/Models/*"],
       "@Services/*": ["./src/Services/*"],
+      "@Static/*": ["./src/Static/*"],
       "@Views/*": ["./src/Views/*"],
     },
   },

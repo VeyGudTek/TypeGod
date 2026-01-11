@@ -1,5 +1,6 @@
 import { DrawRect } from "@Functions/DrawRect";
 import { BaseView } from "./BaseView";
+import { Colors } from "@Static/.";
 
 export class Panel extends BaseView{
     OnUpdate(){
@@ -7,6 +8,6 @@ export class Panel extends BaseView{
     }
 
     Render(){
-        DrawRect(this.Position, this.Size, "#d6bebe", "black");
+        DrawRect(this.Position, this.Size, Colors.panel.base, Colors.border.base);
     }
 }

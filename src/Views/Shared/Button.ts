@@ -1,5 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import type { BasicCallback, Vector2 } from "@Models/.";
+import { Colors } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
 export class Button extends BaseHoverView{
@@ -24,6 +25,6 @@ export class Button extends BaseHoverView{
     }
 
     Render(){
-        DrawRect(this.Position, this.Size, this.Hovering ? "#549d87" : "#88b2a9" , "black");
+        DrawRect(this.Position, this.Size, this.Hovering ? Colors.button.hover : Colors.button.base, Colors.border.base);
     }
 }

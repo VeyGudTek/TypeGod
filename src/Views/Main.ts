@@ -2,6 +2,7 @@ import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
 import { Button, TextBox, Panel } from "@Views/Shared/.";
+import { Colors } from "@Static/.";
 
 export class Main implements View{
     Children:View[] = [];
@@ -18,6 +19,6 @@ export class Main implements View{
     }
 
     ClearScreen(){
-        DrawRect({x:0, y:0}, windowProvider.WindowSize, "#d1c5b0", "black");
+        DrawRect({x:0, y:0}, windowProvider.WindowSize, Colors.background, Colors.border.base);
     }
 }

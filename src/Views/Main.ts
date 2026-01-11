@@ -18,10 +18,6 @@ export class Main implements View{
     }
 
     ClearScreen(){
-        const position = {
-            x: windowProvider.WindowSize.x / 2,
-            y: windowProvider.WindowSize.y / 2
-        }
-        DrawRect(position, windowProvider.WindowSize, "#d1c5b0");
+        DrawRect({x:0, y:0}, windowProvider.WindowSize, "#d1c5b0", "black");
     }
 }

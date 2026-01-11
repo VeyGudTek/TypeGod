@@ -7,6 +7,6 @@ export class Panel extends BaseView{
     }
 
     Render(){
-        DrawRect(this.Position, this.Size, "#d6bebe");
+        DrawRect(this.Position, this.Size, "#d6bebe", "black");
     }
 }

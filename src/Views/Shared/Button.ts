@@ -24,6 +24,6 @@ export class Button extends BaseInteractableView{
     }
 
     Render(){
-        DrawRect(this.Position, this.Size, this.Hovering ? "#549d87" : "#88b2a9" );
+        DrawRect(this.Position, this.Size, this.Hovering ? "#549d87" : "#88b2a9" , "black");
     }
 }

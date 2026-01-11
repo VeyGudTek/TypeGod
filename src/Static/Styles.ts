@@ -20,3 +20,12 @@ export const Colors = {
         base: "Black"
     }
 }
+
+export const Sizes = {
+    text: {
+        base: 20
+    },
+    border:{
+        base: 3
+    }
+}

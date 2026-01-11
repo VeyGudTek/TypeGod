@@ -1,11 +1,10 @@
 import { DrawRect } from "@Functions/.";
 import { DrawText } from "@Functions/DrawText";
 import type { Vector2 } from "@Models/.";
-import { Colors } from "@Static/.";
+import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
 export class TextBox extends BaseHoverView{
-    static TextSizeRatio: number = .8;
     Text:string = "";
     Selected:boolean = false;
 
@@ -35,12 +34,7 @@ export class TextBox extends BaseHoverView{
             return;
         }
 
-        if (key.length > 1){
-            return;
-        }
-
-        const maxLength = (this.Size.x / this.Size.y) * 2;
-        if (this.Text.length < maxLength){
+        if (key.length === 1){
             this.Text += key;
         }
     }
@@ -48,14 +42,25 @@ export class TextBox extends BaseHoverView{
     Render(){
         DrawRect(this.Position, this.Size, this.Hovering ? Colors.textBox.hover: Colors.textBox.base, Colors.border.base);
 
-        const height = this.Size.y;
-        DrawText(this.Text, 
+        DrawText(this.GetSplicedText(), 
             "Black", 
             {
                 x:this.Position.x,
-                y:this.Position.y + (1 - TextBox.TextSizeRatio) * height / 2
+                y:this.Position.y + (this.Size.y / 2)
             }, 
-            height * TextBox.TextSizeRatio
+            Sizes.text.base,
+            this.Size.x
         );
+    }
+
+    private GetSplicedText(){
+        const maxLength = (this.Size.x / Sizes.text.base) * 1.66;
+
+        if (this.Text.length <= maxLength){
+            return this.Text;
+        }
+
+        const startIndex = this.Text.length - maxLength;
+        return this.Text.slice(startIndex, this.Text.length);
     }
 }

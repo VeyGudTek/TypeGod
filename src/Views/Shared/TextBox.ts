@@ -1,6 +1,4 @@
-import { DrawRect } from "@Functions/.";
-import { DrawText } from "@Functions/DrawText";
-import { GetCenterFromPosition } from "@Functions/PositionConversion";
+import { DrawRect, DrawText, GetCenterFromPosition } from "@Functions/.";
 import type { UpdateArguments, Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";

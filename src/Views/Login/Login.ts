@@ -1,6 +1,6 @@
-import { GetPositionFromCenter } from "@Functions/PositionConversion";
-import type { View } from "@Models/View.type";
-import { Sizes } from "@Static/Styles";
+import { GetPositionFromCenter } from "@Functions/.";
+import type { View } from "@Models/.";
+import { Sizes } from "@Static/.";
 import { Panel, Button, TextBox, Label } from "@Views/Shared";
 
 export class Login implements View{

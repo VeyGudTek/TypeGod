@@ -1,4 +1,4 @@
-import { DrawRect } from "@Functions/DrawRect";
+import { DrawRect } from "@Functions/.";
 import { BaseView } from "./BaseView";
 import { Colors } from "@Static/.";
 

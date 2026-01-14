@@ -1,5 +1,5 @@
 import { DrawRect } from "@Functions/.";
-import { GetCenterFromPosition } from "@Functions/PositionConversion";
+import { GetCenterFromPosition } from "@Functions/.";
 import type { BasicCallback, UpdateArguments, Vector2 } from "@Models/.";
 import { Colors } from "@Static/.";
 import { BaseHoverView, Label } from "@Views/Shared/.";

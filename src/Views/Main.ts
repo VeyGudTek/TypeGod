@@ -1,8 +1,8 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
-import { BaseView } from "@Views/Shared/.";
-import { Login } from "./Login/Login";
+import { BaseView } from "@Views/Shared";
+import { Login } from "@Views/Login";
 import { Colors } from "@Static/.";
 
 export class Main extends BaseView{

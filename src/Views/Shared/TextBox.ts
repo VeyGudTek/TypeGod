@@ -16,7 +16,7 @@ export class TextBox extends BaseHoverView{
     OnUpdate(updateArguments: UpdateArguments){
         super.OnUpdate(updateArguments);
 
-        this.Render();
+        this.Render(updateArguments.mouseDown);
     }
 
     OnClick(){
@@ -40,8 +40,12 @@ export class TextBox extends BaseHoverView{
         }
     }
 
-    Render(){
-        DrawRect(this.Position, this.Size, this.Hovering ? Colors.textBox.hover: Colors.textBox.base, Colors.border.base);
+    private Render(mouseDown:boolean){
+        let currentColor = Colors.textBox.base;
+        if (this.Hovering){
+            currentColor = mouseDown ? Colors.textBox.down : Colors.textBox.hover;
+        }
+        DrawRect(this.Position, this.Size, currentColor, Colors.border.base);
 
         const center = GetCenterFromPosition(this.Position, this.Size);
         DrawText(

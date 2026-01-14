@@ -1,4 +1,4 @@
-import type { Vector2 } from "@Models/.";
+import type { BasicCallback, Vector2 } from "@Models/.";
 
 export type UpdateArguments = {
     mousePosition:Vector2,
@@ -8,6 +8,6 @@ export type UpdateArguments = {
 export interface View{
     Children: View[],
     OnUpdate?: (updateArguments:UpdateArguments) => void,
-    OnClick?: (mousePosition: Vector2) => void,
+    OnClick?: BasicCallback,
     OnKey?: (key:string) => void,
 }

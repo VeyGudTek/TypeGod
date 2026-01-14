@@ -15,10 +15,10 @@ export class Button extends BaseHoverView{
         this.Children.push(new Label(labelSize, GetCenterFromPosition(position, size), text))
     }
 
-    OnUpdate({mousePosition, mouseDown}:UpdateArguments){
-        super.OnUpdate({mousePosition, mouseDown});
+    OnUpdate(updateArguments:UpdateArguments){
+        super.OnUpdate(updateArguments);
 
-        this.Render(mouseDown);
+        this.Render(updateArguments.mouseDown);
     }
 
     OnClick(){
@@ -27,10 +27,10 @@ export class Button extends BaseHoverView{
         }
     }
 
-    Render(mousedown:boolean){
+    Render(mouseDown:boolean){
         let currentColor = Colors.button.base;
         if (this.Hovering){
-            currentColor = mousedown ? Colors.button.down : Colors.button.hover;
+            currentColor = mouseDown ? Colors.button.down : Colors.button.hover;
         }
 
         DrawRect(this.Position, this.Size, currentColor, Colors.border.base);

@@ -83,14 +83,14 @@ class EventManager{
             throw new Error("Unable to Click: MainView has not been registered.");
         }
 
-        this.MainView.OnClick?.(this.MousePosition);
+        this.MainView.OnClick?.();
 
-        this.MainView.Children.forEach(c => c.OnClick?.(this.MousePosition));
+        this.MainView.Children.forEach(c => c.OnClick?.());
         this.MainView.Children.forEach(c => this.ClickChild(c));
     }
 
     private ClickChild(currentView:View){
-        currentView.Children.forEach(c => c.OnClick?.(this.MousePosition));
+        currentView.Children.forEach(c => c.OnClick?.());
         currentView.Children.forEach(c => this.ClickChild(c));
     }
 

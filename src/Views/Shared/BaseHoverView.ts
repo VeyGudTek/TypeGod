@@ -1,11 +1,11 @@
 import { IsWithinRectangle } from "@Functions/.";
-import type { Vector2 } from "@Models/.";
+import type { UpdateArguments } from "@Models/.";
 import { BaseView } from "@Views/Shared/.";
 
 export abstract class BaseHoverView extends BaseView{
     Hovering:boolean = false;
 
-    OnUpdate(mousePosition: Vector2){
+    OnUpdate({mousePosition}: UpdateArguments){
         if (IsWithinRectangle(mousePosition, this.Position, this.Size)){
             this.Hovering = true;
         }

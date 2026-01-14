@@ -1,6 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import { GetCenterFromPosition } from "@Functions/PositionConversion";
-import type { BasicCallback, Vector2 } from "@Models/.";
+import type { BasicCallback, UpdateArguments, Vector2 } from "@Models/.";
 import { Colors } from "@Static/.";
 import { BaseHoverView, Label } from "@Views/Shared/.";
 
@@ -15,10 +15,10 @@ export class Button extends BaseHoverView{
         this.Children.push(new Label(labelSize, GetCenterFromPosition(position, size), text))
     }
 
-    OnUpdate(mousePosition: Vector2){
-        super.OnUpdate(mousePosition);
+    OnUpdate({mousePosition, mouseDown}:UpdateArguments){
+        super.OnUpdate({mousePosition, mouseDown});
 
-        this.Render();
+        this.Render(mouseDown);
     }
 
     OnClick(){
@@ -27,7 +27,12 @@ export class Button extends BaseHoverView{
         }
     }
 
-    Render(){
-        DrawRect(this.Position, this.Size, this.Hovering ? Colors.button.hover : Colors.button.base, Colors.border.base);
+    Render(mousedown:boolean){
+        let currentColor = Colors.button.base;
+        if (this.Hovering){
+            currentColor = mousedown ? Colors.button.down : Colors.button.hover;
+        }
+
+        DrawRect(this.Position, this.Size, currentColor, Colors.border.base);
     }
 }

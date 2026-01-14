@@ -1,17 +1,19 @@
-import type { Vector2, View } from "@Models/.";
+import type { UpdateArguments, Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
 
 class EventManager{
     MainView:View | null;
 
     MousePosition: Vector2;
-    LeftClick:boolean;
+    MouseDown:boolean;
+    Click:boolean;
 
     constructor(){
         this.MainView = null;
 
         this.MousePosition = {x:0, y:0};
-        this.LeftClick = false;
+        this.MouseDown = false;
+        this.Click = false;
 
         this.HookUpEvents();
     }
@@ -22,10 +24,16 @@ class EventManager{
         addEventListener("mousemove", (event) => {
             this.SetMousePosition(event);
         });
-
+        
         addEventListener("mousedown", (event) => {
+            this.MouseDown = true;
             this.SetMousePosition(event);
-            this.LeftClick = true;
+        });
+
+        addEventListener("mouseup", (event) => {
+            this.MouseDown = false;
+            this.SetMousePosition(event);
+            this.Click = true;
         });
 
         addEventListener("scroll", () => {
@@ -45,9 +53,9 @@ class EventManager{
     private OnUpdate(){
         this.UpdateViews();
 
-        if (this.LeftClick){
+        if (this.Click){
             this.ClickViews();
-            this.LeftClick = false;
+            this.Click = false;
         }
 
         window.requestAnimationFrame(() => this.OnUpdate());
@@ -58,15 +66,16 @@ class EventManager{
             throw new Error("Unable to Update: MainView has not been registered.");
         }
 
-        this.MainView.OnUpdate?.(this.MousePosition);
+        const updateArguments = {mousePosition: this.MousePosition, mouseDown: this.MouseDown}
+        this.MainView.OnUpdate?.(updateArguments);
 
-        this.MainView.Children.forEach(c => c.OnUpdate?.(this.MousePosition));
-        this.MainView.Children.forEach(c => this.UpdateChild(c));
+        this.MainView.Children.forEach(c => c.OnUpdate?.(updateArguments));
+        this.MainView.Children.forEach(c => this.UpdateChild(c, updateArguments));
     }
 
-    private UpdateChild(currentView:View){
-        currentView.Children.forEach(c => c.OnUpdate?.(this.MousePosition));
-        currentView.Children.forEach(c => this.UpdateChild(c));
+    private UpdateChild(currentView:View, updateArguments:UpdateArguments){
+        currentView.Children.forEach(c => c.OnUpdate?.(updateArguments));
+        currentView.Children.forEach(c => this.UpdateChild(c, updateArguments));
     }
 
     private ClickViews(){

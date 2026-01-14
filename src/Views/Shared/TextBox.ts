@@ -1,7 +1,7 @@
 import { DrawRect } from "@Functions/.";
 import { DrawText } from "@Functions/DrawText";
 import { GetCenterFromPosition } from "@Functions/PositionConversion";
-import type { Vector2 } from "@Models/.";
+import type { UpdateArguments, Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
@@ -13,8 +13,8 @@ export class TextBox extends BaseHoverView{
         super(size, position);
     }
 
-    OnUpdate(mousePosition: Vector2){
-        super.OnUpdate(mousePosition);
+    OnUpdate(updateArguments: UpdateArguments){
+        super.OnUpdate(updateArguments);
 
         this.Render();
     }

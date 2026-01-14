@@ -5,12 +5,12 @@ export const Colors = {
     button:{
         base: "#a7aec7",
         hover: "#526093",
-        down: ""
+        down: "#344277"
     },
     textBox:{
         base: "#b89ac0",
         hover: "#92709b",
-        down: ""
+        down: "#6f477a"
     },
     panel: {
         base: "#c6aa87"

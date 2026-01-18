@@ -11,11 +11,7 @@ export class Label extends BaseView{
         this.Text = text;
     }
 
-    OnUpdate(){
-        this.Render();
-    }
-
-    private Render(){
+    Render(){
         DrawText(this.Text, Colors.font.base, this.Position, "center", this.Size.y);
     }
 }

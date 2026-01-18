@@ -1,13 +1,13 @@
 import type { BasicCallback, Vector2 } from "@Models/.";
 
-export type UpdateArguments = {
-    mousePosition:Vector2,
-    mouseDown:boolean
-}
-
 export interface View{
     Children: View[],
-    OnUpdate?: (updateArguments:UpdateArguments) => void,
+    Priority: number,
+    OnUpdate?: BasicCallback,
+    CheckHover?: (mousePosition:Vector2) => boolean,
+    OnHover?: BasicCallback,
+    OnMouseDown?: BasicCallback, 
     OnClick?: BasicCallback,
+    Render?: BasicCallback,
     OnKey?: (key:string) => void,
 }

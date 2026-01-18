@@ -52,7 +52,7 @@ export class PopUpBox extends BaseView{
         }
     }
 
-    OnUpdate(){
+    Render(){
         DrawRect(this.Position, this.Size, Colors.panel.secondary, Colors.border.base, Sizes.border.base);
     }
 }

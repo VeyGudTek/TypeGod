@@ -1,5 +1,5 @@
 import { DrawRect, DrawText, GetCenterFromPosition } from "@Functions/.";
-import type { UpdateArguments, Vector2 } from "@Models/.";
+import type { Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
@@ -9,12 +9,6 @@ export class TextBox extends BaseHoverView{
 
     constructor(size:Vector2, position:Vector2){
         super(size, position);
-    }
-
-    OnUpdate(updateArguments: UpdateArguments){
-        super.OnUpdate(updateArguments);
-
-        this.Render(updateArguments.mouseDown);
     }
 
     OnClick(){
@@ -38,10 +32,10 @@ export class TextBox extends BaseHoverView{
         }
     }
 
-    private Render(mouseDown:boolean){
+    Render(){
         let currentColor = Colors.textBox.base;
         if (this.Hovering){
-            currentColor = mouseDown ? Colors.textBox.down : Colors.textBox.hover;
+            currentColor = this.MouseDown ? Colors.textBox.down : Colors.textBox.hover;
         }
         const borderSize = this.Selected ? Sizes.border.selected : Sizes.border.base;
         DrawRect(this.Position, this.Size, currentColor, Colors.border.base, borderSize);

@@ -5,6 +5,7 @@ import { Panel, Button, TextBox, Label, PopUpBox } from "@Views/Shared";
 
 export class Login implements View{
     Children: View[] = [];
+    Priority: number = 0;
     GuestWarning?: PopUpBox;
 
     constructor(){

@@ -1,10 +1,5 @@
-import type { UpdateArguments, Vector2, View } from "@Models/.";
+import type { Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
-
-interface OnClickSharedData{
-    maxLevel: number,
-    viewsOnLevel: View[]
-}
 
 class EventManager{
     MainView:View | null;
@@ -58,58 +53,56 @@ class EventManager{
     private OnUpdate(){
         this.UpdateViews();
 
+        const hoveringViews = this.GetHoverViews();
+        hoveringViews.forEach(v => {
+            v.OnHover?.();
+            if (this.MouseDown){
+                v.OnMouseDown?.();
+            }
+            if (this.Click){
+                v.OnClick?.();
+            }
+        });
+
         if (this.Click){
-            this.ClickViews();
             this.Click = false;
         }
 
+        this.RenderViews();
         window.requestAnimationFrame(() => this.OnUpdate());
     }
 
     private UpdateViews(){
-        if (this.MainView === null){
-            throw new Error("Unable to Update: MainView has not been registered.");
-        }
+        if (this.MainView === null) return;
 
-        const updateArguments = {mousePosition: this.MousePosition, mouseDown: this.MouseDown}
-        this.MainView.OnUpdate?.(updateArguments);
-
-        this.MainView.Children.forEach(c => this.UpdateChild(c, updateArguments));
+        const viewProcessor = (view:View) => view.OnUpdate?.();
+        EventManager.ProcessViews(this.MainView, viewProcessor);
     }
 
-    private UpdateChild(currentView:View, updateArguments:UpdateArguments){
-        currentView.OnUpdate?.(updateArguments);
-        currentView.Children.forEach(c => this.UpdateChild(c, updateArguments));
+    private GetHoverViews(){
+        if (this.MainView === null) return [];
+
+        const hoveringViews:View[] = [];
+        const viewProcessor = (view:View) => {
+            if (view.CheckHover?.(this.MousePosition)){
+                hoveringViews.push(view);
+            }
+        };
+        EventManager.ProcessViews(this.MainView, viewProcessor);
+
+        return hoveringViews;
     }
 
-    private ClickViews(){
-        if (this.MainView === null){
-            throw new Error("Unable to Click: MainView has not been registered.");
-        }
+    private RenderViews(){
+        if (this.MainView === null) return;
 
-        this.MainView.OnClick?.();
-
-        const sharedLevelData:OnClickSharedData = {maxLevel:0, viewsOnLevel: []}
-        this.MainView.Children.forEach(c => this.ClickChild(c, 1, sharedLevelData));
-
-        sharedLevelData.viewsOnLevel.forEach((view) => {
-            view.OnClick?.();
-        })
+        const viewProcessor = (view:View) => view.Render?.();
+        EventManager.ProcessViews(this.MainView, viewProcessor);
     }
 
-    private ClickChild(currentView:View, currentLevel: number, sharedLevelData:OnClickSharedData){
-        currentView.Children.forEach(c => this.ClickChild(c, currentLevel + 1, sharedLevelData));
-
-        if (currentView.OnClick === undefined){
-            return;
-        }
-        if (sharedLevelData.maxLevel == currentLevel){
-            sharedLevelData.viewsOnLevel.push(currentView);
-        }
-        if (sharedLevelData.maxLevel < currentLevel){
-            sharedLevelData.maxLevel = currentLevel;
-            sharedLevelData.viewsOnLevel = [currentView];
-        }
+    private static ProcessViews(currentView:View, viewProcessor: (view:View) => void){
+        viewProcessor(currentView);
+        currentView.Children.forEach(c => this.ProcessViews(c, viewProcessor))
     }
 
     private InputKeyToViews(key:string){

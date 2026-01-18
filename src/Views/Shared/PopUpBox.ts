@@ -1,5 +1,5 @@
 import { DrawRect, GetCenterFromPosition, GetPositionFromCenter } from "@Functions/.";
-import type { BasicCallback } from "@Models/.";
+import type { BasicCallback, View } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseView, Button, Label } from "@Views/Shared";
 
@@ -9,6 +9,8 @@ export interface ButtonArguments{
 }
 
 export class PopUpBox extends BaseView{
+    Priority: number = 1;
+
     constructor(prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){
         const size = {x: 500, y: 300};
         super(size, GetPositionFromCenter({x:640, y:320}, size));
@@ -23,6 +25,7 @@ export class PopUpBox extends BaseView{
     }
 
     private CreateOptions(optionOne: ButtonArguments, optionTwo?: ButtonArguments){
+        const options:View[] = [];
         if (optionTwo === undefined){
             const action = new Button(
                 {x: 200, y: 100}, 
@@ -31,7 +34,7 @@ export class PopUpBox extends BaseView{
                 optionOne.callBack
             )
 
-            this.Children.push(action);
+            options.push(action);
         }
         else{
             const actionOne = new Button(
@@ -47,9 +50,14 @@ export class PopUpBox extends BaseView{
                 optionTwo.callBack
             );
 
-            this.Children.push(actionOne);
-            this.Children.push(actionTwo);
+            options.push(actionOne);
+            options.push(actionTwo);
         }
+
+        options.forEach(o => {
+            o.Priority = this.Priority;
+            this.Children.push(o);
+        });
     }
 
     Render(){

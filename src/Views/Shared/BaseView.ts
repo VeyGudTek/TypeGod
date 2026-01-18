@@ -1,3 +1,4 @@
+import { IsWithinRectangle } from "@Functions/.";
 import type { Vector2, View } from "@Models/.";
 
 export class BaseView implements View{
@@ -9,5 +10,9 @@ export class BaseView implements View{
     constructor(size:Vector2, position:Vector2){
         this.Size = size;
         this.Position = position;
+    }
+
+    CheckHover(mousePosition: Vector2){
+        return IsWithinRectangle(mousePosition, this.Position, this.Size);
     }
 }

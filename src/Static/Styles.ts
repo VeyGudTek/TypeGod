@@ -27,6 +27,7 @@ export const Sizes = {
         title: 60
     },
     border:{
-        base: 3
+        base: 2,
+        selected: 5
     }
 }

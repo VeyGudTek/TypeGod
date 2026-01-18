@@ -3,7 +3,7 @@ import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
 import { BaseView } from "@Views/Shared";
 import { Login } from "@Views/Login";
-import { Colors } from "@Static/.";
+import { Colors, Sizes } from "@Static/.";
 
 export class Main extends BaseView{
     Children:View[] = [];
@@ -21,6 +21,6 @@ export class Main extends BaseView{
     }
 
     ClearScreen(){
-        DrawRect(this.Position, this.Size, Colors.background, Colors.border.base);
+        DrawRect(this.Position, this.Size, Colors.background, Colors.border.base, Sizes.border.base);
     }
 }

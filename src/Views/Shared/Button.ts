@@ -1,7 +1,7 @@
 import { DrawRect } from "@Functions/.";
 import { GetCenterFromPosition } from "@Functions/.";
 import type { BasicCallback, UpdateArguments, Vector2 } from "@Models/.";
-import { Colors } from "@Static/.";
+import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView, Label } from "@Views/Shared/.";
 
 export class Button extends BaseHoverView{
@@ -33,6 +33,6 @@ export class Button extends BaseHoverView{
             currentColor = mouseDown ? Colors.button.down : Colors.button.hover;
         }
 
-        DrawRect(this.Position, this.Size, currentColor, Colors.border.base);
+        DrawRect(this.Position, this.Size, currentColor, Colors.border.base, Sizes.border.base);
     }
 }

@@ -43,7 +43,8 @@ export class TextBox extends BaseHoverView{
         if (this.Hovering){
             currentColor = mouseDown ? Colors.textBox.down : Colors.textBox.hover;
         }
-        DrawRect(this.Position, this.Size, currentColor, Colors.border.base);
+        const borderSize = this.Selected ? Sizes.border.selected : Sizes.border.base;
+        DrawRect(this.Position, this.Size, currentColor, Colors.border.base, borderSize);
 
         const center = GetCenterFromPosition(this.Position, this.Size);
         DrawText(

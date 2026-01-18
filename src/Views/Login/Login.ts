@@ -8,7 +8,6 @@ export class Login implements View{
     GuestWarning?: PopUpBox;
 
     constructor(){
-        console.log(GetPositionFromCenter({x:640, y:320}, {x: 640, y:400}));
         const prompt = new Label(      {x:0, y: Sizes.text.title}, {x:640, y: 200}, "Login");
         const backPanel = new Panel(   {x: 640, y:400}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:400}));
         const username = new TextBox(  {x:400, y:40},   GetPositionFromCenter({x:640, y:300}, {x:400, y:40}));

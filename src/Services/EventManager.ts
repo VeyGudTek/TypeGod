@@ -1,6 +1,11 @@
 import type { UpdateArguments, Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
 
+interface OnClickSharedData{
+    maxLevel: number,
+    viewsOnLevel: View[]
+}
+
 class EventManager{
     MainView:View | null;
 
@@ -69,12 +74,11 @@ class EventManager{
         const updateArguments = {mousePosition: this.MousePosition, mouseDown: this.MouseDown}
         this.MainView.OnUpdate?.(updateArguments);
 
-        this.MainView.Children.forEach(c => c.OnUpdate?.(updateArguments));
         this.MainView.Children.forEach(c => this.UpdateChild(c, updateArguments));
     }
 
     private UpdateChild(currentView:View, updateArguments:UpdateArguments){
-        currentView.Children.forEach(c => c.OnUpdate?.(updateArguments));
+        currentView.OnUpdate?.(updateArguments);
         currentView.Children.forEach(c => this.UpdateChild(c, updateArguments));
     }
 
@@ -85,13 +89,27 @@ class EventManager{
 
         this.MainView.OnClick?.();
 
-        this.MainView.Children.forEach(c => c.OnClick?.());
-        this.MainView.Children.forEach(c => this.ClickChild(c));
+        const sharedLevelData:OnClickSharedData = {maxLevel:0, viewsOnLevel: []}
+        this.MainView.Children.forEach(c => this.ClickChild(c, 1, sharedLevelData));
+
+        sharedLevelData.viewsOnLevel.forEach((view) => {
+            view.OnClick?.();
+        })
     }
 
-    private ClickChild(currentView:View){
-        currentView.Children.forEach(c => c.OnClick?.());
-        currentView.Children.forEach(c => this.ClickChild(c));
+    private ClickChild(currentView:View, currentLevel: number, sharedLevelData:OnClickSharedData){
+        currentView.Children.forEach(c => this.ClickChild(c, currentLevel + 1, sharedLevelData));
+
+        if (currentView.OnClick === undefined){
+            return;
+        }
+        if (sharedLevelData.maxLevel == currentLevel){
+            sharedLevelData.viewsOnLevel.push(currentView);
+        }
+        if (sharedLevelData.maxLevel < currentLevel){
+            sharedLevelData.maxLevel = currentLevel;
+            sharedLevelData.viewsOnLevel = [currentView];
+        }
     }
 
     private InputKeyToViews(key:string){
@@ -107,7 +125,7 @@ class EventManager{
 
     private InputKeyToChild(currentView:View, key:string){
         currentView.Children.forEach(c => c.OnKey?.(key));
-        currentView.Children.forEach(c => this.ClickChild(c));
+        currentView.Children.forEach(c => this.InputKeyToChild(c, key));
     }
 }
 

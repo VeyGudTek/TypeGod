@@ -38,14 +38,14 @@ export class PopUpBox extends BaseView{
         }
         else{
             const actionOne = new Button(
-                {x: 100, y: 50}, 
-                GetPositionFromCenter({x: 500, y: this.Position.y + this.Size.y - 50}, {x: 100, y: 50}),
+                {x: 200, y: 50}, 
+                GetPositionFromCenter({x: 520, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 50}),
                 optionOne.text,
                 optionOne.callBack
             );
             const actionTwo = new Button(
-                {x: 100, y: 50}, 
-                GetPositionFromCenter({x:780, y: this.Position.y + this.Size.y - 50}, {x: 100, y: 50}),
+                {x: 200, y: 50}, 
+                GetPositionFromCenter({x:760, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 50}),
                 optionTwo.text,
                 optionTwo.callBack
             );

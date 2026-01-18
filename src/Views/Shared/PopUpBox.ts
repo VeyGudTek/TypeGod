@@ -1,7 +1,7 @@
-import { DrawRect, DrawText, GetCenterFromPosition, GetPositionFromCenter } from "@Functions/.";
-import type { BasicCallback, Vector2 } from "@Models/.";
+import { DrawRect, GetCenterFromPosition, GetPositionFromCenter } from "@Functions/.";
+import type { BasicCallback } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
-import { BaseView, Button } from "@Views/Shared";
+import { BaseView, Button, Label } from "@Views/Shared";
 
 export interface ButtonArguments{
     callBack: BasicCallback,
@@ -9,13 +9,17 @@ export interface ButtonArguments{
 }
 
 export class PopUpBox extends BaseView{
-    Prompt:string;
+    constructor(prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){
+        const size = {x: 500, y: 300};
+        super(size, GetPositionFromCenter({x:640, y:320}, size));
 
-    constructor(size: Vector2, prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){
-        super(size, GetPositionFromCenter({x:640, y:360}, size));
-
-        this.Prompt = prompt;
+        this.CreatePrompt(prompt);
         this.CreateOptions(optionOne, optionTwo);
+    }
+
+    private CreatePrompt(prompt:string){
+        const label = new Label({x: 0, y:20}, GetCenterFromPosition({x: this.Position.x, y: this.Position.y - 40}, this.Size), prompt);
+        this.Children.push(label);
     }
 
     private CreateOptions(optionOne: ButtonArguments, optionTwo?: ButtonArguments){
@@ -31,14 +35,14 @@ export class PopUpBox extends BaseView{
         }
         else{
             const actionOne = new Button(
-                {x: 200, y: 100}, 
-                GetPositionFromCenter({x: 500, y: this.Position.y + this.Size.y}, {x: 200, y: 100}),
+                {x: 100, y: 50}, 
+                GetPositionFromCenter({x: 500, y: this.Position.y + this.Size.y - 50}, {x: 100, y: 50}),
                 optionOne.text,
                 optionOne.callBack
             );
             const actionTwo = new Button(
-                {x: 200, y: 100}, 
-                GetPositionFromCenter({x:780, y: this.Position.y + this.Size.y}, {x: 200, y: 100}),
+                {x: 100, y: 50}, 
+                GetPositionFromCenter({x:780, y: this.Position.y + this.Size.y - 50}, {x: 100, y: 50}),
                 optionTwo.text,
                 optionTwo.callBack
             );
@@ -50,6 +54,5 @@ export class PopUpBox extends BaseView{
 
     OnUpdate(){
         DrawRect(this.Position, this.Size, Colors.panel.secondary, Colors.border.base, Sizes.border.base);
-        DrawText(this.Prompt, Colors.font.base, GetCenterFromPosition(this.Position, this.Size), "center", Sizes.text.base);
     }
 }

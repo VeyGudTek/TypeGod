@@ -13,7 +13,8 @@ export const Colors = {
         down: "#6f477a"
     },
     panel: {
-        base: "#c6aa87"
+        base: "#c6aa87",
+        secondary: "#a88963"
     },
     background: "#d8c7b2",
     border: {

@@ -6,3 +6,4 @@ export * from "./TextBox";
 export * from "./Button";
 export * from "./Panel";
 export * from "./PopUpBox";
+export * from "./Picture";

@@ -1,6 +1,10 @@
 import { Login } from "./Login";
 import { Register } from "./Register";
-import { BaseView } from "@Views/Shared";
+import { BaseView, Picture } from "@Views/Shared";
+import { GetPositionFromCenter } from "@Functions/.";
+import splashLeftSource from "@Assets/Images/splashLeft.png";
+import splashRightSource from "@Assets/Images/splashRight.png";
+
 
 export class LoginContainer extends BaseView{
     Login?:Login;
@@ -10,7 +14,11 @@ export class LoginContainer extends BaseView{
     constructor(){
         super();
         this.Login = new Login(() => this.OnRegister());
-        this.Children.push(this.Login);
+
+        const splashLeft = new Picture(splashLeftSource, {x: 392 , y:650}, GetPositionFromCenter({x:200, y:350}, {x: 392 , y:650}));
+        const splashRight = new Picture(splashRightSource, {x: 376, y:700}, GetPositionFromCenter({x:1100, y:300}, {x: 376, y:700}));
+
+        this.Children.push(splashLeft, splashRight, this.Login);
     }
 
     private OnRegister(){

@@ -25,6 +25,7 @@
     /*Paths*/
     "baseUrl": ".",
     "paths": {
+      "@Assets/*": ["./src/Assets/*"],
       "@Functions/*": ["./src/Functions/*"],
       "@Models/*": ["./src/Models/*"],
       "@Services/*": ["./src/Services/*"],

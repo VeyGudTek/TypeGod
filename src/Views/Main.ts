@@ -1,11 +1,11 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
-import { BaseView } from "@Views/Shared";
+import { BaseTransformView } from "@Views/Shared";
 import { LoginContainer } from "@Views/Login";
 import { Colors, Sizes } from "@Static/.";
 
-export class Main extends BaseView{
+export class Main extends BaseTransformView{
     Children:View[] = [];
     LoginContainer: LoginContainer;
 

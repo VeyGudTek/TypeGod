@@ -1,6 +1,6 @@
-import { BaseView } from "@Views/Shared/.";
+import { BaseTransformView } from "@Views/Shared/.";
 
-export abstract class BaseHoverView extends BaseView{
+export abstract class BaseHoverView extends BaseTransformView{
     Hovering:boolean = false;
     MouseDown:boolean = false;
 

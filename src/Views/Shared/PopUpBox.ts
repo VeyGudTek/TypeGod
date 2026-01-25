@@ -1,14 +1,14 @@
 import { DrawRect, GetCenterFromPosition, GetPositionFromCenter } from "@Functions/.";
 import type { BasicCallback, View } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
-import { BaseView, Button, Label } from "@Views/Shared";
+import { BaseTransformView, Button, Label } from "@Views/Shared";
 
 export interface ButtonArguments{
     callBack: BasicCallback,
     text: string
 }
 
-export class PopUpBox extends BaseView{
+export class PopUpBox extends BaseTransformView{
     Priority: number = 1;
 
     constructor(prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){

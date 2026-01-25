@@ -1,7 +1,7 @@
 import { IsWithinRectangle } from "@Functions/.";
 import type { Vector2, View } from "@Models/.";
 
-export class BaseView implements View{
+export class BaseTransformView implements View{
     Children:View[] = [];
     Priority: number = 0;
     Size:Vector2;

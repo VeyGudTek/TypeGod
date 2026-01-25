@@ -2,18 +2,18 @@ import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import type { View } from "@Models/.";
 import { BaseView } from "@Views/Shared";
-import { Login } from "@Views/Login";
+import { LoginContainer } from "@Views/Login";
 import { Colors, Sizes } from "@Static/.";
 
 export class Main extends BaseView{
     Children:View[] = [];
-    LoginPage: Login;
+    LoginContainer: LoginContainer;
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.LoginPage = new Login();
-        this.Children.push(this.LoginPage);
+        this.LoginContainer = new LoginContainer();
+        this.Children.push(this.LoginContainer);
     }
 
     OnUpdate(){

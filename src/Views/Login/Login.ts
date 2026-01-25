@@ -1,5 +1,5 @@
 import { GetPositionFromCenter } from "@Functions/.";
-import type { View } from "@Models/.";
+import type { BasicCallback, View } from "@Models/.";
 import { Sizes } from "@Static/.";
 import { Panel, Button, TextBox, Label, PopUpBox } from "@Views/Shared";
 
@@ -9,15 +9,16 @@ export class Login implements View{
     GuestWarning?: PopUpBox;
     LoginWarning?: PopUpBox;
 
-    constructor(){
-        const prompt = new Label(      {x:0, y: Sizes.text.title}, {x:640, y: 200}, "Login");
-        const backPanel = new Panel(   {x: 640, y:400}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:400}));
-        const username = new TextBox(  {x:400, y:40},   GetPositionFromCenter({x:640, y:300}, {x:400, y:40}));
-        const password = new TextBox(  {x:400, y:40},   GetPositionFromCenter({x:640, y:360}, {x:400, y:40}));
-        const loginButton = new Button({x:150, y:60},  GetPositionFromCenter({x:540, y:450}, {x:150, y:60}), "Login", () => this.OnLogin());
-        const guestButton = new Button({x:150, y:60},  GetPositionFromCenter({x:740, y:450}, {x:150, y:60}), "Guest", () => this.OnGuest());
+    constructor(onRegister:BasicCallback){
+        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:640, y: 160}, "Login");
+        const backPanel = new Panel(      {x: 640, y:450}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:450}));
+        const username = new TextBox(     {x:400, y:40},   GetPositionFromCenter({x:640, y:250}, {x:400, y:40}));
+        const password = new TextBox(     {x:400, y:40},   GetPositionFromCenter({x:640, y:320}, {x:400, y:40}));
+        const loginButton = new Button(   {x:150, y:60},  GetPositionFromCenter({x:540, y:410}, {x:150, y:60}), "Login", () => this.OnLogin());
+        const guestButton = new Button(   {x:150, y:60},  GetPositionFromCenter({x:740, y:410}, {x:150, y:60}), "Guest", () => this.OnGuest());
+        const registerButton = new Button({x:200, y:40},  GetPositionFromCenter({x:640, y:500}, {x:200, y:40}), "Register", () => onRegister());
 
-        this.Children.push(backPanel, prompt, username, password, loginButton, guestButton);
+        this.Children.push(backPanel, prompt, username, password, loginButton, guestButton, registerButton);
     }
 
     private OnGuest(){

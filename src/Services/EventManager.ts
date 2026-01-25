@@ -59,12 +59,10 @@ class EventManager{
             if (this.MouseDown){
                 v.OnMouseDown?.();
             }
-            if (this.Click){
-                v.OnClick?.();
-            }
         });
 
         if (this.Click){
+            this.ClickViews();
             this.Click = false;
         }
 
@@ -98,6 +96,13 @@ class EventManager{
         EventManager.ProcessViews(this.MainView, viewProcessor);
 
         return hoveringViews;
+    }
+
+    private ClickViews(){
+        if (this.MainView === null) return;
+
+        const viewProcessor = (view:View) => view.OnClick?.();
+        EventManager.ProcessViews(this.MainView, viewProcessor);
     }
 
     private RenderViews(){

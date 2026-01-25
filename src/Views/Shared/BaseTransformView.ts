@@ -1,13 +1,13 @@
 import { IsWithinRectangle } from "@Functions/.";
-import type { Vector2, View } from "@Models/.";
+import type { Vector2 } from "@Models/.";
+import { BaseView } from "./BaseView";
 
-export class BaseTransformView implements View{
-    Children:View[] = [];
-    Priority: number = 0;
+export class BaseTransformView extends BaseView{
     Size:Vector2;
     Position:Vector2;
 
     constructor(size:Vector2, position:Vector2){
+        super();
         this.Size = size;
         this.Position = position;
     }

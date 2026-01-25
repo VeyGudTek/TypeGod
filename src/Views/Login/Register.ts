@@ -1,15 +1,13 @@
 import { GetPositionFromCenter } from "@Functions/.";
-import type { BasicCallback, View } from "@Models/.";
+import type { BasicCallback } from "@Models/.";
 import { Sizes } from "@Static/.";
-import { Button, Label, Panel, PopUpBox, TextBox } from "@Views/Shared";
+import { BaseView, Button, Label, Panel, PopUpBox, TextBox } from "@Views/Shared";
 
-export class Register implements View{
-    Children: View[] = [];
-    Priority: number = 0;
-
+export class Register extends BaseView{
     RegisterWarning?:PopUpBox;
 
     constructor(onBack:BasicCallback){
+        super();
         const prompt = new Label(          {x:0, y: Sizes.text.title}, {x:640, y: 180}, "Register");
         const backPanel = new Panel(       {x: 640, y:400}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:400}));
         const username = new TextBox(      {x:400, y:40},   GetPositionFromCenter({x:640, y:250}, {x:400, y:40}));
@@ -30,9 +28,6 @@ export class Register implements View{
     }
 
     private OnRegisterOk(){
-        if (this.RegisterWarning){
-            const indexToRemove = this.Children.indexOf(this.RegisterWarning);
-            this.Children.splice(indexToRemove, 1);
-        }
+        this.RemoveChild(this.RegisterWarning);
     }
 }

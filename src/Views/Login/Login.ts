@@ -1,15 +1,14 @@
 import { GetPositionFromCenter } from "@Functions/.";
-import type { BasicCallback, View } from "@Models/.";
+import type { BasicCallback } from "@Models/.";
 import { Sizes } from "@Static/.";
-import { Panel, Button, TextBox, Label, PopUpBox } from "@Views/Shared";
+import { Panel, Button, TextBox, Label, PopUpBox, BaseView } from "@Views/Shared";
 
-export class Login implements View{
-    Children: View[] = [];
-    Priority: number = 0;
+export class Login extends BaseView{
     GuestWarning?: PopUpBox;
     LoginWarning?: PopUpBox;
 
     constructor(onRegister:BasicCallback){
+        super();
         const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:640, y: 160}, "Login");
         const backPanel = new Panel(      {x: 640, y:450}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:450}));
         const username = new TextBox(     {x:400, y:40},   GetPositionFromCenter({x:640, y:250}, {x:400, y:40}));
@@ -31,10 +30,7 @@ export class Login implements View{
     }
 
     private OnGuestCancel(){
-        if (this.GuestWarning){
-            const indexToRemove = this.Children.indexOf(this.GuestWarning);
-            this.Children.splice(indexToRemove, 1);
-        }
+        this.RemoveChild(this.GuestWarning);
     }
 
     private OnGuestConfirm(){
@@ -50,9 +46,6 @@ export class Login implements View{
     }
 
     private OnLoginOk(){
-        if (this.LoginWarning){
-            const indexToRemove = this.Children.indexOf(this.LoginWarning);
-            this.Children.splice(indexToRemove, 1);
-        }
+        this.RemoveChild(this.LoginWarning);
     }
 }

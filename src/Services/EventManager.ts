@@ -84,13 +84,15 @@ class EventManager{
         let maxPriority = 0;
         
         const viewProcessor = (view:View) => {
-            if (view.Priority == maxPriority && view.CheckHover?.(this.MousePosition)){
-                hoveringViews.push(view);
-                return;
-            }
-            if (view.Priority > maxPriority && view.CheckHover?.(this.MousePosition)){
-                hoveringViews = [view];
+            const isHovering = view.CheckHover?.(this.MousePosition);
+
+            if (view.Priority > maxPriority){
+                hoveringViews = [];
                 maxPriority = view.Priority;
+            }
+
+            if (view.Priority == maxPriority && isHovering){
+                hoveringViews.push(view);
             }
         };
         EventManager.ProcessViews(this.MainView, viewProcessor);

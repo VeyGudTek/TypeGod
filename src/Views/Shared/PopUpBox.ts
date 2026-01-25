@@ -28,8 +28,8 @@ export class PopUpBox extends BaseView{
         const options:View[] = [];
         if (optionTwo === undefined){
             const action = new Button(
-                {x: 200, y: 100}, 
-                GetPositionFromCenter({x:640, y: this.Position.y + this.Size.y}, {x: 200, y: 100}),
+                {x: 200, y: 50}, 
+                GetPositionFromCenter({x:640, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 100}),
                 optionOne.text,
                 optionOne.callBack
             )

@@ -5,7 +5,7 @@ export class CutSceneContainer extends BaseView{
     constructor(){
         super();
 
-        const textPanel = new Panel({x: 1000, y: 200}, GetPositionFromCenter({x:640, y: 320}, {x: 1000, y: 200}));
+        const textPanel = new Panel({x: 1000, y: 200}, GetPositionFromCenter({x:640, y: 500}, {x: 1000, y: 200}));
 
         this.Children.push(textPanel);
     }

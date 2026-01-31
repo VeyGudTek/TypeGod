@@ -1,4 +1,4 @@
-import { GetPositionFromCenter } from "@Functions/.";
+import { CheckLoginInput, GetPositionFromCenter } from "@Functions/.";
 import type { BasicCallback } from "@Models/.";
 import { Sizes } from "@Static/.";
 import { Panel, Button, TextBox, Label, PopUpBox, BaseView } from "@Views/Shared";
@@ -6,6 +6,10 @@ import { Panel, Button, TextBox, Label, PopUpBox, BaseView } from "@Views/Shared
 export class Login extends BaseView{
     GuestWarning?: PopUpBox;
     LoginWarning?: PopUpBox;
+    InputWarning?: PopUpBox;
+
+    UsernameInput:TextBox;
+    PasswordInput:TextBox;
 
     constructor(onRegister:BasicCallback){
         super();
@@ -20,6 +24,9 @@ export class Login extends BaseView{
         const registerButton = new Button({x:200, y:40},  GetPositionFromCenter({x:640, y:500}, {x:200, y:40}), "Register", () => onRegister());
 
         this.Children.push(backPanel, prompt, usernameLabel, username, passwordLabel, password, loginButton, guestButton, registerButton);
+
+        this.UsernameInput = username;
+        this.PasswordInput = password;
     }
 
     private OnGuest(){
@@ -40,14 +47,28 @@ export class Login extends BaseView{
     }
 
     private OnLogin(){
-        this.LoginWarning = new PopUpBox(
-            "User Authenticate has\nnot been implemented yet.",
-            {callBack: () => this.OnLoginOk(), text: "Ok"}
-        );
-        this.Children.push(this.LoginWarning);
+        let inputResult = CheckLoginInput(this.UsernameInput.Text, this.PasswordInput.Text);
+
+        if (inputResult){
+            this.InputWarning = new PopUpBox(inputResult,
+                {callBack: () => this.OnInputWarningOk(), text: "Ok"}
+            );
+            this.Children.push(this.InputWarning);
+        }
+        else{
+            this.LoginWarning = new PopUpBox(
+                "User Authenticate has\nnot been implemented yet.",
+                {callBack: () => this.OnLoginOk(), text: "Ok"}
+            );
+            this.Children.push(this.LoginWarning);
+        }
     }
 
     private OnLoginOk(){
         this.RemoveChild(this.LoginWarning);
+    }
+
+    private OnInputWarningOk(){
+        this.RemoveChild(this.InputWarning);
     }
 }

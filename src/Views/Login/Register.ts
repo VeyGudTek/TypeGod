@@ -1,10 +1,14 @@
-import { GetPositionFromCenter } from "@Functions/.";
+import { CheckRegisterInput, GetPositionFromCenter } from "@Functions/.";
 import type { BasicCallback } from "@Models/.";
 import { Sizes } from "@Static/.";
 import { BaseView, Button, Label, Panel, PopUpBox, TextBox } from "@Views/Shared";
 
 export class Register extends BaseView{
     RegisterWarning?:PopUpBox;
+    InputWarning?:PopUpBox;
+    UsernameInput:TextBox;
+    PasswordInput:TextBox;
+    PasswordRepeatInput:TextBox;
 
     constructor(onBack:BasicCallback){
         super();
@@ -20,17 +24,35 @@ export class Register extends BaseView{
         const registerButton = new Button( {x:175, y:40},  GetPositionFromCenter({x:740, y:525}, {x:175, y:60}), "Register", () => this.OnRegister());
 
         this.Children.push(backPanel, prompt, usernameLabel, username, passwordLabel, password, passwordRepeatLabel, passwordRepeat, backButton, registerButton);
+        this.UsernameInput = username;
+        this.PasswordInput = password;
+        this.PasswordRepeatInput = passwordRepeat;
     }
 
     private OnRegister(){
-        this.RegisterWarning = new PopUpBox("User Authenticate has\nnot been implemented yet.",
-            {callBack: () => this.OnRegisterOk(), text: "Ok"}
-        );
+        let inputResult = CheckRegisterInput(this.UsernameInput.Text, this.PasswordInput.Text, this.PasswordRepeatInput.Text);
 
-        this.Children.push(this.RegisterWarning);
+        if (inputResult){
+            this.InputWarning = new PopUpBox(inputResult, 
+                {callBack: () => this.OnInputWarningOk(), text:"Ok"}
+            );
+
+            this.Children.push(this.InputWarning);
+        }
+        else{
+            this.RegisterWarning = new PopUpBox("User Authenticate has\nnot been implemented yet.",
+                {callBack: () => this.OnRegisterOk(), text: "Ok"}
+            );
+
+            this.Children.push(this.RegisterWarning);
+        }
     }
 
     private OnRegisterOk(){
         this.RemoveChild(this.RegisterWarning);
+    }
+
+    private OnInputWarningOk(){
+        this.RemoveChild(this.InputWarning);
     }
 }

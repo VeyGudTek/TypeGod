@@ -1,4 +1,4 @@
-import { DrawRect, GetCenterFromPosition, GetPositionFromCenter } from "@Functions/.";
+import { DrawRect } from "@Functions/.";
 import type { BasicCallback, View } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseTransformView, Button, Label } from "@Views/Shared";
@@ -12,15 +12,14 @@ export class PopUpBox extends BaseTransformView{
     Priority: number = 1;
 
     constructor(prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){
-        const size = {x: 500, y: 300};
-        super(size, GetPositionFromCenter({x:640, y:320}, size));
+        super({x:.4, y:.6}, {x:.5, y:.5});
 
         this.CreatePrompt(prompt);
         this.CreateOptions(optionOne, optionTwo);
     }
 
     private CreatePrompt(prompt:string){
-        const label = new Label({x: 0, y:20}, GetCenterFromPosition({x: this.Position.x, y: this.Position.y - 40}, this.Size), prompt);
+        const label = new Label({x: 0, y: Sizes.text.base}, {x: .5, y: .45}, prompt);
         this.Children.push(label);
     }
 
@@ -28,8 +27,8 @@ export class PopUpBox extends BaseTransformView{
         const options:View[] = [];
         if (optionTwo === undefined){
             const action = new Button(
-                {x: 200, y: 50}, 
-                GetPositionFromCenter({x:640, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 100}),
+                {x: .1, y: .1}, 
+                {x:.5, y: .7},
                 optionOne.text,
                 optionOne.callBack
             )
@@ -38,14 +37,14 @@ export class PopUpBox extends BaseTransformView{
         }
         else{
             const actionOne = new Button(
-                {x: 200, y: 50}, 
-                GetPositionFromCenter({x: 520, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 50}),
+                {x: .15, y: .07}, 
+                {x:.4, y: .7},
                 optionOne.text,
                 optionOne.callBack
             );
             const actionTwo = new Button(
-                {x: 200, y: 50}, 
-                GetPositionFromCenter({x:760, y: this.Position.y + this.Size.y - 50}, {x: 200, y: 50}),
+                {x: .15, y: .07}, 
+                {x:.6, y: .7},
                 optionTwo.text,
                 optionTwo.callBack
             );

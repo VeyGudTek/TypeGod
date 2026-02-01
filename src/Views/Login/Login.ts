@@ -31,7 +31,7 @@ export class Login extends BaseView{
 
     private OnGuest(){
         this.GuestWarning = new PopUpBox(
-            "Are you sure you want to play as a guest? \n Your data will only be saved locally.",
+            "Are you sure you want\nto play as a guest?\nYour data will only\nbe saved locally.",
             {callBack: () => {this.OnGuestCancel()}, text: "Cancel"},
             {callBack: () => {this.OnGuestConfirm()}, text: "Confirm"}
         );

@@ -12,11 +12,11 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.LoginContainer = new LoginContainer();
-        this.Children.push(this.LoginContainer);
+        // this.LoginContainer = new LoginContainer();
+        // this.Children.push(this.LoginContainer);
 
-        // this.CutSceneContainer = new CutSceneContainer();
-        // this.Children.push(this.CutSceneContainer);
+        this.CutSceneContainer = new CutSceneContainer();
+        this.Children.push(this.CutSceneContainer);
     }
 
     Render(){

@@ -1,11 +1,12 @@
-import { BaseView, Panel } from "@Views/Shared";
+import { BaseView } from "@Views/Shared";
+import { Dialogue } from "./Dialogue";
 
 export class CutSceneContainer extends BaseView{
     constructor(){
         super();
 
-        const textPanel = new Panel({x: .8, y: .25}, {x: .5, y: .8});
+        const dialogue = new Dialogue({x: .8, y: .25}, {x: .5, y: .8});
 
-        this.Children.push(textPanel);
+        this.Children.push(dialogue);
     }
 }

@@ -1,3 +1,15 @@
+export class Timer{
+    StartTime:number;
+
+    constructor(){
+        this.StartTime = performance.now();
+    }
+
+    GetElapsedTime(){
+        return (performance.now() - this.StartTime) / 1000;
+    }
+}
+
 class TimeService{
     DeltaTime:number = 0;
     LastFrameTime:number;
@@ -8,7 +20,7 @@ class TimeService{
 
     OnUpdate(){
         const newFrameTime = performance.now();
-        this.DeltaTime = newFrameTime - this.LastFrameTime;
+        this.DeltaTime = (newFrameTime - this.LastFrameTime) / 1000;
         this.LastFrameTime = newFrameTime;
     }
 }

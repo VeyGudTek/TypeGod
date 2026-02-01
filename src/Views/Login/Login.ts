@@ -13,7 +13,7 @@ export class Login extends BaseView{
 
     constructor(onRegister:BasicCallback){
         super();
-        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .25}, "Login");
+        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Login");
         const backPanel = new Panel(      {x:.45, y:.75},             {x:.5, y: .5});
         const usernameLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username");
         const username = new TextBox(     {x:.4, y:.05},              {x:.5, y: .4});

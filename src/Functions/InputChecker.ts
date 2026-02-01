@@ -4,11 +4,11 @@ export function CheckRegisterInput(username:string, password:string, repeatedPas
     }
 
     if (!/.*[a-z]+.*/.test(password)){
-        return "Password must contain a lower-cased letter.";
+        return "Password must contain\na lower-cased letter.";
     }
 
     if (!/.*[A-Z]+.*/.test(password)){
-        return "Password must contain an upper-cased letter.";
+        return "Password must contain\an upper-cased letter.";
     }
 
     if (!/.*[!?@#$%^&*_+]+.*/.test(password)){
@@ -16,7 +16,7 @@ export function CheckRegisterInput(username:string, password:string, repeatedPas
     }
 
     if (!/.*\d+.*/.test(password)){
-        return "Password must contain a number.";
+        return "Password must contain\a number.";
     }
 
     if (password.length < 8){

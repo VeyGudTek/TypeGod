@@ -2,12 +2,12 @@ import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import { BaseTransformView } from "@Views/Shared";
 import { LoginContainer } from "@Views/Login";
-import { Colors, Sizes } from "@Static/.";
-import { CutSceneContainer } from "@Views/CutScene";
+import { Colors, Sizes, testScript } from "@Static/.";
+import { CutScene } from "@Views/CutScene";
 
 export class Main extends BaseTransformView{
     LoginContainer?: LoginContainer;
-    CutSceneContainer?: CutSceneContainer
+    CutScene?: CutScene
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
@@ -15,8 +15,8 @@ export class Main extends BaseTransformView{
         // this.LoginContainer = new LoginContainer();
         // this.Children.push(this.LoginContainer);
 
-        this.CutSceneContainer = new CutSceneContainer();
-        this.Children.push(this.CutSceneContainer);
+        this.CutScene = new CutScene(testScript);
+        this.Children.push(this.CutScene);
     }
 
     Render(){

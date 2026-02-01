@@ -8,6 +8,10 @@ export class Timer{
     GetElapsedTime(){
         return (performance.now() - this.StartTime) / 1000;
     }
+
+    Reset(){
+        this.StartTime = performance.now();
+    }
 }
 
 class TimeService{

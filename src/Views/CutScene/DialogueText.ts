@@ -6,7 +6,7 @@ import { Colors } from "@Static/Styles";
 import { BaseTransformView } from "@Views/Shared";
 
 export class DialogueText extends BaseTransformView{
-    Text:string = "chfghdfghdfghddgrgrg\ndgrgrgrrgrgrgrggrrgrgr\nhhhhhhhhhhhhhfghfgh";
+    Text:string = "";
     TextSpeed:number = 35;
     Timer:Timer;
     CurrentIndex:number = 0;
@@ -15,7 +15,6 @@ export class DialogueText extends BaseTransformView{
     constructor(onNext:BasicCallback, size:Vector2, position:Vector2){
         super(size, position);
         this.NextCallback = onNext;
-
         this.Timer = new Timer();
     }
 
@@ -26,6 +25,12 @@ export class DialogueText extends BaseTransformView{
         else{
             this.CurrentIndex = this.Text.length;
         }
+    }
+
+    SetDialogueText(text:string){
+        this.Text = text;
+        this.CurrentIndex = 0;
+        this.Timer.Reset();
     }
 
     OnUpdate(){

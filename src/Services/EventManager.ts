@@ -1,5 +1,6 @@
 import type { Vector2, View } from "@Models/.";
 import { windowProvider } from "./WindowProvider";
+import { timeService } from "./TimeService";
 
 class EventManager{
     MainView:View | null;
@@ -51,6 +52,7 @@ class EventManager{
     }
 
     private OnUpdate(){
+        timeService.OnUpdate();
         this.UpdateViews();
 
         const hoveringViews = this.GetHoverViews();

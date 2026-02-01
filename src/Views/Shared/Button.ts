@@ -1,5 +1,4 @@
 import { DrawRect } from "@Functions/.";
-import { GetCenterFromPosition } from "@Functions/.";
 import type { BasicCallback, Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView, Label } from "@Views/Shared/.";
@@ -12,7 +11,7 @@ export class Button extends BaseHoverView{
 
         this.ClickCallBack = clickCallBack;
         const labelSize = {x: size.x * .8, y: size.y * .8}
-        this.Children.push(new Label(labelSize, GetCenterFromPosition(position, size), text))
+        this.Children.push(new Label(labelSize, position, text))
     }
 
     OnClick(){

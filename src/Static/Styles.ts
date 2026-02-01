@@ -24,11 +24,11 @@ export const Colors = {
 
 export const Sizes = {
     text: {
-        base: 20,
-        title: 60
+        base: .04,
+        title: .1
     },
     border:{
-        base: 2,
-        selected: 5
+        base: 5,
+        selected: 10
     }
 }

@@ -1,6 +1,6 @@
 import type { Vector2 } from "@Models/.";
 import { BaseTransformView } from "./BaseTransformView";
-import { DrawText } from "@Functions/.";
+import { DrawText, GetCenterFromPosition } from "@Functions/.";
 import { Colors } from "@Static/.";
 
 export class Label extends BaseTransformView{
@@ -8,6 +8,7 @@ export class Label extends BaseTransformView{
 
     constructor(size:Vector2, position:Vector2, text:string){
         super(size, position);
+        this.Position = GetCenterFromPosition(this.Position, this.Size);
         this.Text = text;
     }
 

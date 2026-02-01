@@ -18,7 +18,7 @@ class WindowProvider{
         this.CanvasElement.setAttribute("style", canvasStyle);
 
         this.OnScroll();
-        this.ResizeWindow(1280, 640);
+        this.ResizeWindow(1920, 1080);
     }
 
     ResizeWindow(width: number, height:number){

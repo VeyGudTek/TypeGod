@@ -40,21 +40,24 @@ export class TextBox extends BaseHoverView{
         const borderSize = this.Selected ? Sizes.border.selected : Sizes.border.base;
         DrawRect(this.Position, this.Size, currentColor, Colors.border.base, borderSize);
 
-        const center = GetCenterFromPosition(this.Position, this.Size);
-        DrawText(
-            this.GetSplicedText(), 
-            "Black", 
-            { 
-                x: this.Position.x, 
-                y: center.y
-            },
-            "start",
-            Sizes.text.base
-        );
+        if (this.Text != ""){
+            const center = GetCenterFromPosition(this.Position, this.Size);
+
+            DrawText(
+                this.GetSplicedText(), 
+                Colors.font.base, 
+                { 
+                    x: this.Position.x, 
+                    y: center.y
+                },
+                "start",
+                this.Size.y * .8
+            );
+        }
     }
 
     private GetSplicedText(){
-        const maxLength = (this.Size.x / Sizes.text.base) * 1.66;
+        const maxLength = (this.Size.x / (this.Size.y * .8)) * 1.66;
 
         if (this.Text.length <= maxLength){
             return this.Text;

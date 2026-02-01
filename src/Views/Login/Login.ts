@@ -1,4 +1,4 @@
-import { CheckLoginInput, GetPositionFromCenter } from "@Functions/.";
+import { CheckLoginInput } from "@Functions/.";
 import type { BasicCallback } from "@Models/.";
 import { Sizes } from "@Static/.";
 import { Panel, Button, TextBox, Label, PopUpBox, BaseView } from "@Views/Shared";
@@ -13,15 +13,15 @@ export class Login extends BaseView{
 
     constructor(onRegister:BasicCallback){
         super();
-        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:640, y: 135}, "Login");
-        const backPanel = new Panel(      {x: 640, y:475}, GetPositionFromCenter({x:640, y:320}, {x: 640, y:475}));
-        const usernameLabel = new Label(  {x:0, y: Sizes.text.base}, {x:500, y: 200}, "Username");
-        const username = new TextBox(     {x:400, y:40},   GetPositionFromCenter({x:640, y:235}, {x:400, y:40}));
-        const passwordLabel = new Label(  {x:0, y: Sizes.text.base}, {x:500, y: 290}, "Password");
-        const password = new TextBox(     {x:400, y:40},   GetPositionFromCenter({x:640, y:325}, {x:400, y:40}));
-        const loginButton = new Button(   {x:150, y:60},  GetPositionFromCenter({x:540, y:420}, {x:150, y:60}), "Login", () => this.OnLogin());
-        const guestButton = new Button(   {x:150, y:60},  GetPositionFromCenter({x:740, y:420}, {x:150, y:60}), "Guest", () => this.OnGuest());
-        const registerButton = new Button({x:200, y:40},  GetPositionFromCenter({x:640, y:500}, {x:200, y:40}), "Register", () => onRegister());
+        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .25}, "Login");
+        const backPanel = new Panel(      {x:.45, y:.75},             {x:.5, y: .5});
+        const usernameLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username");
+        const username = new TextBox(     {x:.4, y:.05},              {x:.5, y: .4});
+        const passwordLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .5},  "Password");
+        const password = new TextBox(     {x:.4, y:.05},              {x:.5, y:.55});
+        const loginButton = new Button(   {x:.15, y:.05},             {x:.4, y:.7},   "Login", () => this.OnLogin());
+        const guestButton = new Button(   {x:.15, y:.05},             {x:.6, y:.7},   "Guest", () => this.OnGuest());
+        const registerButton = new Button({x:.25, y:.05},             {x:.5, y:.8},   "Register", () => onRegister());
 
         this.Children.push(backPanel, prompt, usernameLabel, username, passwordLabel, password, loginButton, guestButton, registerButton);
 

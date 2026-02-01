@@ -5,8 +5,12 @@ import { DrawImage } from "@Functions/DrawImage";
 export class Picture extends BaseTransformView{
     ImageName:string;
 
-    constructor(imageName:string, size:Vector2, position:Vector2){
-        super(size, position);
+    constructor(imageName:string, ratio:Vector2, scale:number, position:Vector2){
+        const scaledSize = {
+            x: scale * (ratio.x / ratio.y),
+            y: scale * (ratio.y / ratio.x)
+        }
+        super(scaledSize, position);
         this.ImageName = imageName;
     }
 

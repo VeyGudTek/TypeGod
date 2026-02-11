@@ -1,10 +1,15 @@
 import { CheckRegisterInput } from "@Functions/.";
-import type { BasicCallback } from "@Models/.";
+import type { BasicCallback, TestResponse } from "@Models/.";
+import { RequestHandler } from "@Services/RequestHandler";
 import { Sizes } from "@Static/.";
-import { BaseView, Button, Label, Panel, PopUpBox, TextBox } from "@Views/Shared";
+import { RequestPaths } from "@Static/RequestPaths";
+import { BaseView, Button, Label, Loading, Panel, PopUpBox, TextBox } from "@Views/Shared";
 
 export class Register extends BaseView{
+    RegisterRequest?: RequestHandler<TestResponse>;
+
     RegisterWarning?:PopUpBox;
+    Loading?: PopUpBox;
     InputWarning?:PopUpBox;
     UsernameInput:TextBox;
     PasswordInput:TextBox;
@@ -41,12 +46,20 @@ export class Register extends BaseView{
             this.Children.push(this.InputWarning);
         }
         else{
-            this.RegisterWarning = new PopUpBox("User Authenticate has\nnot been implemented yet.",
-                {callBack: () => this.OnRegisterOk(), text: "Ok"}
-            );
-
-            this.Children.push(this.RegisterWarning);
+            this.Loading = Loading;
+            this.Children.push(this.Loading);
+            this.RegisterRequest = new RequestHandler(RequestPaths.test, () => {}, (errorMessage) => this.OnRegisterError(errorMessage))
         }
+    }
+
+    private OnRegisterError(errorMessage:string){
+        this.RegisterWarning = new PopUpBox(
+            errorMessage,
+            {callBack: () => this.OnRegisterOk(), text: "Ok"}
+        );
+
+        this.RemoveChild(this.Loading);
+        this.Children.push(this.RegisterWarning);   
     }
 
     private OnRegisterOk(){

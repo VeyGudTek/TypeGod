@@ -1,10 +1,15 @@
 import { CheckLoginInput } from "@Functions/.";
-import type { BasicCallback } from "@Models/.";
+import type { BasicCallback, TestResponse } from "@Models/.";
+import { RequestHandler } from "@Services/.";
 import { Sizes } from "@Static/.";
-import { Panel, Button, TextBox, Label, PopUpBox, BaseView } from "@Views/Shared";
+import { RequestPaths } from "@Static/RequestPaths";
+import { Panel, Button, TextBox, Label, PopUpBox, BaseView, Loading } from "@Views/Shared";
 
 export class Login extends BaseView{
+    LoginRequest?:RequestHandler<TestResponse>;
+
     GuestWarning?: PopUpBox;
+    Loading?: PopUpBox;
     LoginWarning?: PopUpBox;
     InputWarning?: PopUpBox;
 
@@ -56,12 +61,19 @@ export class Login extends BaseView{
             this.Children.push(this.InputWarning);
         }
         else{
-            this.LoginWarning = new PopUpBox(
-                "User Authenticate has\nnot been implemented yet.",
-                {callBack: () => this.OnLoginOk(), text: "Ok"}
-            );
-            this.Children.push(this.LoginWarning);
+            this.Loading = Loading;
+            this.Children.push(this.Loading);
+            this.LoginRequest = new RequestHandler(RequestPaths.test, () => {}, (errorMessage) => this.onLoginError(errorMessage))
         }
+    }
+
+    private onLoginError(errorMessage:string){
+        this.LoginWarning = new PopUpBox(
+            errorMessage,
+            {callBack: () => this.OnLoginOk(), text: "Ok"}
+        );
+        this.RemoveChild(this.Loading);
+        this.Children.push(this.LoginWarning);
     }
 
     private OnLoginOk(){

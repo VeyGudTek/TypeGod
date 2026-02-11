@@ -11,7 +11,7 @@ export interface ButtonArguments{
 export class PopUpBox extends BaseTransformView{
     Priority: number = 1;
 
-    constructor(prompt:string, optionOne: ButtonArguments, optionTwo?: ButtonArguments){
+    constructor(prompt:string, optionOne?: ButtonArguments, optionTwo?: ButtonArguments){
         super({x:.4, y:.6}, {x:.5, y:.5});
 
         this.CreatePrompt(prompt);
@@ -23,7 +23,11 @@ export class PopUpBox extends BaseTransformView{
         this.Children.push(label);
     }
 
-    private CreateOptions(optionOne: ButtonArguments, optionTwo?: ButtonArguments){
+    private CreateOptions(optionOne?: ButtonArguments, optionTwo?: ButtonArguments){
+        if (optionOne === undefined){
+            return;
+        }
+
         const options:View[] = [];
         if (optionTwo === undefined){
             const action = new Button(

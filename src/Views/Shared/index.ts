@@ -7,3 +7,4 @@ export * from "./Button";
 export * from "./Panel";
 export * from "./PopUpBox";
 export * from "./Picture";
+export * from "./Loading";

@@ -1,5 +1,6 @@
 import type { Script } from "@Models/Script.type";
 import testBack from "@Assets/Images/testBack.png";
+import testBack1 from "@Assets/Images/testBack1.png";
 
 export const testScript:Script = [
     {
@@ -8,11 +9,11 @@ export const testScript:Script = [
     },
     {
         text: "wow this is kinda cooked lowkirkenuinely",
-        background: testBack
+        background: testBack1
     },
     {
         text: "This is a game about 2 gay girls",
-        background: testBack
+        background: testBack1
     },
     {
         text: "Like seriously they are super duper gay...",

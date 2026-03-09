@@ -28,8 +28,9 @@ export class CutScene extends BaseView{
             this.EndCutScene();
         }
         else{
-            const currentPage = this.Script[this.CurrentIndex]
+            const currentPage = this.Script[this.CurrentIndex];
             this.Dialogue.OnNextPage(currentPage.text);
+            this.CurrentImage.ChangePicture(currentPage.background);
         }
     }
 

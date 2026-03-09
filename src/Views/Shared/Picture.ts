@@ -11,7 +11,6 @@ export class Picture extends BaseTransformView{
             x: scale * (ratio.x / windowProvider.WindowSize.x),
             y: scale * (ratio.y / windowProvider.WindowSize.y)
         }
-        console.log(ratio);
         super(scaledSize, position);
         this.ImageName = imageName;
     }

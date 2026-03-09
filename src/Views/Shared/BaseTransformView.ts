@@ -22,4 +22,18 @@ export class BaseTransformView extends BaseView{
     CheckHover(mousePosition: Vector2){
         return IsWithinRectangle(mousePosition, this.Position, this.Size);
     }
+
+    GetSizePercentage(){
+        return{
+            x: this.Size.x / windowProvider.WindowSize.x,
+            y: this.Size.y / windowProvider.WindowSize.y
+        }
+    }
+
+    GetPositionPercentage(){
+        return{
+            x: this.Position.x / windowProvider.WindowSize.x,
+            y: this.Position.y / windowProvider.WindowSize.y
+        }
+    }
 }

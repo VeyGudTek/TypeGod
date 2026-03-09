@@ -5,11 +5,13 @@ import testBack1 from "@Assets/Images/testBack1.png";
 export const testScript:Script = [
     {
         text: "onlyText has been implemented thus far",
-        background: testBack
+        background: testBack,
+        speaker: "Dog"
     },
     {
         text: "wow this is kinda cooked lowkirkenuinely",
-        background: testBack1
+        background: testBack1,
+        speaker: "Hara Urara"
     },
     {
         text: "This is a game about 2 gay girls",
@@ -17,6 +19,7 @@ export const testScript:Script = [
     },
     {
         text: "Like seriously they are super duper gay...",
-        background: testBack
+        background: testBack,
+        speaker: "Pek Pek Pek"
     },
 ]

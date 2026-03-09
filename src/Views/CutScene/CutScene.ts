@@ -1,12 +1,14 @@
-import { BaseView } from "@Views/Shared";
+import { BaseView, Picture } from "@Views/Shared";
 import { Dialogue } from "./Dialogue";
 import type { Script } from "@Models/.";
+import { windowProvider } from "@Services/WindowProvider";
 
 export class CutScene extends BaseView{
     Script:Script;
     CurrentIndex:number = 0;
 
     Dialogue:Dialogue;
+    CurrentImage:Picture;
 
     constructor(script:Script){
         super();
@@ -14,8 +16,9 @@ export class CutScene extends BaseView{
 
         const firstPage = this.Script[0];
         this.Dialogue = new Dialogue(() => this.OnNextPage(), firstPage.text, {x: .8, y: .25}, {x: .5, y: .8});
+        this.CurrentImage = new Picture(firstPage.background, windowProvider.WindowSize, 1, {x:.5, y:.5})
 
-        this.Children.push(this.Dialogue);
+        this.Children.push(this.CurrentImage, this.Dialogue,);
     }
 
     OnNextPage(){

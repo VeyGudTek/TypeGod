@@ -14,8 +14,8 @@ export class LoginContainer extends BaseView{
         super();
         this.Login = new Login(() => this.OnRegister());
 
-        const splashLeft = new Picture(splashLeftSource,   {x:1344, y:2226}, .6, {x:.16, y:.55});
-        const splashRight = new Picture(splashRightSource, {x:1394, y:2595}, .6, {x:.85, y:.5});
+        const splashLeft = new Picture(splashLeftSource,   {x:1344, y:2226}, .5, {x:.16, y:.6});
+        const splashRight = new Picture(splashRightSource, {x:1394, y:2595}, .5, {x:.85, y:.55});
 
         this.Children.push(splashLeft, splashRight, this.Login);
     }

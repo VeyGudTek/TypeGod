@@ -16,8 +16,12 @@ export class Login extends BaseView{
     UsernameInput:TextBox;
     PasswordInput:TextBox;
 
-    constructor(onRegister:BasicCallback){
+    OnLoginFinish:BasicCallback;
+
+    constructor(onLoginFinish:BasicCallback, onRegister:BasicCallback){
         super();
+        this.OnLoginFinish = onLoginFinish;
+        
         const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Login");
         const backPanel = new Panel(      {x:.45, y:.75},             {x:.5, y: .5});
         const usernameLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username");
@@ -48,7 +52,7 @@ export class Login extends BaseView{
     }
 
     private OnGuestConfirm(){
-        console.log("Start Game");
+        this.OnLoginFinish();
     }
 
     private OnLogin(){

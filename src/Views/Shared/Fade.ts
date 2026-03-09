@@ -8,12 +8,14 @@ export class Fade extends BaseTransformView{
     FadeOut:boolean = true;
     Opacity:number = 0;
 
+    OnFadeMidpoint:BasicCallback;
     OnFadeFinish:BasicCallback;
 
-    constructor(OnFadeFinish:BasicCallback){
+    constructor(onFadeMidpoint: BasicCallback, onFadeFinish:BasicCallback){
         super({x: 1, y: 1}, {x: .5, y: .5});
 
-        this.OnFadeFinish = OnFadeFinish;
+        this.OnFadeMidpoint = onFadeMidpoint;
+        this.OnFadeFinish = onFadeFinish;
     }
 
     OnUpdate(){
@@ -24,6 +26,7 @@ export class Fade extends BaseTransformView{
             if (this.Opacity > 1){
                 this.Opacity = 1;
                 this.FadeOut = false;
+                this.OnFadeMidpoint();
             }
         }
         else{

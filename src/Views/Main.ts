@@ -12,19 +12,24 @@ export class Main extends BaseTransformView{
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
-        
-        this.Fade = new Fade(() => this.TempOnFadeFinish());
-        this.Children.push(this.Fade);
 
-        // this.LoginContainer = new LoginContainer();
-        // this.Children.push(this.LoginContainer);
-
-        // this.CutScene = new CutScene(testScript);
-        // this.Children.push(this.CutScene);
+        this.LoginContainer = new LoginContainer(() => this.LoadCutscene());
+        this.Children.push(this.LoginContainer);
     }
 
-    TempOnFadeFinish(){
+    private RemoveFade(){
         this.RemoveChild(this.Fade);
+    }
+
+    private LoadCutscene(){
+        const onFadeMidpoint = () => {
+            this.Children = this.Children.filter(v => v === this.Fade);
+            this.CutScene = new CutScene(testScript);
+            this.Children.splice(0, 0, this.CutScene);
+        }
+
+        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveFade());
+        this.Children.push(this.Fade);
     }
 
     Render(){

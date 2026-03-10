@@ -1,7 +1,7 @@
-export type StageDictionary = Record<StageIndex, StageInstrutctions>;
+export type StageDictionary = Record<StageIndex, StageInstructions>;
 
 export type StageIndex = "0"
-export type StageInstrutctions = SpawnInstruction[];
+export type StageInstructions = SpawnInstruction[];
 
 export interface SpawnInstruction extends EnemyData{
     time: number;
@@ -9,6 +9,7 @@ export interface SpawnInstruction extends EnemyData{
 
 export interface EnemyData{
     health: number;
+    cooldown:number;
     damage: number;
     speed: number;
     texture: string;

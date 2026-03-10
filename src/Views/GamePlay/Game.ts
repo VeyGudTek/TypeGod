@@ -1,4 +1,4 @@
-import type { StageIndex, StageInstrutctions } from "@Models/GamePlay.type";
+import type { StageIndex, StageInstructions } from "@Models/GamePlay.type";
 import { Timer } from "@Services/index";
 import { WordList } from "@Static/index";
 import { StageDictionary } from "@Static/Stages";
@@ -6,7 +6,7 @@ import { BaseView } from "@Views/Shared";
 
 export class GameManager extends BaseView{
     Playing:boolean = false;
-    CurrentStageInstructions:StageInstrutctions = [];
+    CurrentStageInstructions:StageInstructions = [];
     
     Prompt:string[] = [];
     CurrentInput = "";

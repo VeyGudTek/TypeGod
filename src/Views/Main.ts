@@ -1,20 +1,22 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import { BaseTransformView, Fade } from "@Views/Shared";
-import { LoginContainer } from "@Views/Login";
+import { BaseTransformView, Fade, CutScene, LoginContainer, GameManager } from "@Views/.";
 import { Colors, Sizes, testScript } from "@Static/.";
-import { CutScene } from "@Views/CutScene";
 
 export class Main extends BaseTransformView{
     Fade?:Fade;
     LoginContainer?: LoginContainer;
     CutScene?: CutScene
+    GameManager: GameManager
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.LoginContainer = new LoginContainer(() => this.LoadCutscene());
-        this.Children.push(this.LoginContainer);
+        // this.LoginContainer = new LoginContainer(() => this.LoadCutscene());
+        // this.Children.push(this.LoginContainer);
+
+        this.GameManager = new GameManager("0");
+        this.Children.push(this.GameManager);
     }
 
     private RemoveFade(){

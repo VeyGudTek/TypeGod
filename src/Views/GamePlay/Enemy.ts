@@ -1,6 +1,8 @@
+import { DrawRect } from "@Functions/DrawRect";
 import type { EnemyData } from "@Models/GamePlay.type";
 import type { Vector2 } from "@Models/Vector2.type";
 import { timeService } from "@Services/TimeService";
+import { windowProvider } from "@Services/WindowProvider";
 import { BaseTransformView } from "@Views/Shared";
 
 export class Enemy extends BaseTransformView{
@@ -34,10 +36,18 @@ export class Enemy extends BaseTransformView{
         }
     }
 
-    MoveForward(){
+    OnUpdate(){
+        this.MoveForward();
+    }
+
+    private MoveForward(){
         this.Position = {
-            x: this.Position.x - (this.Speed * timeService.DeltaTime),
+            x: this.Position.x - (this.Speed * timeService.DeltaTime * (windowProvider.WindowSize.x / 100)),
             y: this.Position.y
         }
+    }
+
+    Render(){
+        DrawRect(this.Position, this.Size, "grey", "grey", 1);
     }
 }

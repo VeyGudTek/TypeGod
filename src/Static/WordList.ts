@@ -1,3 +1,3 @@
-export const WordList = [
+export const wordList = [
     "dog", "cat", "english"
 ];

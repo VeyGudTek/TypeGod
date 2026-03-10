@@ -1,6 +1,6 @@
-import type { StageInstrutctions } from "@Models/GamePlay.type";
+import type { StageDictionary } from "@Models/GamePlay.type";
 import { testStage } from "./TestStage";
 
-export const StageDictionary:Record<number, StageInstrutctions> = {
+export const stageDictionary:StageDictionary = {
     0: testStage
 }

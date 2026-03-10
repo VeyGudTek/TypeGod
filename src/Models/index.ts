@@ -4,3 +4,4 @@ export * from "./View.type";
 export * from "./User.type";
 export * from "./Script.type";
 export * from "./ApiResponses.type";
+export * from "./GamePlay.type";

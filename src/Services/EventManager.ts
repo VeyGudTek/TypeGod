@@ -42,6 +42,10 @@ class EventManager{
         });
 
         addEventListener("keydown", (event) => {
+            if (event.key === " "){
+                event.preventDefault();
+            }
+
             this.InputKeyToViews(event.key);
         })
     }

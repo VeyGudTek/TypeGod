@@ -22,7 +22,7 @@ export class Prompt extends BaseTransformView{
         DrawText(correctText, Colors.font.base, this.Position, "center", this.Size.y);
     }
 
-    private GetText(){
+    GetText(){
         const inputLength = this.Input.length;
         const promptLength = this.Prompt.length;
         const maxLength = inputLength > promptLength ? inputLength : promptLength;
@@ -53,7 +53,7 @@ export class Prompt extends BaseTransformView{
                 incorrectText += this.Input[i];
             }
         }
-        
+
         return {disabledText, correctText, incorrectText};
     }
 }

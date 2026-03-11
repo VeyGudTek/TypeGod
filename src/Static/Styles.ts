@@ -1,6 +1,8 @@
 export const Colors = {
     font:{
-        base: "Black"
+        base: "Black",
+        disabled: "Grey",
+        error: "Red"
     },
     button:{
         base: "#a7aec7",

@@ -24,19 +24,37 @@ export class Prompt extends BaseTransformView{
 
     private GetText(){
         const inputLength = this.Input.length;
-        const disabledText = this.Prompt.slice(inputLength);
+        const promptLength = this.Prompt.length;
+        const maxLength = inputLength > promptLength ? inputLength : promptLength;
 
+        let disabledText = this.Prompt.slice(inputLength);
         let correctText = "";
         let incorrectText = "";
-        for (let i = inputLength; i < this.Input.length; i++){
-            if (i < this.Prompt.length && this.Prompt[i] === this.Input[i]){
+        
+        for (let i = 0; i < maxLength; i++){
+            if (i > disabledText.length - 1){
+                disabledText = " " + disabledText;
+            }
+            if (i >= inputLength){
+                correctText += " ";
+                incorrectText += " ";
+                continue;
+            }
+            if (i < promptLength && this.Prompt[i] === this.Input[i]){
+                incorrectText += " ";
                 correctText += this.Prompt[i];
             }
+            else if (i < promptLength && this.Prompt[i] !== this.Input[i]){
+                correctText += " ";
+                incorrectText += this.Input[i];
+            }
             else{
-                incorrectText = this.Prompt.slice(i);
-                break;
+                correctText += " ";
+                incorrectText += this.Input[i];
             }
         }
+
+        console.log(disabledText, correctText, incorrectText);
 
         return {disabledText, correctText, incorrectText};
     }

@@ -42,18 +42,19 @@ export class Typer extends BaseView{
         this.Children.push(backPanel, promptUI1, promptUI2, promptUI3, promptUI4, promptUI5);
     }
 
-    OnKeyDown(input:string){
+    OnKey(input:string){
         if (input.length === 1){
             this.CurrentInput += input;
 
             if (this.CurrentInput === this.Prompt[2]){
                 this.OnWordComplete(this.CurrentInput.length);
             }
-            return;
         }
 
         if (input === "Backspace" && this.CurrentInput.length > 0){
             this.CurrentInput = this.CurrentInput.slice(0, this.CurrentInput.length - 1);
         }
+
+        this.PromptUIList[2].Input = this.CurrentInput;
     }
 }

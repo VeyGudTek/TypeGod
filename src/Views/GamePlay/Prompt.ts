@@ -53,9 +53,7 @@ export class Prompt extends BaseTransformView{
                 incorrectText += this.Input[i];
             }
         }
-
-        console.log(disabledText, correctText, incorrectText);
-
+        
         return {disabledText, correctText, incorrectText};
     }
 }

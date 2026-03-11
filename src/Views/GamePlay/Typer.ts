@@ -72,10 +72,15 @@ export class Typer extends BaseView{
 
         for (let i = 0; i < this.Prompt.length; i++){
             this.PromptUIList[i].Prompt = this.Prompt[i];
-            this.PromptUIList[i].Input = "";
+
+            if (i >= 1 && i <= 2){
+                this.PromptUIList[i-1].Input = this.PromptUIList[i].Input;
+            }
+            if (i >= 2){
+                this.PromptUIList[i].Input = "";
+            }
         }
-        
-        this.PromptUIList[1].Input = this.CurrentInput;
+
         this.CurrentInput = "";
     }
 }

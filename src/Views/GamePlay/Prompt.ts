@@ -46,7 +46,7 @@ export class Prompt extends BaseTransformView{
             }
             else if (i < promptLength && this.Prompt[i] !== this.Input[i]){
                 correctText += " ";
-                incorrectText += this.Input[i];
+                incorrectText += this.Prompt[i];
             }
             else{
                 correctText += " ";

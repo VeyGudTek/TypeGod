@@ -1,6 +1,6 @@
 import { DrawRect } from "@Functions/.";
-import type { Vector2, CharacterData } from "@Models/.";
-import { windowProvider } from "@Services/WindowProvider";
+import type { Vector2, CharacterData, NumberInputCallback } from "@Models/.";
+import { yIncrement } from "@Static/.";
 import { BaseTransformView } from "@Views/Shared";
 
 export class Character extends BaseTransformView{
@@ -14,7 +14,9 @@ export class Character extends BaseTransformView{
     Texture:string = "";
     Dead:boolean = false;
 
-    constructor(size:Vector2, position:Vector2, characterData:CharacterData){
+    DamageEnemies:NumberInputCallback;
+
+    constructor(size:Vector2, position:Vector2, characterData:CharacterData, damageEnemies:NumberInputCallback){
         super(size, position);
 
         this.Level = characterData.level;
@@ -23,11 +25,18 @@ export class Character extends BaseTransformView{
         this.Damage = characterData.damage;
         this.MaxMana = characterData.mana;
         this.CurrentMana = 0;
+
+        this.DamageEnemies = damageEnemies;
     }
 
     AddMana(mana:number){
         if (!this.Dead){
             this.CurrentMana += mana;
+        }
+
+        if (this.CurrentMana >= this.MaxMana){
+            this.CurrentMana = 0;
+            this.DamageEnemies(this.Damage);
         }
     }
 
@@ -45,7 +54,6 @@ export class Character extends BaseTransformView{
     }
 
     private DrawStats(){
-        const yIncrement = windowProvider.WindowSize.y * .05;
         const baseWidth = this.Size.x;
         const percentHealth = this.CurrentHealth / this.MaxHealth;
         const percentMana = this.CurrentMana / this.MaxMana;

@@ -6,12 +6,17 @@ import { stageDictionary } from "@Static/Stages";
 
 export class EnemyManager extends BaseView{
     CurrentStageInstructions:StageInstructions;
+    Enemies:Enemy[] = [];
     Timer:Timer = new Timer();
 
-    constructor(stageIndex:StageIndex){
-        super();
+    GetFirstPlayerPosition:() => number;
 
+    constructor(stageIndex:StageIndex, getFirstPlayerPosition:() => number){
+        super();
+        
         this.CurrentStageInstructions = stageDictionary[stageIndex].sort((a, b) => a.time - b.time);
+        this.Children = this.Enemies;
+        this.GetFirstPlayerPosition = getFirstPlayerPosition;
     }
 
     OnUpdate(){
@@ -23,7 +28,13 @@ export class EnemyManager extends BaseView{
 
     private SpawnEnemy(data:EnemyData){
         const newEnemy = new Enemy({x: .1, y: .1}, {x:.9, y: Math.random()}, data);
-        this.Children.push(newEnemy);
+        this.Enemies.push(newEnemy);
+    }
+
+    DamageEnemies(damage:number){
+        this.Enemies.forEach((enemy) => {
+            enemy.TakeDamage(damage);
+        });
     }
 
     CheckGameEnded(){

@@ -1,4 +1,4 @@
-import type { OnWordCompleteCallback } from "@Models/Callbacks.type";
+import type { NumberInputCallback } from "@Models/Callbacks.type";
 import { wordList } from "@Static/index";
 import { BaseView, Panel } from "@Views/Shared";
 import { Prompt } from "./Prompt";
@@ -13,11 +13,11 @@ export class Typer extends BaseView{
     Prompt:string[] = [];
     CurrentInput = "";
 
-    OnWordComplete:OnWordCompleteCallback;
+    OnWordComplete:NumberInputCallback;
 
     PromptUIList:Prompt[] = [];
 
-    constructor(onWordComplete:OnWordCompleteCallback){
+    constructor(onWordComplete:NumberInputCallback){
         super();
         this.OnWordComplete = onWordComplete;
 
@@ -65,7 +65,7 @@ export class Typer extends BaseView{
 
     private CompleteWord(currentPrompt:Prompt){
         const { correctText } = currentPrompt.GetText();
-        this.OnWordComplete(correctText.length);
+        this.OnWordComplete(correctText.length * 10);
 
         this.Prompt = this.Prompt.slice(1);
         this.Prompt.push(GetRandomWord());

@@ -1,2 +1,2 @@
 export type BasicCallback = () => void;
-export type OnWordCompleteCallback = (points:number) => void;
+export type NumberInputCallback = (points:number) => void;

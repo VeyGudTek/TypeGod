@@ -1,8 +1,7 @@
 import { DrawRect } from "@Functions/DrawRect";
-import type { EnemyData } from "@Models/GamePlay.type";
-import type { Vector2 } from "@Models/Vector2.type";
-import { timeService } from "@Services/TimeService";
-import { windowProvider } from "@Services/WindowProvider";
+import type { EnemyData, Vector2 } from "@Models/.";
+import { timeService, windowProvider } from "@Services/.";
+import { yIncrement } from "@Static/.";
 import { BaseTransformView } from "@Views/Shared";
 
 export class Enemy extends BaseTransformView{
@@ -49,5 +48,15 @@ export class Enemy extends BaseTransformView{
 
     Render(){
         DrawRect(this.Position, this.Size, "grey", "grey", 1);
+
+        this.DrawStats();
+    }
+
+    private DrawStats(){
+        const baseWidth = this.Size.x;
+        const percentHealth = this.CurrentHealth / this.MaxHealth;
+
+        DrawRect({x: this.Position.x, y: this.Position.y - yIncrement}, {x: baseWidth, y: this.Size.y / 5}, "#6d6d6d", "#6d6d6d", 1);
+        DrawRect({x: this.Position.x, y: this.Position.y - yIncrement}, {x: baseWidth * percentHealth, y: this.Size.y / 5}, "#cbb749", "#cbb749", 1);
     }
 }

@@ -1,14 +1,11 @@
-import type { User } from "@Models/.";
+import type { CharacterIndex, User } from "@Models/.";
+import { defaultUserData } from "@Static/.";
 
 class UserService{
-    private User:User = {};
+    private User:User = defaultUserData;
 
-    GetCharacterName(){
-        return this.User.characterName ? this.User.characterName : "";
-    }
-
-    SetCharacterName(name:string){
-        this.User.characterName = name;
+    GetCharacterData(characterIndex: CharacterIndex){
+        return structuredClone(this.User[characterIndex]);
     }
 }
 

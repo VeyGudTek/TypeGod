@@ -17,4 +17,11 @@ export class CharacterManager extends BaseView{
             this.Children.push(character);
         });
     }
+
+    AddMana(mana:number){
+        this.Children.forEach((characterView) => {
+            const character:Character = characterView as Character;
+            character.AddMana(mana);
+        })
+    }
 }

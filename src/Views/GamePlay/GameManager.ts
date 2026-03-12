@@ -14,12 +14,12 @@ export class GameManager extends BaseView{
         
         this.CharacterManager = new CharacterManager();
         this.EnemyManager = new EnemyManager(stageIndex);
-        this.Typer = new Typer((word) => console.log(word));
+        this.Typer = new Typer((points) => this.OnWordComplete(points));
 
         this.Children.push(this.CharacterManager, this.EnemyManager, this.Typer);
     }
 
-    OnUpdate(){
-
+    private OnWordComplete(points:number){
+        this.CharacterManager.AddMana(points);
     }
 }

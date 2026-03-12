@@ -6,6 +6,7 @@ export const defaultUserData:User = {
         health: 100,
         damage: 10,
         mana: 200,
-        experience: 0
+        experience: 0,
+        levelUps: 0
     }
 }

@@ -8,4 +8,5 @@ export interface CharacterData{
     damage:number;
     mana:number;
     experience:number;
+    levelUps:number;
 }

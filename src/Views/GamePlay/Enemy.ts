@@ -29,7 +29,7 @@ export class Enemy extends BaseTransformView{
         this.Texture = enemyData.texture;
     }
 
-    DealDamage(damage:number){
+    TakeDamage(damage:number){
         this.CurrentHealth -= damage;
         if (this.CurrentHealth < 0){
             this.Dead = true;

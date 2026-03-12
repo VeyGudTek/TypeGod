@@ -26,7 +26,9 @@ export class Character extends BaseTransformView{
     }
 
     AddMana(mana:number){
-        this.CurrentMana += mana;
+        if (!this.Dead){
+            this.CurrentMana += mana;
+        }
     }
 
     TakeDamage(damage:number){

@@ -30,13 +30,16 @@ export class Enemy extends BaseTransformView{
 
     TakeDamage(damage:number){
         this.CurrentHealth -= damage;
-        if (this.CurrentHealth < 0){
+        if (this.CurrentHealth <= 0){
+            this.CurrentHealth = 0;
             this.Dead = true;
         }
     }
 
     OnUpdate(){
-        this.MoveForward();
+        if (!this.Dead){
+            this.MoveForward();
+        }
     }
 
     private MoveForward(){

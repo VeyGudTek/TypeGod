@@ -10,9 +10,9 @@ export class EnemyManager extends BaseView{
     Enemies:Enemy[] = [];
     Timer:Timer = new Timer();
 
-    GetFirstCharacter:() => Character;
+    GetFirstCharacter:() => Character | undefined;
 
-    constructor(stageIndex:StageIndex, getFirstCharacter:() => Character){
+    constructor(stageIndex:StageIndex, getFirstCharacter:() => Character | undefined){
         super();
         
         this.CurrentStageInstructions = stageDictionary[stageIndex].sort((a, b) => a.time - b.time);

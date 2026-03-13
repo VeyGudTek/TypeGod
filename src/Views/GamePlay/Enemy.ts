@@ -18,9 +18,9 @@ export class Enemy extends BaseTransformView{
 
     Dead:boolean = false;
 
-    GetFirstCharacter:() => Character;
+    GetFirstCharacter:() => Character | undefined;
 
-    constructor(size:Vector2, position:Vector2, enemyData:EnemyData, getFirstCharacter:() => Character){
+    constructor(size:Vector2, position:Vector2, enemyData:EnemyData, getFirstCharacter:() => Character | undefined){
         super(size, position);
 
         this.MaxHealth = enemyData.health;
@@ -43,12 +43,15 @@ export class Enemy extends BaseTransformView{
 
     OnUpdate(){
         const target = this.GetFirstCharacter();
-        const inRange = (this.Position.x - target.Position.x) < ((this.Size.x / 2) + (target.Size.x / 2) + yIncrement);
+        if (target === undefined || this.Dead){
+            return;
+        }
 
-        if (!this.Dead && !inRange){
+        const inRange = (this.Position.x - target.Position.x) < ((this.Size.x / 2) + (target.Size.x / 2) + yIncrement);
+        if (!inRange){
             this.MoveForward();
         }
-        else if (!this.Dead){
+        else{
             this.AttackCharacter(target);
         }
     }

@@ -24,11 +24,14 @@ export class CharacterManager extends BaseView{
     }
 
     GetFirstCharacter(){
-        if (this.Characters.length === 0){
-            throw new Error("Characters Not Initialized");
-        }
+        const aliveCharacters = this.Characters.filter(c => !c.Dead);
 
-        return this.Characters[this.Characters.length - 1];
+        if (aliveCharacters.length === 0){
+            return;
+        }
+        else{
+            return aliveCharacters[aliveCharacters.length - 1];
+        }
     }
 
     AddMana(mana:number){

@@ -3,6 +3,7 @@ import type { EnemyData, Vector2 } from "@Models/.";
 import { timeService, windowProvider } from "@Services/.";
 import { yIncrement } from "@Static/.";
 import { BaseTransformView } from "@Views/Shared";
+import type { Character } from "./Character";
 
 export class Enemy extends BaseTransformView{
     MaxHealth:number;
@@ -17,7 +18,9 @@ export class Enemy extends BaseTransformView{
 
     Dead:boolean = false;
 
-    constructor(size:Vector2, position:Vector2, enemyData:EnemyData){
+    GetFirstCharacter:() => Character;
+
+    constructor(size:Vector2, position:Vector2, enemyData:EnemyData, getFirstCharacter:() => Character){
         super(size, position);
 
         this.MaxHealth = enemyData.health;
@@ -26,6 +29,8 @@ export class Enemy extends BaseTransformView{
         this.Damage = enemyData.damage;
         this.Speed = enemyData.speed;
         this.Texture = enemyData.texture;
+
+        this.GetFirstCharacter = getFirstCharacter;
     }
 
     TakeDamage(damage:number){
@@ -37,8 +42,14 @@ export class Enemy extends BaseTransformView{
     }
 
     OnUpdate(){
-        if (!this.Dead){
+        const target = this.GetFirstCharacter();
+        const inRange = (this.Position.x - target.Position.x) < ((this.Size.x / 2) + (target.Size.x / 2) + yIncrement);
+
+        if (!this.Dead && !inRange){
             this.MoveForward();
+        }
+        else if (!this.Dead){
+            this.AttackCharacter(target);
         }
     }
 
@@ -46,6 +57,19 @@ export class Enemy extends BaseTransformView{
         this.Position = {
             x: this.Position.x - (this.Speed * timeService.DeltaTime * (windowProvider.WindowSize.x / 100)),
             y: this.Position.y
+        }
+
+        if (this.CurrentCooldown > 0){
+            this.CurrentCooldown -= timeService.DeltaTime;
+        }
+    }
+
+    private AttackCharacter(target:Character){
+        if (this.CurrentCooldown <= 0){
+            target.TakeDamage(this.Damage);
+            this.CurrentCooldown = this.BaseCooldown;
+        } else{
+            this.CurrentCooldown -= timeService.DeltaTime;
         }
     }
 

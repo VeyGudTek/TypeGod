@@ -23,12 +23,12 @@ export class CharacterManager extends BaseView{
         this.Children = this.Characters.sort((a, b) => a.Position.x - b.Position.x);
     }
 
-    GetFirstPlayerPosition(){
+    GetFirstCharacter(){
         if (this.Characters.length === 0){
             throw new Error("Characters Not Initialized");
         }
 
-        return this.Characters[this.Characters.length - 1].Position.x;
+        return this.Characters[this.Characters.length - 1];
     }
 
     AddMana(mana:number){

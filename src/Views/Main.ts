@@ -15,7 +15,7 @@ export class Main extends BaseTransformView{
         // this.LoginContainer = new LoginContainer(() => this.LoadCutscene());
         // this.Children.push(this.LoginContainer);
 
-        this.GameManager = new GameManager("0");
+        this.GameManager = new GameManager("0", () => console.log("Game Ended"));
         this.Children.push(this.GameManager);
     }
 

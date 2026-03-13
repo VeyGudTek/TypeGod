@@ -41,6 +41,6 @@ export class EnemyManager extends BaseView{
     }
 
     CheckGameEnded(){
-        return this.CurrentStageInstructions.length === 0 && this.Children.length === 0;
+        return this.CurrentStageInstructions.length === 0 && this.Enemies.every(e => e.Dead);
     }
 }

@@ -1,5 +1,3 @@
-export * from "./DrawRect";
-export * from "./DrawText";
+export * from "./DrawFunctions";
 export * from "./VectorFunctions";
-export * from "./DrawImage";
 export * from "./InputChecker";

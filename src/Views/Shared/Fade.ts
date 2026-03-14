@@ -1,6 +1,6 @@
 import { BaseTransformView } from "./BaseTransformView";
 import { timeService } from "@Services/.";
-import { DrawRect } from "@Functions/DrawRect";
+import { DrawRect } from "@Functions/.";
 import type { BasicCallback } from "@Models/Callbacks.type";
 
 export class Fade extends BaseTransformView{

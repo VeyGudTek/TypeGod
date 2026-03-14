@@ -1,4 +1,4 @@
-import { DrawText } from "@Functions/DrawText";
+import { DrawText } from "@Functions/DrawFunctions";
 import type { BasicCallback } from "@Models/Callbacks.type";
 import type { Vector2 } from "@Models/Vector2.type";
 import { Timer } from "@Services/TimeService";

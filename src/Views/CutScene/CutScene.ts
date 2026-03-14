@@ -2,7 +2,7 @@ import { BaseView, Picture } from "@Views/Shared";
 import { Dialogue } from "./Dialogue";
 import type { Script } from "@Models/.";
 import { SpeakerBox } from "./SpeakerBox";
-import { DrawImage } from "@Functions/DrawImage";
+import { DrawImage } from "@Functions/.";
 
 export class CutScene extends BaseView{
     Script:Script;

@@ -1,4 +1,4 @@
-import { DrawRect } from "@Functions/DrawRect";
+import { DrawRect } from "@Functions/.";
 import type { EnemyData, Vector2 } from "@Models/.";
 import { timeService, windowProvider } from "@Services/.";
 import { yIncrement } from "@Static/.";

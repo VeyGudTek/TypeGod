@@ -1,8 +1,7 @@
 import type { Vector2 } from "@Models/Vector2.type";
 import { BaseTransformView } from "./BaseTransformView";
-import { DrawImage } from "@Functions/DrawImage";
+import { DrawImage, ScaleToMaxWindowSize } from "@Functions/.";
 import { windowProvider } from "@Services/WindowProvider";
-import { ScaleToMaxWindowSize } from "@Functions/VectorFunctions";
 
 export class Picture extends BaseTransformView{
     ImageName:string;

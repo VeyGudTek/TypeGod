@@ -3,6 +3,7 @@ import { Dialogue } from "./Dialogue";
 import type { Script } from "@Models/.";
 import { windowProvider } from "@Services/WindowProvider";
 import { SpeakerBox } from "./SpeakerBox";
+import { DrawImage } from "@Functions/DrawImage";
 
 export class CutScene extends BaseView{
     Script:Script;
@@ -16,12 +17,20 @@ export class CutScene extends BaseView{
         super();
         this.Script = script;
 
+        this.RequestImages(script.map(page => page.background));
+
         const firstPage = this.Script[0];
         this.Dialogue = new Dialogue(() => this.OnNextPage(), firstPage.text, {x: .8, y: .25}, {x: .5, y: .85});
         this.CurrentImage = new Picture(firstPage.background, windowProvider.WindowSize, 1, {x:.5, y:.5})
         this.SpeakerBox = new SpeakerBox({x: .1, y:.05}, {x:.2, y:.75}, firstPage.speaker);
 
         this.Children.push(this.CurrentImage, this.Dialogue, this.SpeakerBox);
+    }
+
+    private RequestImages(images:string[]){
+        images.forEach(i => {
+            DrawImage(i, {x: 0, y:0}, {x:1, y:1})
+        });
     }
 
     OnNextPage(){

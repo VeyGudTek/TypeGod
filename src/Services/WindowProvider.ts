@@ -14,7 +14,7 @@ class WindowProvider{
         this.CanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
         this.CanvasContext = this.CanvasElement.getContext("2d") as CanvasRenderingContext2D;
 
-        const canvasStyle = `border: solid black ${this.CanvasBorderSize}px;`;
+        const canvasStyle = `border: solid black ${this.CanvasBorderSize}px; margin: auto; display: block;`;
         this.CanvasElement.setAttribute("style", canvasStyle);
 
         this.OnScroll();

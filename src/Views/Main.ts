@@ -12,7 +12,7 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.Start = new Start();
+        this.Start = new Start(() => this.LoadCutscene());
         this.Children.push(this.Start);
 
         // this.CutScene = new CutScene(testScript);

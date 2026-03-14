@@ -1,4 +1,4 @@
-import { BaseView, Button, Label, Panel, Picture } from "@Views/.";
+import { BaseView, Button, Label, Panel, Picture, PopUpBox } from "@Views/.";
 import splashLeftSource from "@Assets/Images/splashLeft.png";
 import splashRightSource from "@Assets/Images/splashRight.png";
 import { Sizes } from "@Static/.";
@@ -7,6 +7,7 @@ import { userService } from "@Services/UserService";
 
 export class Start extends BaseView{
     OnStart:BasicCallback;
+    NewWarning?:PopUpBox;
 
     constructor(onStart:BasicCallback){
         super();
@@ -27,16 +28,35 @@ export class Start extends BaseView{
         const hasData = userService.CheckExisting();
         const newButtonY = hasData ? .47 : .55
 
-        const newGame = new Button(         {x:.18, y:.07}, {x:.5, y:newButtonY}, "New Game", () => this.StartGame());
+        const newGame = new Button(         {x:.18, y:.07}, {x:.5, y:newButtonY}, "New Game", () => this.OnNew(hasData));
         this.Children.push(newGame);
 
         if (hasData){
-            const continueGame = new Button({x:.25, y:.07}, {x:.5, y:.65}, "Continue Game", () => this.StartGame());
+            const continueGame = new Button({x:.25, y:.07}, {x:.5, y:.65}, "Continue Game", () => this.OnContinue());
             this.Children.push(continueGame);
         }
     }
 
-    private StartGame(){
+    private OnNew(hasData:boolean){
+        const confirmStart = () => {
+            userService.ResetData();
+            this.OnStart();
+        };
+
+        if (hasData){
+            this.NewWarning = new PopUpBox(
+                        "Your existing data\n will be wiped.",
+                        {callBack: () => {this.RemoveChild(this.NewWarning)}, text: "Cancel"},
+                        {callBack: () => {confirmStart()}, text: "Confirm"}
+                    );
+            this.Children.push(this.NewWarning);
+        }
+        else{
+            confirmStart();
+        }
+    }
+
+    private OnContinue(){
         userService.LoadExisting();
         this.OnStart();
     }

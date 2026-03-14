@@ -10,17 +10,19 @@ class UserService{
         this.ExistingData = window.localStorage.getItem(this.storageIndex);
     }
 
-    CheckExisting(){
-        return this.ExistingData !== null && !this.CheckMalformed();
+    ResetData(){
+        window.localStorage.setItem(this.storageIndex, JSON.stringify(defaultUserData))
+        this.User = defaultUserData;
     }
-
+    
     LoadExisting(){
         if (this.CheckExisting()){
             this.User = JSON.parse(this.ExistingData as string);
         }
-        else{
-            window.localStorage.setItem(this.storageIndex, JSON.stringify(this.User))
-        }
+    }
+
+    CheckExisting(){
+        return this.ExistingData !== null && !this.CheckMalformed();
     }
 
     private CheckMalformed(){

@@ -5,7 +5,7 @@ import type { CharacterIndex, NumberInputCallback } from "@Models/index";
 import { characterPositionDictionary } from "@Static/GamePlay/CharacterPosition";
 
 export class CharacterManager extends BaseView{
-    Characters:Character[] = [];
+    private Characters:Character[] = [];
 
     constructor(onDamageEnemies:NumberInputCallback){
         super();
@@ -41,5 +41,9 @@ export class CharacterManager extends BaseView{
         this.Characters.forEach((character) => {
             character.AddMana(mana);
         })
+    }
+
+    CheckGameOver(){
+        return this.Characters.every(c => c.Dead);
     }
 }

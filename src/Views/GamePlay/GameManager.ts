@@ -31,5 +31,9 @@ export class GameManager extends BaseView{
             this.GameEnded = true;
             this.OnGameEnd();
         }
+        else if (!this.GameEnded && this.CharacterManager.CheckGameOver()){
+            this.GameEnded = true;
+            this.OnGameEnd();
+        }
     }
 }

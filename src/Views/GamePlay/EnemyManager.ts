@@ -6,9 +6,9 @@ import { stageDictionary } from "@Static/GamePlay";
 import type { Character } from "./Character";
 
 export class EnemyManager extends BaseView{
-    CurrentStageInstructions:StageInstructions;
-    Enemies:Enemy[] = [];
-    Timer:Timer = new Timer();
+    private CurrentStageInstructions:StageInstructions;
+    private Enemies:Enemy[] = [];
+    private Timer:Timer = new Timer();
 
     GetFirstCharacter:() => Character | undefined;
 

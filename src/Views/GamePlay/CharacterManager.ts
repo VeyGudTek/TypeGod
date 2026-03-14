@@ -1,7 +1,8 @@
 import { userService } from "@Services/UserService";
 import { BaseView } from "@Views/Shared";
 import { Character } from "./Character";
-import type { NumberInputCallback } from "@Models/index";
+import type { CharacterIndex, NumberInputCallback } from "@Models/index";
+import { characterPositionDictionary } from "@Static/GamePlay/CharacterPosition";
 
 export class CharacterManager extends BaseView{
     Characters:Character[] = [];
@@ -15,8 +16,10 @@ export class CharacterManager extends BaseView{
     private CreateCharacters(onDamageEnemies:NumberInputCallback){
         const userData = userService.GetUserData();
 
-        Object.values(userData).forEach((characterData) => {
-            const character = new Character({x: .1, y: .1}, {x:.1, y: Math.random()}, characterData, onDamageEnemies)
+        Object.keys(userData).forEach((characterIndex) => {
+            const index = characterIndex as CharacterIndex;
+
+            const character = new Character({x: .1, y: .1}, characterPositionDictionary[index], userData[index], onDamageEnemies)
             this.Characters.push(character);
         });
 

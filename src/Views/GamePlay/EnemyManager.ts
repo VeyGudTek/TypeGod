@@ -2,7 +2,7 @@ import type { StageIndex, StageInstructions } from "@Models/GamePlay.type";
 import { BaseView } from "@Views/Shared";
 import { Enemy } from "./Enemy";
 import { Timer } from "@Services/index";
-import { stageDictionary } from "@Static/Stages";
+import { stageDictionary } from "@Static/GamePlay";
 import type { Character } from "./Character";
 
 export class EnemyManager extends BaseView{
@@ -28,7 +28,8 @@ export class EnemyManager extends BaseView{
         if (this.CurrentStageInstructions.length > 0 && this.Timer.GetElapsedTime() > this.CurrentStageInstructions[0].time){
             const data = this.CurrentStageInstructions[0];
 
-            const newEnemy = new Enemy({x: .1, y: .1}, {x:.9, y: Math.random()}, data, this.GetFirstCharacter);
+            const yPosition = .3 + (Math.random() * .6)
+            const newEnemy = new Enemy({x: .1, y: .1}, {x:.9, y: yPosition}, data, this.GetFirstCharacter);
             this.Enemies.push(newEnemy);
             this.CurrentStageInstructions.splice(0, 1);
         }

@@ -1,3 +1,6 @@
+import type { CharacterIndex } from "./User.type";
+import type { Vector2 } from "./Vector2.type";
+
 export type StageDictionary = Record<StageIndex, StageInstructions>;
 
 export type StageIndex = "0"
@@ -14,3 +17,5 @@ export interface EnemyData{
     speed: number;
     texture: string;
 }
+
+export type CharacterPositionDictionary = Record<CharacterIndex, Vector2>;

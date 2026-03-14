@@ -7,7 +7,7 @@ export class Main extends BaseTransformView{
     Fade?:Fade;
     LoginContainer?: LoginContainer;
     CutScene?: CutScene
-    GameManager: GameManager
+    GameManager?: GameManager
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
@@ -15,8 +15,11 @@ export class Main extends BaseTransformView{
         // this.LoginContainer = new LoginContainer(() => this.LoadCutscene());
         // this.Children.push(this.LoginContainer);
 
-        this.GameManager = new GameManager("0", () => console.log("Game Ended"));
-        this.Children.push(this.GameManager);
+        this.CutScene = new CutScene(testScript);
+        this.Children.push(this.CutScene);
+
+        // this.GameManager = new GameManager("0", () => console.log("Game Ended"));
+        // this.Children.push(this.GameManager);
     }
 
     private RemoveFade(){

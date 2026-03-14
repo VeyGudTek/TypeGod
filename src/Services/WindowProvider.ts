@@ -18,10 +18,21 @@ class WindowProvider{
         this.CanvasElement.setAttribute("style", canvasStyle);
 
         this.OnScroll();
-        this.ResizeWindow(1920, 1080);
+        this.ResizeWindow();
     }
 
-    ResizeWindow(width: number, height:number){
+    ResizeWindow(){
+        let width = window.innerWidth - 25;
+        let height = window.innerHeight - 25;
+
+        const widthByHeight = (height / 9) * 16;
+        if (widthByHeight > width){
+            height = (width / 16) * 9;
+        }
+        else{
+            width = widthByHeight;
+        }
+
         this.CanvasElement.setAttribute("width", width.toString());
         this.CanvasElement.setAttribute("height", height.toString());
 

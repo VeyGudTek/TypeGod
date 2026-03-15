@@ -3,19 +3,21 @@ import { CharacterButton } from "./CharacterButton";
 import { userService } from "@Services/UserService";
 import { characterButtonPositionDictionary } from "@Static/CharacterPosition";
 import type { CharacterIndex } from "@Models/User.type";
+import type { CharacterIndexCallback } from "@Models/Callbacks.type";
 
 export class Home extends BaseView{
-    constructor(){
+    constructor(onCharacterButton:CharacterIndexCallback){
         super();
 
-        this.CreateCharacterButtons();
+        this.CreateCharacterButtons(onCharacterButton);
     }
 
-    private CreateCharacterButtons(){
+    private CreateCharacterButtons(onCharacterButton:CharacterIndexCallback){
         const userData = userService.GetUserData();
 
         Object.keys(userData).forEach((characterIndex) => {
             const index  = characterIndex as CharacterIndex;
+            
             if (userData[index].level === 0){
                 return;
             }
@@ -23,7 +25,7 @@ export class Home extends BaseView{
             const characterButton = new CharacterButton(
                 {x:.1, y:.1}, 
                 characterButtonPositionDictionary[index], 
-                () => {console.log("button pressed")},
+                () => onCharacterButton(index),
                 userData[index]
             );
 

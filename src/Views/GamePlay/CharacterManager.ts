@@ -2,7 +2,7 @@ import { userService } from "@Services/UserService";
 import { BaseView } from "@Views/Shared";
 import { Character } from "./Character";
 import type { CharacterIndex, NumberInputCallback } from "@Models/index";
-import { characterPositionDictionary } from "@Static/GamePlay/CharacterPosition";
+import { characterGameplayPositionDictionary } from "@Static/.";
 
 export class CharacterManager extends BaseView{
     private Characters:Character[] = [];
@@ -19,7 +19,7 @@ export class CharacterManager extends BaseView{
         Object.keys(userData).forEach((characterIndex) => {
             const index = characterIndex as CharacterIndex;
 
-            const character = new Character({x: .1, y: .1}, characterPositionDictionary[index], userData[index], onDamageEnemies)
+            const character = new Character({x: .1, y: .1}, characterGameplayPositionDictionary[index], userData[index], onDamageEnemies)
             this.Characters.push(character);
         });
 

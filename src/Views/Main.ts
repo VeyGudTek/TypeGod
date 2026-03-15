@@ -1,19 +1,23 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import { BaseTransformView, Fade, CutScene, GameManager, Start } from "@Views/.";
+import { BaseTransformView, Fade, CutScene, GameManager, Start, Home } from "@Views/.";
 import { Colors, Sizes, testScript } from "@Static/.";
 
 export class Main extends BaseTransformView{
-    Fade?:Fade;
-    Start?: Start;
-    CutScene?: CutScene
-    GameManager?: GameManager
+    private Fade?:Fade;
+    private Start?: Start;
+    private Home?: Home;
+    private CutScene?: CutScene
+    private GameManager?: GameManager
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.Start = new Start(() => this.LoadCutscene());
-        this.Children.push(this.Start);
+        // this.Start = new Start(() => this.LoadCutscene());
+        // this.Children.push(this.Start);
+
+        this.Home = new Home();
+        this.Children.push(this.Home);
 
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);

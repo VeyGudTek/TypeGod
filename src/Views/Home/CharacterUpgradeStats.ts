@@ -1,4 +1,5 @@
 import { DrawText } from "@Functions/DrawFunctions";
+import { GetMaxExperience } from "@Functions/StaticDataFunctions";
 import type { CharacterData } from "@Models/.";
 import { windowProvider } from "@Services/WindowProvider";
 import { BaseView } from "@Views/.";
@@ -16,12 +17,21 @@ export class CharacterUpgradeStats extends BaseView{
         const xPixels = windowProvider.WindowSize.x;
         const yPixels = windowProvider.WindowSize.y;
 
-        DrawText("Health ", "black", {x: .1 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
-        DrawText("Damage ", "black", {x: .1 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
-        DrawText("Mana   ", "black", {x: .1 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
+        const levelLabel = `Level ${this.CharacterData.level}`;
+        DrawText(levelLabel,"black", {x: .1 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
+        DrawText("Health ", "black", {x: .1 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
+        DrawText("Damage ", "black", {x: .1 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
+        DrawText("Mana   ", "black", {x: .1 * xPixels, y: .5 * yPixels}, "start", .05 * yPixels);
 
-        DrawText(this.CharacterData.health.toString(), "black", {x: .3 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
-        DrawText(this.CharacterData.damage.toString(), "black", {x: .3 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
-        DrawText(this.CharacterData.mana.toString(),   "black", {x: .3 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
+        const expLabel = `${this.CharacterData.experience}/${GetMaxExperience(this.CharacterData.level)}xp`;
+        DrawText(expLabel,                             "black", {x: .3 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
+        DrawText(this.CharacterData.health.toString(), "black", {x: .3 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
+        DrawText(this.CharacterData.damage.toString(), "black", {x: .3 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
+        DrawText(this.CharacterData.mana.toString(),   "black", {x: .3 * xPixels, y: .5 * yPixels}, "start", .05 * yPixels);
+
+        if (this.CharacterData.levelUps > 0){
+            const levelPrompt = `${this.CharacterData.levelUps} unused level ups.`
+            DrawText(levelPrompt, "#003e78", {x: .3 * xPixels, y: .6 * yPixels}, "center", .05 * yPixels)
+        }
     }
 }

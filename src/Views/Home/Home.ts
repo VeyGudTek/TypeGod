@@ -1,14 +1,17 @@
-import { BaseView } from "@Views/Shared";
+import { BaseView, Button } from "@Views/Shared";
 import { CharacterButton } from "./CharacterButton";
 import { userService } from "@Services/UserService";
 import { characterButtonPositionDictionary } from "@Static/CharacterPosition";
 import type { CharacterIndex } from "@Models/User.type";
-import type { CharacterIndexCallback } from "@Models/Callbacks.type";
+import type { BasicCallback, CharacterIndexCallback } from "@Models/Callbacks.type";
 
 export class Home extends BaseView{
-    constructor(onCharacterButton:CharacterIndexCallback){
+    constructor(onCharacterButton:CharacterIndexCallback, onMap:BasicCallback){
         super();
 
+        const mapButton = new Button({x:.1, y:.1}, {x:.5, y:.2}, "map", () => onMap());
+        this.Children.push(mapButton);
+        
         this.CreateCharacterButtons(onCharacterButton);
     }
 

@@ -1,4 +1,4 @@
-import type { CharacterPositionDictionary } from "@Models/GamePlay.type";
+import type { CharacterPositionDictionary, StagePositionDictionary } from "@Models/GamePlay.type";
 
 export const characterGameplayPositionDictionary:CharacterPositionDictionary = {
     "main": {x: .1, y:.6}
@@ -6,4 +6,8 @@ export const characterGameplayPositionDictionary:CharacterPositionDictionary = {
 
 export const characterButtonPositionDictionary:CharacterPositionDictionary = {
     "main": {x: .5, y: .5}
+}
+
+export const stageButtonPositionDictionary:StagePositionDictionary = {
+    "0":{x: .1, y: .4}
 }

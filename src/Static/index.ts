@@ -3,4 +3,4 @@ export * from "./Scripts";
 export * from "./GamePlay";
 export * from "./DefaultData";
 export * from "./DynamicUIConstants";
-export * from "./CharacterPosition";
+export * from "./PositionDictionaries";

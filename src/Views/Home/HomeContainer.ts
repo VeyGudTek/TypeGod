@@ -3,17 +3,18 @@ import { Home } from "./Home";
 import type { CharacterIndex } from "@Models/User.type";
 import { CharacterUpgrade } from "./CharacterUpgrade";
 import { MapView } from "./MapView";
+import type { StageIndexCallback } from "@Models/Callbacks.type";
 
 export class HomeContainer extends BaseView{
     Home:Home;
     CharacterUpgrade?:CharacterUpgrade;
     Map:MapView;
 
-    constructor(){
+    constructor(onLevelSelect:StageIndexCallback){
         super();
 
         this.Home = new Home((index:CharacterIndex) => this.OnCharacterButton(index), () => this.OnMap());
-        this.Map = new MapView(() => this.ToHome());
+        this.Map = new MapView(() => this.ToHome(), (index) => onLevelSelect(index));
         this.Children.push(this.Home);
     }
 

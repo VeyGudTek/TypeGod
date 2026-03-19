@@ -1,6 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer } from "@Views/.";
+import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
 import { Colors, Sizes, testScript } from "@Static/.";
 import type { StageIndex } from "@Models/GamePlay.type";
 
@@ -10,6 +10,7 @@ export class Main extends BaseTransformView{
     private HomeContainer?: HomeContainer;
     private CutScene?: CutScene
     private GameManager?: GameManager
+    private Results?: Results;
 
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
@@ -23,8 +24,11 @@ export class Main extends BaseTransformView{
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
 
-        this.GameManager = new GameManager("0", () => console.log("Game Ended"));
-        this.Children.push(this.GameManager);
+        // this.GameManager = new GameManager("0", () => console.log("Game Ended"));
+        // this.Children.push(this.GameManager);
+
+        this.Results = new Results(13, 43, 22);
+        this.Children.push(this.Results);
     }
 
     private LoadLevel(stageIndex:StageIndex){

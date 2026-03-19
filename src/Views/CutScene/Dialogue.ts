@@ -4,19 +4,29 @@ import { DialogueText } from "./DialogueText";
 import type { BasicCallback } from "@Models/Callbacks.type";
 
 export class Dialogue extends BaseHoverView{
+    BackPanel:Panel;
     TextDialogue:DialogueText;
 
     constructor(nextPage:BasicCallback, size:Vector2, position:Vector2, initialText?: string){
         super(size, position);
 
-        const textPanel = new Panel(size, position);
+        this.BackPanel = new Panel(size, position);
         this.TextDialogue = new DialogueText(() => nextPage(), {x: size.x * .8, y: size.y * .6}, position);
         this.TextDialogue.SetDialogueText(initialText);
 
-        this.Children.push(textPanel, this.TextDialogue);
+        this.Children.push(this.BackPanel, this.TextDialogue);
     }
 
     OnNextPage(nextText?:string){
+        const showingPanel = this.Children.includes(this.BackPanel);
+
+        if (nextText !== undefined && !showingPanel){
+            this.Children.splice(0, 0, this.BackPanel);
+        }
+        else if (nextText === undefined && showingPanel){
+            this.RemoveChild(this.BackPanel);
+        }
+
         this.TextDialogue.SetDialogueText(nextText);
     }
 

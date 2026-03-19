@@ -4,4 +4,5 @@ export * from "./Shared";
 export * from "./GamePlay";
 export * from "./Start";
 export * from "./Home";
+export * from "./Results";
 export * from "./Main";

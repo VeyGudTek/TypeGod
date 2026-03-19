@@ -31,7 +31,7 @@ export class Dialogue extends BaseHoverView{
     }
 
     OnClick(){
-        if (this.Hovering){
+        if (this.TextDialogue.GetCurrentText() === "" || this.Hovering){
             this.TextDialogue.OnDialogueClick();
         }
     }

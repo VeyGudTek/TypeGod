@@ -6,16 +6,20 @@ import { Colors } from "@Static/Styles";
 import { BaseTransformView } from "@Views/Shared";
 
 export class DialogueText extends BaseTransformView{
-    Text:string = "";
-    TextSpeed:number = 35;
-    Timer:Timer;
-    CurrentIndex:number = 0;
-    NextCallback:BasicCallback;
+    private Text:string = "";
+    private TextSpeed:number = 35;
+    private Timer:Timer;
+    private CurrentIndex:number = 0;
+    private NextCallback:BasicCallback;
 
     constructor(onNext:BasicCallback, size:Vector2, position:Vector2){
         super(size, position);
         this.NextCallback = onNext;
         this.Timer = new Timer();
+    }
+
+    GetCurrentText(){
+        return this.Text;
     }
 
     OnDialogueClick(){

@@ -6,7 +6,7 @@ import type { BasicCallback } from "@Models/Callbacks.type";
 export class Dialogue extends BaseHoverView{
     TextDialogue:DialogueText;
 
-    constructor(nextPage:BasicCallback, initialText: string, size:Vector2, position:Vector2){
+    constructor(nextPage:BasicCallback, size:Vector2, position:Vector2, initialText?: string){
         super(size, position);
 
         const textPanel = new Panel(size, position);
@@ -16,7 +16,7 @@ export class Dialogue extends BaseHoverView{
         this.Children.push(textPanel, this.TextDialogue);
     }
 
-    OnNextPage(nextText:string){
+    OnNextPage(nextText?:string){
         this.TextDialogue.SetDialogueText(nextText);
     }
 

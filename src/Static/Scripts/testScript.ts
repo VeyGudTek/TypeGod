@@ -9,6 +9,9 @@ export const testScript:Script = [
         speaker: "Dog"
     },
     {
+        background: testBack
+    },
+    {
         text: "wow this is kinda cooked lowkirkenuinely",
         background: testBack1,
         speaker: "Hara Urara"

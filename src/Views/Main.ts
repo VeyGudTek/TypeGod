@@ -17,11 +17,11 @@ export class Main extends BaseTransformView{
         // this.Start = new Start(() => this.LoadCutscene());
         // this.Children.push(this.Start);
 
-        this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
-        this.Children.push(this.HomeContainer);
+        // this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
+        // this.Children.push(this.HomeContainer);
 
-        // this.CutScene = new CutScene(testScript);
-        // this.Children.push(this.CutScene);
+        this.CutScene = new CutScene(testScript);
+        this.Children.push(this.CutScene);
 
         // this.GameManager = new GameManager("0", () => console.log("Game Ended"));
         // this.Children.push(this.GameManager);

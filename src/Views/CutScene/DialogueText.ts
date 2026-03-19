@@ -27,8 +27,8 @@ export class DialogueText extends BaseTransformView{
         }
     }
 
-    SetDialogueText(text:string){
-        this.Text = text;
+    SetDialogueText(text?:string){
+        this.Text = text ?? "";
         this.CurrentIndex = 0;
         this.Timer.Reset();
     }

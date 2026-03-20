@@ -2,7 +2,7 @@ import { DrawRect } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
 import { Colors, Sizes, testScript } from "@Static/.";
-import type { StageIndex } from "@Models/GamePlay.type";
+import type { StageIndex } from "@Models/.";
 
 export class Main extends BaseTransformView{
     private Fade?:Fade;
@@ -18,8 +18,8 @@ export class Main extends BaseTransformView{
         // this.Start = new Start(() => this.LoadCutscene());
         // this.Children.push(this.Start);
 
-        // this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
-        // this.Children.push(this.HomeContainer);
+        this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
+        this.Children.push(this.HomeContainer);
 
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
@@ -27,8 +27,8 @@ export class Main extends BaseTransformView{
         // this.GameManager = new GameManager("0", () => console.log("Game Ended"));
         // this.Children.push(this.GameManager);
 
-        this.Results = new Results(13, 43, 22);
-        this.Children.push(this.Results);
+        // this.Results = new Results(13, 43, 22);
+        // this.Children.push(this.Results);
     }
 
     private LoadLevel(stageIndex:StageIndex){

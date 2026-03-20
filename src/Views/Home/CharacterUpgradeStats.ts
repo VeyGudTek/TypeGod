@@ -1,37 +1,35 @@
-import { DrawText } from "@Functions/DrawFunctions";
-import { GetMaxExperience } from "@Functions/StaticDataFunctions";
+import { GetMaxExperience } from "@Functions/.";
 import type { CharacterData } from "@Models/.";
-import { windowProvider } from "@Services/WindowProvider";
-import { BaseView } from "@Views/.";
+import { Sizes } from "@Static/Styles";
+import { BaseView, Label } from "@Views/.";
 
 export class CharacterUpgradeStats extends BaseView{
-    CharacterData:CharacterData;
-
     constructor(characterData:CharacterData){
         super()
 
-        this.CharacterData = characterData;
+        this.CreateStats(characterData);
     }
 
-    Render(){
-        const xPixels = windowProvider.WindowSize.x;
-        const yPixels = windowProvider.WindowSize.y;
+    private CreateStats(characterData:CharacterData){
+        const levelText = `Level ${characterData.level}`;
+        const levelLabel  = new Label({x: .1, y: Sizes.text.base}, {x: .1, y: .2}, levelText,  "start");
+        const healthLabel = new Label({x: .1, y: Sizes.text.base}, {x: .1, y: .3}, "Health ",  "start");
+        const damageLabel = new Label({x: .1, y: Sizes.text.base}, {x: .1, y: .4}, "Damage ",  "start");
+        const manaLabel   = new Label({x: .1, y: Sizes.text.base}, {x: .1, y: .5}, "Man    ",  "start");
 
-        const levelLabel = `Level ${this.CharacterData.level}`;
-        DrawText(levelLabel,"black", {x: .1 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
-        DrawText("Health ", "black", {x: .1 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
-        DrawText("Damage ", "black", {x: .1 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
-        DrawText("Mana   ", "black", {x: .1 * xPixels, y: .5 * yPixels}, "start", .05 * yPixels);
+        const expLabel = `${characterData.experience}/${GetMaxExperience(characterData.level)}xp`;
+        const levelStat  = new Label({x: .1, y: Sizes.text.base}, {x: .3, y: .2}, expLabel,  "start");
+        const healthStat = new Label({x: .1, y: Sizes.text.base}, {x: .3, y: .3}, characterData.health.toString(),  "start");
+        const damageStat = new Label({x: .1, y: Sizes.text.base}, {x: .3, y: .4}, characterData.damage.toString(),  "start");
+        const manaStat   = new Label({x: .1, y: Sizes.text.base}, {x: .3, y: .5}, characterData.mana.toString()  ,  "start");
 
-        const expLabel = `${this.CharacterData.experience}/${GetMaxExperience(this.CharacterData.level)}xp`;
-        DrawText(expLabel,                             "black", {x: .3 * xPixels, y: .2 * yPixels}, "start", .05 * yPixels);
-        DrawText(this.CharacterData.health.toString(), "black", {x: .3 * xPixels, y: .3 * yPixels}, "start", .05 * yPixels);
-        DrawText(this.CharacterData.damage.toString(), "black", {x: .3 * xPixels, y: .4 * yPixels}, "start", .05 * yPixels);
-        DrawText(this.CharacterData.mana.toString(),   "black", {x: .3 * xPixels, y: .5 * yPixels}, "start", .05 * yPixels);
+        this.Children.push(levelLabel, healthLabel, damageLabel, manaLabel, levelStat, healthStat, damageStat, manaStat);
 
-        if (this.CharacterData.levelUps > 0){
-            const levelPrompt = `${this.CharacterData.levelUps} unused level ups.`
-            DrawText(levelPrompt, "#003e78", {x: .3 * xPixels, y: .6 * yPixels}, "center", .05 * yPixels)
+        if (characterData.levelUps > 0){
+            const levelPromptText = `${characterData.levelUps} unused level ups.`
+            const levelPrompt = new Label({x: .1, y: .2}, {x: .3, y: .6}, levelPromptText, "center");
+
+            this.Children.push(levelPrompt);
         }
     }
 }

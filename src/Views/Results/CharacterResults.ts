@@ -48,10 +48,14 @@ export class CharacterResults extends BaseView{
         const xPixels = windowProvider.WindowSize.x;
         const yPixels = windowProvider.WindowSize.y;
 
+        let yPosition = .5 * yPixels;
         this.LeftOverExperience.forEach((leftOver, index) => {
             const leftOverText = `${leftOver}/${GetMaxExperience(userData[index].level)}`;
+            const levelUpsText = `+${this.LevelUps.get(index)} levels`;
 
-            DrawText(leftOverText, "Black", {x:xPixels * .5, y:yPixels * .5}, "start", Sizes.text.base * yPixels);
+            DrawText(index,        "Black", {x:xPixels * .1, y:yPosition}, "start", Sizes.text.base * yPixels);
+            DrawText(leftOverText, "Black", {x:xPixels * .2, y:yPosition}, "start", Sizes.text.base * yPixels);
+            DrawText(levelUpsText, "Black", {x:xPixels * .3, y:yPosition}, "start", Sizes.text.base * yPixels);
         });
     }
 }

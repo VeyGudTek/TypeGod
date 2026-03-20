@@ -11,8 +11,8 @@ class UserService{
     }
 
     ResetData(){
-        window.localStorage.setItem(this.storageIndex, JSON.stringify(defaultUserData))
         this.User = defaultUserData;
+        this.Save();
     }
     
     LoadExisting(){
@@ -49,6 +49,15 @@ class UserService{
 
     GetUserData(){
         return structuredClone(this.User);
+    }
+
+    SaveUserData(index:CharacterIndex, data:CharacterData){
+        this.User[index] = data;
+        this.Save();
+    }
+
+    private Save(){
+        window.localStorage.setItem(this.storageIndex, JSON.stringify(this.User));
     }
 }
 

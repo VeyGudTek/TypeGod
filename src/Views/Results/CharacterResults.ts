@@ -11,11 +11,11 @@ export class CharacterResults extends BaseView{
     constructor(experience:number){
         super();
 
-        this.PopulateMaps(experience);
+        this.PopulateMapsAndSave(experience);
         this.CreateLabels();
     }
 
-    private PopulateMaps(experience:number){
+    private PopulateMapsAndSave(experience:number){
         const userData = userService.GetUserData();
 
         Object.keys(userData).forEach((characterIndex) => {
@@ -31,12 +31,17 @@ export class CharacterResults extends BaseView{
 
             while (leftOverExperience > GetMaxExperience(characterData.level)){
                 leftOverExperience -= GetMaxExperience(characterData.level);
-                characterData.level += 1;
                 levelUps += 1;
             }
 
             this.LevelUps.set(index, levelUps);
             this.LeftOverExperience.set(index, leftOverExperience);
+
+            characterData.level += levelUps;
+            characterData.levelUps += levelUps;
+            characterData.experience = leftOverExperience;
+
+            userService.SaveUserData(index, characterData);
         });
     }
 

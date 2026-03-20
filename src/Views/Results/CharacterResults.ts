@@ -1,9 +1,8 @@
-import { DrawText } from "@Functions/DrawFunctions";
-import { GetMaxExperience } from "@Functions/StaticDataFunctions";
+import { GetMaxExperience } from "@Functions/index";
 import type { CharacterIndex } from "@Models/index";
-import { userService, windowProvider } from "@Services/index";
+import { userService } from "@Services/index";
 import { Sizes } from "@Static/Styles";
-import { BaseView } from "@Views/Shared";
+import { BaseView, Label } from "@Views/Shared";
 
 export class CharacterResults extends BaseView{
     LevelUps:Map<CharacterIndex, number> = new Map();
@@ -13,6 +12,7 @@ export class CharacterResults extends BaseView{
         super();
 
         this.PopulateMaps(experience);
+        this.CreateLabels();
     }
 
     private PopulateMaps(experience:number){
@@ -31,6 +31,7 @@ export class CharacterResults extends BaseView{
 
             while (leftOverExperience > GetMaxExperience(characterData.level)){
                 leftOverExperience -= GetMaxExperience(characterData.level);
+                characterData.level += 1;
                 levelUps += 1;
             }
 
@@ -39,23 +40,20 @@ export class CharacterResults extends BaseView{
         });
     }
 
-    Render(){
-        this.RenderCharacterData();
-    }
-
-    private RenderCharacterData(){
+    private CreateLabels(){
         const userData = userService.GetUserData();
-        const xPixels = windowProvider.WindowSize.x;
-        const yPixels = windowProvider.WindowSize.y;
 
-        let yPosition = .5 * yPixels;
+        let yPosition = .5
         this.LeftOverExperience.forEach((leftOver, index) => {
             const leftOverText = `${leftOver}/${GetMaxExperience(userData[index].level)}`;
             const levelUpsText = `+${this.LevelUps.get(index)} levels`;
 
-            DrawText(index,        "Black", {x:xPixels * .1, y:yPosition}, "start", Sizes.text.base * yPixels);
-            DrawText(leftOverText, "Black", {x:xPixels * .2, y:yPosition}, "start", Sizes.text.base * yPixels);
-            DrawText(levelUpsText, "Black", {x:xPixels * .3, y:yPosition}, "start", Sizes.text.base * yPixels);
+            const indexLabel = new Label({x:.1, y:Sizes.text.base}, {x:.1, y:yPosition}, index, "start");
+            const expLabel = new Label({x:.1, y:Sizes.text.base}, {x:.2, y:yPosition}, leftOverText, "start");
+            const levelLabel = new Label({x:.1, y:Sizes.text.base}, {x:.3, y:yPosition}, levelUpsText, "start");
+
+            this.Children.push(indexLabel, expLabel, levelLabel);
+            yPosition += .1;
         });
     }
 }

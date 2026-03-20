@@ -1,4 +1,4 @@
-import type { Vector2 } from "@Models/Vector2.type";
+import type { AlignType, Vector2 } from "@Models/index";
 import { windowProvider } from "@Services/WindowProvider";
 
 export function DrawImage(imageName:string, position:Vector2, size:Vector2){
@@ -15,7 +15,7 @@ export function DrawRect(position:Vector2, size:Vector2, color:string, outlineCo
     windowProvider.CanvasContext.fillRect(position.x, position.y, size.x, size.y);
 }
 
-export function DrawText(text:string, color:string, position:Vector2, align: "start" | "center", textSize:number){
+export function DrawText(text:string, color:string, position:Vector2, align: AlignType, textSize:number){
     windowProvider.CanvasContext.font = `${textSize}px monospace`;
     windowProvider.CanvasContext.fillStyle = color;
     windowProvider.CanvasContext.textAlign = align;
@@ -24,7 +24,7 @@ export function DrawText(text:string, color:string, position:Vector2, align: "st
     RenderSplitText(text, position, textSize, align);
 }
 
-function RenderSplitText(text:string, position:Vector2, textSize:number, align: "start" | "center"){
+function RenderSplitText(text:string, position:Vector2, textSize:number, align: AlignType){
     const lines = text.split("\n");
     const totalLines = lines.length;
     const midIndex = Math.round((totalLines - 1) / 2);

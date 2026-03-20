@@ -19,7 +19,7 @@ export class PopUpBox extends BaseTransformView{
     }
 
     private CreatePrompt(prompt:string){
-        const label = new Label({x: 0, y: Sizes.text.base}, {x: .5, y: .45}, prompt);
+        const label = new Label({x: 0, y: Sizes.text.base}, {x: .5, y: .45}, prompt, "center");
         this.Children.push(label);
     }
 

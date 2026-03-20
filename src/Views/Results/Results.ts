@@ -7,7 +7,7 @@ export class Results extends BaseView{
         super();
 
         const backPanel = new Panel({x: .4, y: .8}, {x:.25, y:.5});
-        const title = new Label({x: .4, y: Sizes.text.title}, {x:.25, y:.2}, "Results");
+        const title = new Label({x: .4, y: Sizes.text.title}, {x:.25, y:.2}, "Results", "center");
 
         const characterResults = new CharacterResults(experience);
 

@@ -1,6 +1,6 @@
-export type User = Record<CharacterIndex, CharacterData>;
+import type { CharacterIndex } from "./Enums.type";
 
-export type CharacterIndex = "main";
+export type User = Record<CharacterIndex, CharacterData>;
 
 export interface CharacterData{
     level:number;

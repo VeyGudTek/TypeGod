@@ -17,10 +17,10 @@ export class Register extends BaseView{
 
     constructor(onBack:BasicCallback){
         super();
-        const prompt = new Label(              {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Register");
-        const usernameLabel = new Label(       {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username");
-        const passwordLabel = new Label(       {x:0, y: Sizes.text.base},  {x:.35, y: .47}, "Password");
-        const passwordRepeatLabel = new Label( {x:0, y: Sizes.text.base},  {x:.39, y: .59}, "Repeat Password");
+        const prompt = new Label(              {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Register", "center");
+        const usernameLabel = new Label(       {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username", "center");
+        const passwordLabel = new Label(       {x:0, y: Sizes.text.base},  {x:.35, y: .47}, "Password", "center");
+        const passwordRepeatLabel = new Label( {x:0, y: Sizes.text.base},  {x:.39, y: .59}, "Repeat Password", "center");
 
         const backPanel = new Panel(       {x:.45, y:.75}, {x:.5, y:.5});
         const username = new TextBox(      {x:.4, y:.05},  {x:.5, y:.4});

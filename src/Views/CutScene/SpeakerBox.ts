@@ -27,7 +27,7 @@ export class SpeakerBox extends BaseTransformView{
         }
 
         const backPanel = new Panel(scaledSize, scaledPosition);
-        const speakerText = new Label(scaledSize, scaledPosition, speaker)
+        const speakerText = new Label(scaledSize, scaledPosition, speaker, "center")
 
         this.Children.push(backPanel, speakerText);
     }

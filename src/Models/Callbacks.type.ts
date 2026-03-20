@@ -1,5 +1,4 @@
-import type { StageIndex } from "./GamePlay.type";
-import type { CharacterIndex } from "./User.type";
+import type { StageIndex, CharacterIndex } from "./Enums.type";
 
 export type BasicCallback = () => void;
 export type NumberInputCallback = (points:number) => void;

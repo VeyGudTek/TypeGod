@@ -1,4 +1,5 @@
 export * from "./Vector2.type";
+export * from "./Enums.type";
 export * from "./View.type";
 export * from "./User.type";
 export * from "./Script.type";

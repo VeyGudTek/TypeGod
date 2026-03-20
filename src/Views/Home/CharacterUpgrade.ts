@@ -9,7 +9,7 @@ export class CharacterUpgrade extends BaseView{
         super();
 
         const backButton = new Button({x:.1, y:.05}, {x:.1, y:.09}, "Back", () => onBack());
-        const name = new Label({x:.1, y: Sizes.text.title}, {x:.5, y:.1}, characterIndex);
+        const name = new Label({x:.1, y: Sizes.text.title}, {x:.5, y:.1}, characterIndex, "center");
         const characterStats = new CharacterUpgradeStats(userService.GetUserData()[characterIndex]);
 
         this.Children.push(backButton, name, characterStats);

@@ -22,11 +22,11 @@ export class Login extends BaseView{
         super();
         this.OnLoginFinish = onLoginFinish;
         
-        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Login");
+        const prompt = new Label(         {x:0, y: Sizes.text.title}, {x:.5, y: .23}, "Login", "center");
         const backPanel = new Panel(      {x:.45, y:.75},             {x:.5, y: .5});
-        const usernameLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username");
+        const usernameLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .35}, "Username", "center");
         const username = new TextBox(     {x:.4, y:.05},              {x:.5, y: .4});
-        const passwordLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .5},  "Password");
+        const passwordLabel = new Label(  {x:0, y: Sizes.text.base},  {x:.35, y: .5},  "Password", "center");
         const password = new TextBox(     {x:.4, y:.05},              {x:.5, y:.55});
         const loginButton = new Button(   {x:.15, y:.05},             {x:.4, y:.7},   "Login", () => this.OnLogin());
         const guestButton = new Button(   {x:.15, y:.05},             {x:.6, y:.7},   "Guest", () => this.OnGuest());

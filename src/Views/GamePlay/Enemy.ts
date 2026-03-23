@@ -47,7 +47,7 @@ export class Enemy extends BaseTransformView{
             return;
         }
 
-        const inRange = (this.Position.x - target.Position.x) < ((this.Size.x / 2) + (target.Size.x / 2) + yIncrement);
+        const inRange = (this.Position.x - target.Visual.Position.x) < ((this.Size.x / 2) + (target.Visual.Size.x / 2) + yIncrement);
         if (!inRange){
             this.MoveForward();
         }

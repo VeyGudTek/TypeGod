@@ -1,23 +1,25 @@
-import { DrawRect } from "@Functions/.";
-import type { Vector2, CharacterData, NumberInputCallback } from "@Models/.";
-import { yIncrement } from "@Static/.";
-import { BaseTransformView } from "@Views/Shared";
+import type { CharacterData, NumberInputCallback, CharacterIndex } from "@Models/.";
+import { characterGameplayPositionDictionary } from "@Static/.";
+import { BaseView } from "@Views/Shared";
+import { CharacterVisual } from "./CharacterVisual";
 
-export class Character extends BaseTransformView{
-    Level:number;
-    MaxHealth:number;
-    CurrentHealth:number;
-    Damage:number;
-    MaxMana:number;
-    CurrentMana:number;
+export class Character extends BaseView{
+    private Level:number;
+    private MaxHealth:number;
+    private CurrentHealth:number;
+    private Damage:number;
+    private MaxMana:number;
+    private CurrentMana:number;
 
-    Texture:string = "";
+    private Texture:string = "";
     Dead:boolean = false;
 
     DamageEnemies:NumberInputCallback;
 
-    constructor(size:Vector2, position:Vector2, characterData:CharacterData, damageEnemies:NumberInputCallback){
-        super(size, position);
+    Visual:CharacterVisual;
+
+    constructor(characterIndex: CharacterIndex, characterData:CharacterData, damageEnemies:NumberInputCallback){
+        super();
 
         this.Level = characterData.level;
         this.MaxHealth = characterData.health;
@@ -27,6 +29,9 @@ export class Character extends BaseTransformView{
         this.CurrentMana = 0;
 
         this.DamageEnemies = damageEnemies;
+
+        this.Visual = new CharacterVisual({x:.1, y:.1}, characterGameplayPositionDictionary[characterIndex], characterData);
+        this.Children.push(this.Visual);
     }
 
     AddMana(mana:number){
@@ -38,6 +43,8 @@ export class Character extends BaseTransformView{
             this.CurrentMana = 0;
             this.DamageEnemies(this.Damage);
         }
+
+        this.Visual.UpdateMana(this.CurrentMana);
     }
 
     TakeDamage(damage:number){
@@ -46,23 +53,7 @@ export class Character extends BaseTransformView{
             this.CurrentHealth = 0;
             this.Dead = true;
         }
-    }
 
-    Render(){
-        this.DrawStats();
-
-        DrawRect(this.Position, this.Size, "#7580b7", "#7580b7", 1);
-    }
-
-    private DrawStats(){
-        const baseWidth = this.Size.x;
-        const percentHealth = this.CurrentHealth / this.MaxHealth;
-        const percentMana = this.CurrentMana / this.MaxMana;
-
-        DrawRect({x: this.Position.x, y: this.Position.y - (yIncrement)    }, {x: baseWidth, y: this.Size.y / 5}, "#6d6d6d", "#6d6d6d", 1);
-        DrawRect({x: this.Position.x, y: this.Position.y - (yIncrement * 2)}, {x: baseWidth, y: this.Size.y / 5}, "#6d6d6d", "#6d6d6d", 1);
-
-        DrawRect({x: this.Position.x, y: this.Position.y - (yIncrement)    }, {x: baseWidth * percentMana, y: this.Size.y / 5}, "#47aac1", "#47aac1", 1);
-        DrawRect({x: this.Position.x, y: this.Position.y - (yIncrement * 2)}, {x: baseWidth * percentHealth, y: this.Size.y / 5}, "#cbb749", "#cbb749", 1);
+        this.Visual.UpdateHealth(this.CurrentHealth);
     }
 }

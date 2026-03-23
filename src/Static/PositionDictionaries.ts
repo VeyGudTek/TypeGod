@@ -4,6 +4,10 @@ export const characterGameplayPositionDictionary:CharacterPositionDictionary = {
     "main": {x: .1, y:.6}
 }
 
+export const characterUIPositionDictionary:CharacterPositionDictionary = {
+    "main": {x: .3, y:.9}
+}
+
 export const characterButtonPositionDictionary:CharacterPositionDictionary = {
     "main": {x: .5, y: .5}
 }

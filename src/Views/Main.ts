@@ -24,11 +24,11 @@ export class Main extends BaseTransformView{
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
 
-        // this.GameManager = new GameManager("0", () => console.log("Game Ended"));
-        // this.Children.push(this.GameManager);
+        this.GameManager = new GameManager("0", () => console.log("Game Ended"));
+        this.Children.push(this.GameManager);
 
-        this.Results = new Results(574, 43, 22);
-        this.Children.push(this.Results);
+        // this.Results = new Results(574, 43, 22);
+        // this.Children.push(this.Results);
     }
 
     private LoadLevel(stageIndex:StageIndex){

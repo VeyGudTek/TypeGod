@@ -1,9 +1,8 @@
 import { BaseView } from "@Views/Shared";
 import { Home } from "./Home";
-import type { CharacterIndex } from "@Models/User.type";
+import type { CharacterIndex, StageIndexCallback } from "@Models/.";
 import { CharacterUpgrade } from "./CharacterUpgrade";
 import { MapView } from "./MapView";
-import type { StageIndexCallback } from "@Models/Callbacks.type";
 
 export class HomeContainer extends BaseView{
     Home:Home;

@@ -1,7 +1,6 @@
-import type { Vector2 } from "@Models/Vector2.type";
+import type { Vector2, BasicCallback } from "@Models/.";
 import { BaseHoverView, Panel } from "@Views/Shared";
 import { DialogueText } from "./DialogueText";
-import type { BasicCallback } from "@Models/Callbacks.type";
 
 export class Dialogue extends BaseHoverView{
     BackPanel:Panel;

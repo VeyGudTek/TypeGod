@@ -1,5 +1,4 @@
-import type { BasicCallback, StageIndexCallback } from "@Models/Callbacks.type";
-import type { StageIndex } from "@Models/GamePlay.type";
+import type { BasicCallback, StageIndexCallback, StageIndex } from "@Models/.";
 import { stageDictionary } from "@Static/GamePlay";
 import { stageButtonPositionDictionary } from "@Static/PositionDictionaries";
 import { BaseView, Button } from "@Views/Shared";

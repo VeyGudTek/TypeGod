@@ -2,8 +2,7 @@ import { BaseView, Button } from "@Views/Shared";
 import { CharacterButton } from "./CharacterButton";
 import { userService } from "@Services/UserService";
 import { characterButtonPositionDictionary } from "@Static/PositionDictionaries";
-import type { CharacterIndex } from "@Models/User.type";
-import type { BasicCallback, CharacterIndexCallback } from "@Models/Callbacks.type";
+import type { CharacterIndex, BasicCallback, CharacterIndexCallback } from "@Models/.";
 
 export class Home extends BaseView{
     constructor(onCharacterButton:CharacterIndexCallback, onMap:BasicCallback){

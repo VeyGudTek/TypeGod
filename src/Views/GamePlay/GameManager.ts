@@ -1,9 +1,8 @@
-import type { StageIndex } from "@Models/GamePlay.type";
+import type { StageIndex, BasicCallback } from "@Models/.";
 import { BaseView } from "@Views/Shared";
 import { EnemyManager } from "./EnemyManager";
 import { Typer } from "./Typer";
 import { CharacterManager } from "./CharacterManager";
-import type { BasicCallback } from "@Models/Callbacks.type";
 
 export class GameManager extends BaseView{
     GameEnded:boolean = false;

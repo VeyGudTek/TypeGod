@@ -1,4 +1,4 @@
-import type { StageIndex, StageInstructions } from "@Models/GamePlay.type";
+import type { StageIndex, StageInstructions } from "@Models/.";
 import { BaseView } from "@Views/Shared";
 import { Enemy } from "./Enemy";
 import { Timer } from "@Services/index";

@@ -10,10 +10,10 @@ export class CharacterVisual extends BaseTransformView{
         super(size, position);
 
         const tempSprite = new Panel(size, position);
-        this.Health = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .12}, characterData.health, "#eab823");
+        this.Health = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .11}, characterData.health, "#eab823");
         this.Mana = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .1}, characterData.mana, "#23a8ea");
 
-        this.Children.push(tempSprite, this.Health, this.Mana);
+        this.Children.push(tempSprite, this.Mana, this.Health);
 
         this.Health.SetCurrentResource(characterData.health);
     }

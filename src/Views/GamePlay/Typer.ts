@@ -2,6 +2,7 @@ import type { NumberInputCallback } from "@Models/Callbacks.type";
 import { wordList } from "@Static/index";
 import { BaseView, Panel } from "@Views/Shared";
 import { Prompt } from "./Prompt";
+import { PromptMerger } from "./PromptMerger";
 
 function GetRandomWord(){
     const listLength = wordList.length;
@@ -16,13 +17,15 @@ export class Typer extends BaseView{
     OnWordComplete:NumberInputCallback;
 
     PromptUIList:Prompt[] = [];
+    PromptMerger:PromptMerger;
 
     constructor(onWordComplete:NumberInputCallback){
         super();
         this.OnWordComplete = onWordComplete;
-
+        
+        this.PromptMerger = new PromptMerger();
         this.InitializePrompt();
-        this.BuildUI();
+        this.CreateChildren();
     }
 
     private InitializePrompt(){
@@ -33,17 +36,18 @@ export class Typer extends BaseView{
         }
     }
 
-    private BuildUI(){
-        const backPanel = new Panel({x:.75, y: .1}, {x: .5, y: .1});
-
-        const promptUI1 = new Prompt({x:.5, y: .05}, {x:.2, y: .1}, this.Prompt[0], "");
-        const promptUI2 = new Prompt({x:.5, y: .05}, {x:.35, y: .1}, this.Prompt[1], "");
-        const promptUI3 = new Prompt({x:.5, y: .05}, {x:.5, y: .1}, this.Prompt[2], "");
-        const promptUI4 = new Prompt({x:.5, y: .05}, {x:.65, y: .1}, this.Prompt[3], "");
-        const promptUI5 = new Prompt({x:.5, y: .05}, {x:.8, y: .1}, this.Prompt[4], "");
-
+    private CreateChildren(){
+        const promptUI1 = new Prompt(this.Prompt[0], "");
+        const promptUI2 = new Prompt(this.Prompt[1], "");
+        const promptUI3 = new Prompt(this.Prompt[2], "");
+        const promptUI4 = new Prompt(this.Prompt[3], "");
+        const promptUI5 = new Prompt(this.Prompt[4], "");
         this.PromptUIList.push(promptUI1, promptUI2, promptUI3, promptUI4, promptUI5);
-        this.Children.push(backPanel, promptUI1, promptUI2, promptUI3, promptUI4, promptUI5);
+
+        const backPanel = new Panel({x:.75, y: .1}, {x: .5, y: .1});
+        this.PromptMerger.UpdatePrompt(this.PromptUIList);
+
+        this.Children.push(backPanel, this.PromptMerger);
     }
 
     OnKey(input:string){
@@ -61,6 +65,8 @@ export class Typer extends BaseView{
         if (this.CurrentInput.length > currentPrompt.Prompt.length && input === " "){
             this.CompleteWord(currentPrompt);
         }
+
+        this.PromptMerger.UpdatePrompt(this.PromptUIList);
     }
 
     private CompleteWord(currentPrompt:Prompt){
@@ -82,5 +88,6 @@ export class Typer extends BaseView{
         }
 
         this.CurrentInput = "";
+        this.PromptMerger.UpdatePrompt(this.PromptUIList);
     }
 }

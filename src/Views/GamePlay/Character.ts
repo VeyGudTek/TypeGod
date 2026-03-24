@@ -1,5 +1,5 @@
-import type { CharacterData, NumberInputCallback, CharacterIndex } from "@Models/.";
-import { characterGameplayPositionDictionary, characterUIPositionDictionary } from "@Static/.";
+import type { CharacterData, NumberInputCallback, CharacterIndex, Vector2 } from "@Models/.";
+import { characterGameplayPositionDictionary } from "@Static/.";
 import { BaseView } from "@Views/Shared";
 import { CharacterVisual } from "./CharacterVisual";
 import { CharacterUI } from "./CharacterUI";
@@ -20,7 +20,7 @@ export class Character extends BaseView{
     Visual:CharacterVisual;
     UI:CharacterUI;
 
-    constructor(characterIndex: CharacterIndex, characterData:CharacterData, damageEnemies:NumberInputCallback){
+    constructor(characterIndex: CharacterIndex, characterData:CharacterData, uiPosition:Vector2, damageEnemies:NumberInputCallback){
         super();
 
         this.Level = characterData.level;
@@ -33,7 +33,7 @@ export class Character extends BaseView{
         this.DamageEnemies = damageEnemies;
 
         this.Visual = new CharacterVisual({x:.1, y:.15}, characterGameplayPositionDictionary[characterIndex]);
-        this.UI = new CharacterUI({x:.1, y:.15}, characterUIPositionDictionary[characterIndex], characterData);
+        this.UI = new CharacterUI({x:.1, y:.15}, uiPosition, characterData);
         this.Children.push(this.Visual, this.UI);
     }
 

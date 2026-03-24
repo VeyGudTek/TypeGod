@@ -28,7 +28,7 @@ export class EnemyManager extends BaseView{
         if (this.CurrentStageInstructions.length > 0 && this.Timer.GetElapsedTime() > this.CurrentStageInstructions[0].time){
             const data = this.CurrentStageInstructions[0];
 
-            const yPosition = .3 + (Math.random() * .6)
+            const yPosition = .3 + (Math.random() * .4)
             const newEnemy = new Enemy({x: .1, y: .1}, {x:.9, y: yPosition}, data, this.GetFirstCharacter);
             this.Enemies.push(newEnemy);
             this.CurrentStageInstructions.splice(0, 1);

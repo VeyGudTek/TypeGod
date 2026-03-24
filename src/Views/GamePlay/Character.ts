@@ -1,7 +1,8 @@
 import type { CharacterData, NumberInputCallback, CharacterIndex } from "@Models/.";
-import { characterGameplayPositionDictionary } from "@Static/.";
+import { characterGameplayPositionDictionary, characterUIPositionDictionary } from "@Static/.";
 import { BaseView } from "@Views/Shared";
 import { CharacterVisual } from "./CharacterVisual";
+import { CharacterUI } from "./CharacterUI";
 
 export class Character extends BaseView{
     private Level:number;
@@ -17,6 +18,7 @@ export class Character extends BaseView{
     DamageEnemies:NumberInputCallback;
 
     Visual:CharacterVisual;
+    UI:CharacterUI;
 
     constructor(characterIndex: CharacterIndex, characterData:CharacterData, damageEnemies:NumberInputCallback){
         super();
@@ -30,8 +32,9 @@ export class Character extends BaseView{
 
         this.DamageEnemies = damageEnemies;
 
-        this.Visual = new CharacterVisual({x:.1, y:.1}, characterGameplayPositionDictionary[characterIndex], characterData);
-        this.Children.push(this.Visual);
+        this.Visual = new CharacterVisual({x:.1, y:.15}, characterGameplayPositionDictionary[characterIndex]);
+        this.UI = new CharacterUI({x:.1, y:.15}, characterUIPositionDictionary[characterIndex], characterData);
+        this.Children.push(this.Visual, this.UI);
     }
 
     AddMana(mana:number){
@@ -44,7 +47,7 @@ export class Character extends BaseView{
             this.DamageEnemies(this.Damage);
         }
 
-        this.Visual.UpdateMana(this.CurrentMana);
+        this.UI.UpdateMana(this.CurrentMana);
     }
 
     TakeDamage(damage:number){
@@ -54,6 +57,6 @@ export class Character extends BaseView{
             this.Dead = true;
         }
 
-        this.Visual.UpdateHealth(this.CurrentHealth);
+        this.UI.UpdateHealth(this.CurrentHealth);
     }
 }

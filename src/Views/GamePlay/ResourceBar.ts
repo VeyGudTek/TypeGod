@@ -1,5 +1,6 @@
 import { DrawRect } from "@Functions/.";
 import type { Vector2 } from "@Models/.";
+import { Colors, Sizes } from "@Static/Styles";
 import { BaseTransformView } from "@Views/.";
 
 export class ResourceBar extends BaseTransformView{
@@ -29,7 +30,7 @@ export class ResourceBar extends BaseTransformView{
     Render(){
         const percentHealth = this.CurrentResource / this.MaxResource;
 
-        DrawRect(this.Position, this.Size, "#6d6d6d", "#6d6d6d", 1);
-        DrawRect(this.Position, {x: this.Size.x * percentHealth, y: this.Size.y}, this.Color, this.Color, 1);
+        DrawRect(this.Position, this.Size, "#6d6d6d", Colors.border.base, Sizes.border.base);
+        DrawRect(this.Position, {x: this.Size.x * percentHealth, y: this.Size.y}, this.Color, "black", 0);
     }
 }

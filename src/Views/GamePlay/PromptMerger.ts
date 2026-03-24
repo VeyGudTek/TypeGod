@@ -37,23 +37,22 @@ export class PromptMerger extends BaseTransformView{
             combinedIncorrect += incorrectText + " ";
             
             if (index === 2){
-                midIndex = charCount + Math.floor(combinedCorrect.length / 2);
+                midIndex = charCount + Math.floor(correctText.length / 2);
             }
-            charCount += correctText.length;
+            charCount += correctText.length + 1;
         })
 
         const halfCount = Math.floor(combinedCorrect.length / 2);
         if (midIndex < halfCount){
-            combinedCorrect = GetPadding(halfCount - midIndex) + combinedCorrect;
-            combinedDisabled = GetPadding(halfCount - midIndex) + combinedDisabled;
-            combinedIncorrect = GetPadding(halfCount - midIndex) + combinedIncorrect;
+            combinedCorrect =   GetPadding((halfCount - midIndex) * 2) + combinedCorrect;
+            combinedDisabled =  GetPadding((halfCount - midIndex) * 2) + combinedDisabled;
+            combinedIncorrect = GetPadding((halfCount - midIndex) * 2) + combinedIncorrect;
         }
         else if (midIndex > halfCount){
-            combinedCorrect += GetPadding(midIndex - halfCount);
-            combinedDisabled += GetPadding(midIndex - halfCount);
-            combinedIncorrect += GetPadding(midIndex - halfCount);
+            combinedCorrect +=   GetPadding((midIndex - halfCount) * 2);
+            combinedDisabled +=  GetPadding((midIndex - halfCount) * 2);
+            combinedIncorrect += GetPadding((midIndex - halfCount) * 2);
         }
-        console.log(midIndex, halfCount)
 
         // let cutFront = true;
         // while (combinedCorrect.length > 20){

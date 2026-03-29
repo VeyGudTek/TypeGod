@@ -1,20 +1,23 @@
-import { DrawRect } from "@Functions/.";
 import type { EnemyData, Vector2 } from "@Models/.";
 import { timeService, windowProvider } from "@Services/.";
 import { yIncrement } from "@Static/.";
-import { BaseTransformView } from "@Views/Shared";
+import { BaseTransformView, Panel } from "@Views/Shared";
 import type { Character } from "./Character";
+import { ResourceBar } from "./ResourceBar";
 
 export class Enemy extends BaseTransformView{
-    MaxHealth:number;
-    CurrentHealth:number;
+    private MaxHealth:number;
+    private CurrentHealth:number;
 
-    BaseCooldown:number;
-    CurrentCooldown:number = 0;
-    Damage:number;
+    private BaseCooldown:number;
+    private CurrentCooldown:number = 0;
+    private Damage:number;
 
-    Speed:number;
-    Texture:string;
+    private Speed:number;
+    private Texture:string;
+
+    private tempPanel:Panel;
+    private healthBar:ResourceBar;
 
     Dead:boolean = false;
 
@@ -31,6 +34,10 @@ export class Enemy extends BaseTransformView{
         this.Texture = enemyData.texture;
 
         this.GetFirstCharacter = getFirstCharacter;
+
+        this.tempPanel = new Panel(size, position);
+        this.healthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749");
+        this.Children.push(this.tempPanel, this.healthBar);
     }
 
     TakeDamage(damage:number){
@@ -39,6 +46,8 @@ export class Enemy extends BaseTransformView{
             this.CurrentHealth = 0;
             this.Dead = true;
         }
+
+        this.healthBar.SetCurrentResource(this.CurrentHealth);
     }
 
     OnUpdate(){
@@ -61,6 +70,11 @@ export class Enemy extends BaseTransformView{
             x: this.Position.x - (this.Speed * timeService.DeltaTime * (windowProvider.WindowSize.x / 100)),
             y: this.Position.y
         }
+        this.tempPanel.Position = this.Position;
+        this.healthBar.Position = {
+            x: this.Position.x,
+            y: this.healthBar.Position.y
+        }
 
         if (this.CurrentCooldown > 0){
             this.CurrentCooldown -= timeService.DeltaTime;
@@ -74,19 +88,5 @@ export class Enemy extends BaseTransformView{
         } else{
             this.CurrentCooldown -= timeService.DeltaTime;
         }
-    }
-
-    Render(){
-        DrawRect(this.Position, this.Size, "grey", "grey", 1);
-
-        this.DrawStats();
-    }
-
-    private DrawStats(){
-        const baseWidth = this.Size.x;
-        const percentHealth = this.CurrentHealth / this.MaxHealth;
-
-        DrawRect({x: this.Position.x, y: this.Position.y - yIncrement}, {x: baseWidth, y: this.Size.y / 5}, "#6d6d6d", "#6d6d6d", 1);
-        DrawRect({x: this.Position.x, y: this.Position.y - yIncrement}, {x: baseWidth * percentHealth, y: this.Size.y / 5}, "#cbb749", "#cbb749", 1);
     }
 }

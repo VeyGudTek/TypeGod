@@ -77,7 +77,7 @@ export class Typer extends BaseView{
 
     private CompleteWord(currentPrompt:Prompt){
         const { correctText } = currentPrompt.GetText();
-        this.OnWordComplete(correctText.length * 10);
+        this.OnWordComplete(correctText.length);
 
         this.Prompt = this.Prompt.slice(1);
         this.Prompt.push(GetRandomWord());

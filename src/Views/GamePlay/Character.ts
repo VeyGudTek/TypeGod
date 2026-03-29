@@ -38,15 +38,16 @@ export class Character extends BaseView{
     }
     
     OnWordComplete(points:number){
-        this.DamageEnemies(this.Damage);
+        if (this.Dead){
+            return;
+        }
 
+        this.DamageEnemies(this.Damage);
         this.AddMana(points);
     }
 
     private AddMana(mana:number){
-        if (!this.Dead){
-            this.CurrentMana += mana;
-        }
+        this.CurrentMana += mana;
 
         if (this.CurrentMana >= this.MaxMana){
             this.CurrentMana = 0;

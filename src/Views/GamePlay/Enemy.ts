@@ -14,7 +14,7 @@ export class Enemy extends BaseTransformView{
     private Damage:number;
 
     private Speed:number;
-    private Texture:string;
+    //private Texture:string;
 
     private tempPanel:Panel;
     private healthBar:ResourceBar;
@@ -31,7 +31,7 @@ export class Enemy extends BaseTransformView{
         this.BaseCooldown = enemyData.cooldown;
         this.Damage = enemyData.damage;
         this.Speed = enemyData.speed;
-        this.Texture = enemyData.texture;
+        //this.Texture = enemyData.texture;
 
         this.GetFirstCharacter = getFirstCharacter;
 

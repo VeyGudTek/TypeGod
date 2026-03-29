@@ -1,26 +1,26 @@
 import { userService } from "@Services/UserService";
 import { BaseView } from "@Views/Shared";
 import { Character } from "./Character";
-import type { CharacterIndex, NumberInputCallback } from "@Models/index";
+import type { CharacterIndex, DamageEnemyCallback } from "@Models/index";
 import { GetCharacterUIPosition } from "@Functions/StaticDataFunctions";
 
 export class CharacterManager extends BaseView{
     private Characters:Character[] = [];
 
-    constructor(onDamageEnemies:NumberInputCallback){
+    constructor(damageEnemy:DamageEnemyCallback){
         super();
 
-        this.CreateCharacters(onDamageEnemies);
+        this.CreateCharacters(damageEnemy);
     }
 
-    private CreateCharacters(onDamageEnemies:NumberInputCallback){
+    private CreateCharacters(damageEnemy:DamageEnemyCallback){
         const userData = userService.GetUserData();
         const charactersToCreate = Object.keys(userData).filter(cIndex => userData[cIndex as CharacterIndex].level > 0);
 
         charactersToCreate.forEach((characterIndex) => {
             const index = characterIndex as CharacterIndex;
 
-            const character = new Character(index, userData[index], GetCharacterUIPosition(charactersToCreate.length, index), onDamageEnemies)
+            const character = new Character(index, userData[index], GetCharacterUIPosition(charactersToCreate.length, index), damageEnemy)
             this.Characters.push(character);
         });
 

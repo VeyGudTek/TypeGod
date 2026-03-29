@@ -18,7 +18,7 @@ export class GameManager extends BaseView{
 
         this.OnGameEnd = onGameEnd;
         
-        this.CharacterManager = new CharacterManager((damage) => this.EnemyManager.DamageEnemies(damage));
+        this.CharacterManager = new CharacterManager((damage, type) => this.EnemyManager.DamageEnemies(damage, type));
         this.EnemyManager = new EnemyManager(stageIndex, () => this.CharacterManager.GetFirstCharacter());
         this.Typer = new Typer((points) => this.CharacterManager.TriggerWordComplete(points));
 

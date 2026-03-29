@@ -1,4 +1,4 @@
-import type { CharacterData, NumberInputCallback, CharacterIndex, Vector2 } from "@Models/.";
+import type { CharacterData, CharacterIndex, DamageEnemyCallback, Vector2 } from "@Models/.";
 import { characterGameplayPositionDictionary } from "@Static/.";
 import { BaseView } from "@Views/Shared";
 import { CharacterVisual } from "./CharacterVisual";
@@ -15,12 +15,12 @@ export class Character extends BaseView{
     //private Texture:string = "";
     Dead:boolean = false;
 
-    DamageEnemies:NumberInputCallback;
+    DamageEnemy:DamageEnemyCallback;
 
     Visual:CharacterVisual;
     UI:CharacterUI;
 
-    constructor(characterIndex: CharacterIndex, characterData:CharacterData, uiPosition:Vector2, damageEnemies:NumberInputCallback){
+    constructor(characterIndex: CharacterIndex, characterData:CharacterData, uiPosition:Vector2, damageEnemy:DamageEnemyCallback){
         super();
 
         //this.Level = characterData.level;
@@ -30,7 +30,7 @@ export class Character extends BaseView{
         this.MaxMana = characterData.mana;
         this.CurrentMana = 0;
 
-        this.DamageEnemies = damageEnemies;
+        this.DamageEnemy = damageEnemy;
 
         this.Visual = new CharacterVisual({x:.1, y:.15}, characterGameplayPositionDictionary[characterIndex]);
         this.UI = new CharacterUI({x:.1, y:.15}, uiPosition, characterData);
@@ -42,7 +42,7 @@ export class Character extends BaseView{
             return;
         }
 
-        this.DamageEnemies(this.Damage);
+        this.DamageEnemy(points * this.Damage, "single");
         this.AddMana(points);
     }
 

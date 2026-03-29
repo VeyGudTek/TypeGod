@@ -11,13 +11,15 @@ function GetRandomWord(){
 }
 
 export class Typer extends BaseView{
-    Prompt:string[] = [];
-    CurrentInput = "";
+    private readonly numWords = 13;
 
-    OnWordComplete:NumberInputCallback;
+    private Prompt:string[] = [];
+    private CurrentInput = "";
 
-    PromptUIList:Prompt[] = [];
-    PromptMerger:PromptMerger;
+    private OnWordComplete:NumberInputCallback;
+
+    private PromptUIList:Prompt[] = [];
+    private PromptMerger:PromptMerger;
 
     constructor(onWordComplete:NumberInputCallback){
         super();
@@ -29,22 +31,22 @@ export class Typer extends BaseView{
     }
 
     private InitializePrompt(){
-        this.Prompt = ["", "", ""];
+        const midIndex = Math.floor(this.numWords / 2);
 
-        for (let i = 3; i < 7; i++){
+        for (let i = 0; i < midIndex; i++){
+            this.Prompt.push("");
+        }
+
+        for (let i = midIndex; i < this.numWords; i++){
             this.Prompt.push(GetRandomWord());
         }
     }
 
     private CreateChildren(){
-        const promptUI1 = new Prompt(this.Prompt[0], "");
-        const promptUI2 = new Prompt(this.Prompt[1], "");
-        const promptUI3 = new Prompt(this.Prompt[2], "");
-        const promptUI4 = new Prompt(this.Prompt[3], "");
-        const promptUI5 = new Prompt(this.Prompt[4], "");
-        const promptUI6 = new Prompt(this.Prompt[5], "");
-        const promptUI7 = new Prompt(this.Prompt[6], "");
-        this.PromptUIList.push(promptUI1, promptUI2, promptUI3, promptUI4, promptUI5, promptUI6, promptUI7);
+        for (let i = 0; i < this.numWords; i++){
+            const newPromptUI = new Prompt(this.Prompt[i], "");
+            this.PromptUIList.push(newPromptUI);
+        }
 
         const backPanel = new Panel({x:.75, y: .1}, {x: .5, y: .1});
         this.PromptMerger.UpdatePrompt(this.PromptUIList);
@@ -62,10 +64,12 @@ export class Typer extends BaseView{
         }
 
         const currentPrompt = this.PromptUIList[Math.floor(this.PromptUIList.length / 2)];
-        currentPrompt.Input = this.CurrentInput;
         
         if (this.CurrentInput.length > currentPrompt.Prompt.length && input === " "){
             this.CompleteWord(currentPrompt);
+        }
+        else{
+            currentPrompt.Input = this.CurrentInput;
         }
 
         this.PromptMerger.UpdatePrompt(this.PromptUIList);

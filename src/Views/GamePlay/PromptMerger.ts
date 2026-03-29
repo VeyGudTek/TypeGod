@@ -7,7 +7,7 @@ function GetPadding(padding:number){
     let spaces = "";
 
     for(let i = 0; i < padding; i ++){
-        spaces += "|";
+        spaces += " ";
     }
 
     return spaces;
@@ -54,20 +54,14 @@ export class PromptMerger extends BaseTransformView{
             combinedIncorrect += GetPadding((midIndex - halfCount) * 2);
         }
 
-        // let cutFront = true;
-        // while (combinedCorrect.length > 20){
-        //     if (cutFront){
-        //         combinedCorrect = combinedCorrect.slice(1);
-        //         combinedDisabled = combinedDisabled.slice(1);
-        //         combinedIncorrect = combinedIncorrect.slice(1);
-        //     }
-        //     else{
-        //         combinedCorrect = combinedCorrect.slice(0, combinedCorrect.length - 1);
-        //         combinedDisabled = combinedDisabled.slice(0, combinedDisabled.length - 1);
-        //         combinedIncorrect = combinedIncorrect.slice(0, combinedIncorrect.length - 1);
-        //     }
-        //     cutFront = !cutFront;
-        // }
+        const maxLength = 48;
+        if (combinedCorrect.length > maxLength){
+            const startSplice = Math.floor((combinedCorrect.length - maxLength) / 2);
+
+            combinedCorrect = combinedCorrect.slice(startSplice, startSplice + maxLength);
+            combinedDisabled = combinedDisabled.slice(startSplice, startSplice + maxLength);
+            combinedIncorrect = combinedIncorrect.slice(startSplice, startSplice + maxLength);
+        }
 
         this.MergedCorrect = combinedCorrect;
         this.MergedDisabled = combinedDisabled;
@@ -78,7 +72,8 @@ export class PromptMerger extends BaseTransformView{
         DrawText(this.MergedDisabled, Colors.font.disabled, GetCenterFromPosition(this.Position, this.Size), "center", this.Size.y);
         DrawText(this.MergedIncorrect, Colors.font.error, GetCenterFromPosition(this.Position, this.Size), "center", this.Size.y);
         DrawText(this.MergedCorrect, Colors.font.base, GetCenterFromPosition(this.Position, this.Size), "center", this.Size.y);
-
-        DrawText("|", Colors.font.base, GetCenterFromPosition(this.Position, this.Size), "center", this.Size.y);
+        
+        //Debug Center
+        //DrawText("|", Colors.font.base, GetCenterFromPosition(this.Position, this.Size), "center", this.Size.y);
     }
 }

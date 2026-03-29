@@ -1,3 +1,3 @@
 export const wordList = [
-    "dog", "cat", "english"
+    "dog", "cat", "english", "longer", "extreme"
 ];

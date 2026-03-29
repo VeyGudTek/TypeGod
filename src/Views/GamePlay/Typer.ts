@@ -29,9 +29,9 @@ export class Typer extends BaseView{
     }
 
     private InitializePrompt(){
-        this.Prompt = ["", ""];
+        this.Prompt = ["", "", ""];
 
-        for (let i = 2; i < 5; i++){
+        for (let i = 3; i < 7; i++){
             this.Prompt.push(GetRandomWord());
         }
     }
@@ -42,7 +42,9 @@ export class Typer extends BaseView{
         const promptUI3 = new Prompt(this.Prompt[2], "");
         const promptUI4 = new Prompt(this.Prompt[3], "");
         const promptUI5 = new Prompt(this.Prompt[4], "");
-        this.PromptUIList.push(promptUI1, promptUI2, promptUI3, promptUI4, promptUI5);
+        const promptUI6 = new Prompt(this.Prompt[5], "");
+        const promptUI7 = new Prompt(this.Prompt[6], "");
+        this.PromptUIList.push(promptUI1, promptUI2, promptUI3, promptUI4, promptUI5, promptUI6, promptUI7);
 
         const backPanel = new Panel({x:.75, y: .1}, {x: .5, y: .1});
         this.PromptMerger.UpdatePrompt(this.PromptUIList);
@@ -59,7 +61,7 @@ export class Typer extends BaseView{
             this.CurrentInput = this.CurrentInput.slice(0, this.CurrentInput.length - 1);
         }
 
-        const currentPrompt = this.PromptUIList[2];
+        const currentPrompt = this.PromptUIList[Math.floor(this.PromptUIList.length / 2)];
         currentPrompt.Input = this.CurrentInput;
         
         if (this.CurrentInput.length > currentPrompt.Prompt.length && input === " "){
@@ -76,13 +78,14 @@ export class Typer extends BaseView{
         this.Prompt = this.Prompt.slice(1);
         this.Prompt.push(GetRandomWord());
 
+        const midIndex = Math.floor(this.Prompt.length / 2);
         for (let i = 0; i < this.Prompt.length; i++){
             this.PromptUIList[i].Prompt = this.Prompt[i];
 
-            if (i >= 1 && i <= 2){
+            if (i >= 1 && i <= midIndex){
                 this.PromptUIList[i-1].Input = this.PromptUIList[i].Input;
             }
-            if (i >= 2){
+            if (i >= midIndex){
                 this.PromptUIList[i].Input = "";
             }
         }

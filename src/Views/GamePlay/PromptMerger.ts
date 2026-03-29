@@ -36,7 +36,7 @@ export class PromptMerger extends BaseTransformView{
             combinedDisabled += disabledText + " ";
             combinedIncorrect += incorrectText + " ";
             
-            if (index === 2){
+            if (index === Math.floor(promptList.length / 2)){
                 midIndex = charCount + Math.floor(correctText.length / 2);
             }
             charCount += correctText.length + 1;

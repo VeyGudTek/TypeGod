@@ -37,6 +37,7 @@ export class Enemy extends BaseTransformView{
 
         this.tempPanel = new Panel(size, position);
         this.healthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749");
+        this.healthBar.SetCurrentResource(this.MaxHealth);
         this.Children.push(this.tempPanel, this.healthBar);
     }
 

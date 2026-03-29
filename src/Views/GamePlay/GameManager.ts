@@ -20,7 +20,7 @@ export class GameManager extends BaseView{
         
         this.CharacterManager = new CharacterManager((damage) => this.EnemyManager.DamageEnemies(damage));
         this.EnemyManager = new EnemyManager(stageIndex, () => this.CharacterManager.GetFirstCharacter());
-        this.Typer = new Typer((points) => this.CharacterManager.AddMana(points));
+        this.Typer = new Typer((points) => this.CharacterManager.TriggerWordComplete(points));
 
         this.Children.push(this.CharacterManager, this.EnemyManager, this.Typer);
     }

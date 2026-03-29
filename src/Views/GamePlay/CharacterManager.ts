@@ -38,9 +38,9 @@ export class CharacterManager extends BaseView{
         }
     }
 
-    AddMana(mana:number){
-        this.Characters.forEach((character) => {
-            character.AddMana(mana);
+    TriggerWordComplete(points:number){
+        this.Characters.forEach(character => {
+            character.OnWordComplete(points);
         })
     }
 

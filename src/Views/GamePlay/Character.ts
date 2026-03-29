@@ -5,14 +5,14 @@ import { CharacterVisual } from "./CharacterVisual";
 import { CharacterUI } from "./CharacterUI";
 
 export class Character extends BaseView{
-    private Level:number;
-    private MaxHealth:number;
+    //private Level:number;
+    //private MaxHealth:number;
     private CurrentHealth:number;
     private Damage:number;
     private MaxMana:number;
     private CurrentMana:number;
 
-    private Texture:string = "";
+    //private Texture:string = "";
     Dead:boolean = false;
 
     DamageEnemies:NumberInputCallback;
@@ -23,8 +23,8 @@ export class Character extends BaseView{
     constructor(characterIndex: CharacterIndex, characterData:CharacterData, uiPosition:Vector2, damageEnemies:NumberInputCallback){
         super();
 
-        this.Level = characterData.level;
-        this.MaxHealth = characterData.health;
+        //this.Level = characterData.level;
+        //this.MaxHealth = characterData.health;
         this.CurrentHealth = characterData.health;
         this.Damage = characterData.damage;
         this.MaxMana = characterData.mana;
@@ -36,15 +36,21 @@ export class Character extends BaseView{
         this.UI = new CharacterUI({x:.1, y:.15}, uiPosition, characterData);
         this.Children.push(this.Visual, this.UI);
     }
+    
+    OnWordComplete(points:number){
+        this.DamageEnemies(this.Damage);
 
-    AddMana(mana:number){
+        this.AddMana(points);
+    }
+
+    private AddMana(mana:number){
         if (!this.Dead){
             this.CurrentMana += mana;
         }
 
         if (this.CurrentMana >= this.MaxMana){
             this.CurrentMana = 0;
-            this.DamageEnemies(this.Damage);
+            //do special thing here
         }
 
         this.UI.UpdateMana(this.CurrentMana);

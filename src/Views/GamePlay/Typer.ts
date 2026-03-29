@@ -1,6 +1,6 @@
 import type { NumberInputCallback } from "@Models/Callbacks.type";
 import { wordList } from "@Static/index";
-import { BaseView, Panel } from "@Views/Shared";
+import { BaseView, Label, Panel } from "@Views/Shared";
 import { Prompt } from "./Prompt";
 import { PromptMerger } from "./PromptMerger";
 
@@ -15,6 +15,8 @@ export class Typer extends BaseView{
 
     private Prompt:string[] = [];
     private CurrentInput = "";
+    private Combo = 0;
+    private ComboLabel:Label;
 
     private OnWordComplete:NumberInputCallback;
 
@@ -26,6 +28,8 @@ export class Typer extends BaseView{
         this.OnWordComplete = onWordComplete;
         
         this.PromptMerger = new PromptMerger();
+        this.ComboLabel = new Label({x:.1, y: .05}, {x: .9, y: .1}, "x0", "center");
+
         this.InitializePrompt();
         this.CreateChildren();
     }
@@ -48,31 +52,39 @@ export class Typer extends BaseView{
             this.PromptUIList.push(newPromptUI);
         }
 
-        const backPanel = new Panel({x:.75, y: .1}, {x: .5, y: .1});
+        const promptPanel = new Panel({x:.75, y: .1}, {x: .43, y: .1});
+        const comboPanel = new Panel({x:.1, y: .1}, {x: .9, y: .1});
         this.PromptMerger.UpdatePrompt(this.PromptUIList);
 
-        this.Children.push(backPanel, this.PromptMerger);
+        this.Children.push(promptPanel, comboPanel, this.PromptMerger, this.ComboLabel);
     }
 
     OnKey(input:string){
         if (input.length === 1){
             this.CurrentInput += input;
+            this.Combo += 1;
         }
 
         if (input === "Backspace" && this.CurrentInput.length > 0){
             this.CurrentInput = this.CurrentInput.slice(0, this.CurrentInput.length - 1);
+            this.Combo = 0;
         }
 
         const currentPrompt = this.PromptUIList[Math.floor(this.PromptUIList.length / 2)];
-        
+            
         if (this.CurrentInput.length > currentPrompt.Prompt.length && input === " "){
+            this.Combo -= 1;
             this.CompleteWord(currentPrompt);
         }
         else{
             currentPrompt.Input = this.CurrentInput;
+            if (currentPrompt.GetText().incorrectText.trim().length > 0){
+                this.Combo = 0;
+            }
         }
 
         this.PromptMerger.UpdatePrompt(this.PromptUIList);
+        this.ComboLabel.Text = `x${this.Combo}`;
     }
 
     private CompleteWord(currentPrompt:Prompt){

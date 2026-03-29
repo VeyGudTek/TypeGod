@@ -19,7 +19,7 @@ export class PromptMerger extends BaseTransformView{
     private MergedIncorrect:string = "";
 
     constructor(){
-        super({x:.75, y: .05}, {x: .5, y: .1});
+        super({x:.75, y: .05}, {x: .43, y: .1});
     }
 
     UpdatePrompt(promptList:Prompt[]){

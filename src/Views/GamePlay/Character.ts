@@ -1,12 +1,15 @@
-import type { CharacterData, CharacterIndex, DamageEnemyCallback, Vector2 } from "@Models/.";
+import type { AttackType, CharacterData, CharacterIndex, DamageEnemyCallback, Vector2 } from "@Models/.";
 import { characterGameplayPositionDictionary } from "@Static/.";
 import { BaseView } from "@Views/Shared";
 import { CharacterVisual } from "./CharacterVisual";
 import { CharacterUI } from "./CharacterUI";
+import { BasicAttack, SpecialAttack } from "@Functions/CharacterAttackFunctions";
 
 export class Character extends BaseView{
+    private index:CharacterIndex;
+
     //private Level:number;
-    //private MaxHealth:number;
+    private MaxHealth:number;
     private CurrentHealth:number;
     private Damage:number;
     private MaxMana:number;
@@ -22,9 +25,10 @@ export class Character extends BaseView{
 
     constructor(characterIndex: CharacterIndex, characterData:CharacterData, uiPosition:Vector2, damageEnemy:DamageEnemyCallback){
         super();
+        this.index = characterIndex;
 
         //this.Level = characterData.level;
-        //this.MaxHealth = characterData.health;
+        this.MaxHealth = characterData.health;
         this.CurrentHealth = characterData.health;
         this.Damage = characterData.damage;
         this.MaxMana = characterData.mana;
@@ -42,8 +46,10 @@ export class Character extends BaseView{
             return;
         }
 
-        this.DamageEnemy(points * this.Damage, "single");
-        this.AddMana(points);
+        const {damage, heal, attackType} = BasicAttack(this.index, points * this.Damage);
+        this.ProcessAttack(damage, heal, attackType);
+
+        this.AddMana(points * 10);
     }
 
     private AddMana(mana:number){
@@ -51,10 +57,20 @@ export class Character extends BaseView{
 
         if (this.CurrentMana >= this.MaxMana){
             this.CurrentMana = 0;
-            //do special thing here
+            const {damage, heal, attackType} = SpecialAttack(this.index, 100);
+
+            this.ProcessAttack(damage, heal, attackType);
         }
 
         this.UI.UpdateMana(this.CurrentMana);
+    }
+
+    private ProcessAttack(damage:number, heal:number, attackType:AttackType){
+        this.DamageEnemy(damage, attackType);
+
+        this.CurrentHealth = Math.min(this.MaxHealth, this.CurrentHealth + heal);
+
+        this.UI.UpdateHealth(this.CurrentHealth);
     }
 
     TakeDamage(damage:number){

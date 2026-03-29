@@ -46,7 +46,7 @@ export class EnemyManager extends BaseView{
         if (type === "single"){
             aliveEnemies[aliveEnemies.length - 1].TakeDamage(damage);
         }
-        else{
+        else if (type === "multi"){
             aliveEnemies.forEach(e => e.TakeDamage(damage));
         }
 

@@ -3,6 +3,7 @@ import { wordList } from "@Static/index";
 import { BaseView, Label, Panel } from "@Views/Shared";
 import { Prompt } from "./Prompt";
 import { PromptMerger } from "./PromptMerger";
+import { ComboTracker } from "./ComboTracker";
 
 function GetRandomWord(){
     const listLength = wordList.length;
@@ -15,7 +16,7 @@ export class Typer extends BaseView{
 
     private Prompt:string[] = [];
     private CurrentInput = "";
-    private Combo = 0;
+    private ComboTracker:ComboTracker = new ComboTracker();
     private ComboLabel:Label;
 
     private OnWordComplete:NumberInputCallback;
@@ -62,34 +63,35 @@ export class Typer extends BaseView{
     OnKey(input:string){
         if (input.length === 1){
             this.CurrentInput += input;
-            this.Combo += 1;
+            this.ComboTracker.AddCount();
         }
 
         if (input === "Backspace" && this.CurrentInput.length > 0){
             this.CurrentInput = this.CurrentInput.slice(0, this.CurrentInput.length - 1);
-            this.Combo = 0;
+            this.ComboTracker.Reset();
         }
 
         const currentPrompt = this.PromptUIList[Math.floor(this.PromptUIList.length / 2)];
             
         if (this.CurrentInput.length > currentPrompt.Prompt.length && input === " "){
-            this.Combo -= 1;
+            this.ComboTracker.SubtractCount();
             this.CompleteWord(currentPrompt);
         }
         else{
             currentPrompt.Input = this.CurrentInput;
             if (currentPrompt.GetText().incorrectText.trim().length > 0){
-                this.Combo = 0;
+                this.ComboTracker.Reset();
             }
         }
 
         this.PromptMerger.UpdatePrompt(this.PromptUIList);
-        this.ComboLabel.Text = `x${this.Combo}`;
+        this.ComboLabel.Text = `x${this.ComboTracker.GetCombo()}`;
     }
 
     private CompleteWord(currentPrompt:Prompt){
         const { correctText } = currentPrompt.GetText();
-        this.OnWordComplete(correctText.length);
+        this.OnWordComplete(correctText.length * this.ComboTracker.GetMultiplier());
+        console.log(this.ComboTracker.GetMultiplier());
 
         this.Prompt = this.Prompt.slice(1);
         this.Prompt.push(GetRandomWord());

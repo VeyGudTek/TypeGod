@@ -2,14 +2,13 @@ import { BaseView, Button, Label, Panel, Picture, PopUpBox } from "@Views/.";
 import splashLeftSource from "@Assets/Images/splashLeft.png";
 import splashRightSource from "@Assets/Images/splashRight.png";
 import { Sizes } from "@Static/.";
-import type { BasicCallback } from "@Models/Callbacks.type";
 import { userService } from "@Services/UserService";
 
 export class Start extends BaseView{
-    OnStart:BasicCallback;
+    OnStart:(newGame:boolean) => void;
     NewWarning?:PopUpBox;
 
-    constructor(onStart:BasicCallback){
+    constructor(onStart:(newGame:boolean) => void){
         super();
         this.OnStart = onStart;
 
@@ -38,26 +37,26 @@ export class Start extends BaseView{
     }
 
     private OnNew(hasData:boolean){
-        const confirmStart = () => {
+        const confirmStart = (newGame:boolean) => {
             userService.ResetData();
-            this.OnStart();
+            this.OnStart(newGame);
         };
 
         if (hasData){
             this.NewWarning = new PopUpBox(
                         "Your existing data\n will be wiped.",
                         {callBack: () => {this.RemoveChild(this.NewWarning)}, text: "Cancel"},
-                        {callBack: () => {confirmStart()}, text: "Confirm"}
+                        {callBack: () => {confirmStart(true)}, text: "Confirm"}
                     );
             this.Children.push(this.NewWarning);
         }
         else{
-            confirmStart();
+            confirmStart(true);
         }
     }
 
     private OnContinue(){
         userService.LoadExisting();
-        this.OnStart();
+        this.OnStart(false);
     }
 }

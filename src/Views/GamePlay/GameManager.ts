@@ -11,9 +11,9 @@ export class GameManager extends BaseView{
     EnemyManager:EnemyManager;
     Typer:Typer;
 
-    OnGameEnd:BasicCallback;
+    OnGameEnd:(exp:number, char:number, time:number) => void;
     
-    constructor(stageIndex:StageIndex, onGameEnd:BasicCallback){
+    constructor(stageIndex:StageIndex, onGameEnd:(exp:number, char:number, time:number) => void){
         super();
 
         this.OnGameEnd = onGameEnd;
@@ -28,11 +28,11 @@ export class GameManager extends BaseView{
     OnUpdate(){
         if (!this.GameEnded && this.EnemyManager.CheckGameEnded()){
             this.GameEnded = true;
-            this.OnGameEnd();
+            this.OnGameEnd(1, 1, 1);
         }
         else if (!this.GameEnded && this.CharacterManager.CheckGameOver()){
             this.GameEnded = true;
-            this.OnGameEnd();
+            this.OnGameEnd(1, 1, 1);
         }
     }
 }

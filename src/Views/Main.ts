@@ -24,11 +24,33 @@ export class Main extends BaseTransformView{
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
 
-        this.GameManager = new GameManager("0", () => console.log("Game Ended"));
-        this.Children.push(this.GameManager);
+        // this.GameManager = new GameManager("0", (exp, char, time) => this.LoadResults(exp, char, time));
+        // this.Children.push(this.GameManager);
 
-        // this.Results = new Results(574, 43, 22);
-        // this.Children.push(this.Results);
+        this.Results = new Results(574, 43, 22, () => this.LoadHome());
+        this.Children.push(this.Results);
+    }
+
+    private LoadCutscene(){
+        const onFadeMidpoint = () => {
+            this.Children = this.Children.filter(v => v === this.Fade);
+            this.CutScene = new CutScene(testScript);
+            this.Children.splice(0, 0, this.CutScene);
+        }
+
+        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
+        this.Children.push(this.Fade);
+    }
+
+    private LoadHome(){
+        const onFadeMidpoint = () => {
+            this.Children = this.Children.filter(v => v === this.Fade);
+            this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
+            this.Children.splice(0, 0, this.HomeContainer);
+        }
+
+        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
+        this.Children.push(this.Fade);
     }
 
     private LoadLevel(stageIndex:StageIndex){
@@ -42,11 +64,11 @@ export class Main extends BaseTransformView{
         this.Children.push(this.Fade);
     }
 
-    private LoadCutscene(){
+    private LoadResults(exp:number, char:number, time:number){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.CutScene = new CutScene(testScript);
-            this.Children.splice(0, 0, this.CutScene);
+            this.Results = new Results(exp, char, time, () => this.LoadHome());
+            this.Children.splice(0, 0, this.Results);
         }
 
         this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));

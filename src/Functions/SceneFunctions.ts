@@ -1,6 +1,6 @@
 import type { BasicCallback, ScriptIndex, ScriptWithCutSceneIndex, StageIndex } from "@Models/.";
 import { scriptWithCutSceneIndex } from "@Models/.";
-import { scriptToStageDictionary } from "@Static/SceneDictionaries";
+import { scriptEndToStageDictionary } from "@Static/SceneDictionaries";
 
 export const isScriptWIthCutScene = (x:any): x is ScriptWithCutSceneIndex => scriptWithCutSceneIndex.includes(x);
 
@@ -15,7 +15,7 @@ export function StartPicker(newGame:boolean, LoadCutscene:BasicCallback, LoadHom
 
 export function CutScenePicker(scriptIndex:ScriptIndex, LoadHome:BasicCallback, LoadLevel:(index:StageIndex) => void){
     if (isScriptWIthCutScene(scriptIndex)){
-        LoadLevel(scriptToStageDictionary[scriptIndex]);
+        LoadLevel(scriptEndToStageDictionary[scriptIndex]);
     }
     else{
         LoadHome();

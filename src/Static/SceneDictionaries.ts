@@ -8,6 +8,6 @@ export const stageEndToScriptDictionary:Record<StageIndex, ScriptIndex> = {
     "0":"0"
 }
 
-export const scriptToStageDictionary:Record<ScriptWithCutSceneIndex, StageIndex> = {
+export const scriptEndToStageDictionary:Record<ScriptWithCutSceneIndex, StageIndex> = {
     "0": "0"
 }

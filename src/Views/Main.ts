@@ -1,7 +1,7 @@
-import { DrawRect, HomePicker, StartPicker } from "@Functions/.";
+import { CutScenePicker, DrawRect, HomePicker, StartPicker } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
-import { Colors, Sizes, scriptDictionary, scriptCutsceneDictionary } from "@Static/.";
+import { Colors, Sizes, scriptDictionary, stageToScriptDictionary, scriptToStageDictionary } from "@Static/.";
 import type { ScriptIndex, StageIndex } from "@Models/.";
 
 export class Main extends BaseTransformView{
@@ -18,7 +18,7 @@ export class Main extends BaseTransformView{
         // this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene(), () => this.LoadHome()));
         // this.Children.push(this.Start);
 
-        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(scriptCutsceneDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
+        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(stageToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
         this.Children.push(this.HomeContainer);
 
         // this.CutScene = new CutScene(testScript);
@@ -34,7 +34,11 @@ export class Main extends BaseTransformView{
     private LoadCutscene(index:ScriptIndex){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.CutScene = new CutScene(scriptDictionary[index]);
+            this.CutScene = new CutScene(scriptDictionary[index], () => CutScenePicker(
+                index, 
+                () => this.LoadHome(), 
+                () => this.LoadLevel(scriptToStageDictionary[index])
+            ));
             this.Children.splice(0, 0, this.CutScene);
         }
 
@@ -47,7 +51,7 @@ export class Main extends BaseTransformView{
             this.Children = this.Children.filter(v => v === this.Fade);
             this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(
                 stageIndex, 
-                () => this.LoadCutscene(scriptCutsceneDictionary[stageIndex]), 
+                () => this.LoadCutscene(stageToScriptDictionary[stageIndex]), 
                 () => this.LoadLevel(stageIndex)
             ));
             this.Children.splice(0, 0, this.HomeContainer);

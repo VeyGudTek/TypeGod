@@ -1,6 +1,6 @@
 import { BaseView, Picture } from "@Views/Shared";
 import { Dialogue } from "./Dialogue";
-import type { Script } from "@Models/.";
+import type { BasicCallback, Script } from "@Models/.";
 import { SpeakerBox } from "./SpeakerBox";
 import { DrawImage } from "@Functions/.";
 
@@ -12,9 +12,12 @@ export class CutScene extends BaseView{
     CurrentImage:Picture;
     SpeakerBox:SpeakerBox;
 
-    constructor(script:Script){
+    OnCutSceneEnd:BasicCallback;
+
+    constructor(script:Script, onCutSceneEnd:BasicCallback){
         super();
         this.Script = script;
+        this.OnCutSceneEnd = onCutSceneEnd;
 
         this.RequestImages(script.map(page => page.background));
 
@@ -47,6 +50,6 @@ export class CutScene extends BaseView{
     }
 
     EndCutScene(){
-        console.log("cutScene ended");
+        this.OnCutSceneEnd();
     }
 }

@@ -6,4 +6,3 @@ export * from "./Script.type";
 export * from "./ApiResponses.type";
 export * from "./GamePlay.type";
 export * from "./Callbacks.type";
-export * from "./PositionDictionaries.type";

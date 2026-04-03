@@ -1,8 +1,8 @@
-import { DrawRect, StartPicker } from "@Functions/.";
+import { DrawRect, HomePicker, StartPicker } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
-import { Colors, Sizes, testScript } from "@Static/.";
-import type { StageIndex } from "@Models/.";
+import { Colors, Sizes, scriptDictionary, scriptCutsceneDictionary } from "@Static/.";
+import type { ScriptIndex, StageIndex } from "@Models/.";
 
 export class Main extends BaseTransformView{
     private Fade?:Fade;
@@ -15,11 +15,11 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene(), () => this.LoadHome()));
-        this.Children.push(this.Start);
+        // this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene(), () => this.LoadHome()));
+        // this.Children.push(this.Start);
 
-        // this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
-        // this.Children.push(this.HomeContainer);
+        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(scriptCutsceneDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
+        this.Children.push(this.HomeContainer);
 
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
@@ -31,10 +31,10 @@ export class Main extends BaseTransformView{
         // this.Children.push(this.Results);
     }
 
-    private LoadCutscene(){
+    private LoadCutscene(index:ScriptIndex){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.CutScene = new CutScene(testScript);
+            this.CutScene = new CutScene(scriptDictionary[index]);
             this.Children.splice(0, 0, this.CutScene);
         }
 
@@ -45,7 +45,11 @@ export class Main extends BaseTransformView{
     private LoadHome(){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.HomeContainer = new HomeContainer((index) => this.LoadLevel(index));
+            this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(
+                stageIndex, 
+                () => this.LoadCutscene(scriptCutsceneDictionary[stageIndex]), 
+                () => this.LoadLevel(stageIndex)
+            ));
             this.Children.splice(0, 0, this.HomeContainer);
         }
 

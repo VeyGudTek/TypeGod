@@ -1,4 +1,4 @@
-import type { AttackType, CharacterIndex } from "@Models/Enums.type";
+import type { AttackType, CharacterIndex } from "@Models/Enums";
 
 export function BasicAttack(characterIndex:CharacterIndex, characterDamage:number){
     let damage = 0;

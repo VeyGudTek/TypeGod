@@ -1,4 +1,4 @@
-import type { CharacterIndex } from "./Enums.type";
+import type { CharacterIndex } from "./Enums";
 
 export type User = Record<CharacterIndex, CharacterData>;
 

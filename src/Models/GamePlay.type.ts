@@ -1,4 +1,4 @@
-import type { StageIndex } from "./Enums.type";
+import type { StageIndex } from "./Enums";
 
 export type StageDictionary = Record<StageIndex, StageInstructions>;
 

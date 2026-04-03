@@ -1,4 +1,4 @@
-import type { CharacterIndex } from "@Models/Enums.type";
+import type { CharacterIndex } from "@Models/Enums";
 
 export function GetMaxExperience(level:number){
     return level * 100;

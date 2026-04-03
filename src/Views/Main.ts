@@ -37,7 +37,7 @@ export class Main extends BaseTransformView{
             this.CutScene = new CutScene(scriptDictionary[index], () => CutScenePicker(
                 index, 
                 () => this.LoadHome(), 
-                () => this.LoadLevel(scriptToStageDictionary[index])
+                (stageIndex) => this.LoadLevel(stageIndex)
             ));
             this.Children.splice(0, 0, this.CutScene);
         }

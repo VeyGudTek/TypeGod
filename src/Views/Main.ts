@@ -1,7 +1,7 @@
 import { CutScenePicker, DrawRect, HomePicker, StartPicker } from "@Functions/.";
 import { windowProvider } from "@Services/.";
 import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
-import { Colors, Sizes, scriptDictionary, stageToScriptDictionary, scriptToStageDictionary } from "@Static/.";
+import { Colors, Sizes, scriptDictionary, stageStartToScriptDictionary, stageEndToScriptDictionary } from "@Static/.";
 import type { ScriptIndex, StageIndex } from "@Models/.";
 
 export class Main extends BaseTransformView{
@@ -18,7 +18,7 @@ export class Main extends BaseTransformView{
         // this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene(), () => this.LoadHome()));
         // this.Children.push(this.Start);
 
-        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(stageToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
+        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
         this.Children.push(this.HomeContainer);
 
         // this.CutScene = new CutScene(testScript);
@@ -51,7 +51,7 @@ export class Main extends BaseTransformView{
             this.Children = this.Children.filter(v => v === this.Fade);
             this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(
                 stageIndex, 
-                () => this.LoadCutscene(stageToScriptDictionary[stageIndex]), 
+                () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), 
                 () => this.LoadLevel(stageIndex)
             ));
             this.Children.splice(0, 0, this.HomeContainer);
@@ -64,7 +64,7 @@ export class Main extends BaseTransformView{
     private LoadLevel(stageIndex:StageIndex){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.GameManager = new GameManager(stageIndex, (exp, char, time) => this.LoadResults(exp, char, time));
+            this.GameManager = new GameManager(stageIndex, (exp, char, time) => this.LoadResults(exp, char, time, stageIndex));
             this.Children.splice(0, 0, this.GameManager);
         }
 
@@ -72,10 +72,10 @@ export class Main extends BaseTransformView{
         this.Children.push(this.Fade);
     }
 
-    private LoadResults(exp:number, char:number, time:number){
+    private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex){
         const onFadeMidpoint = () => {
             this.Children = this.Children.filter(v => v === this.Fade);
-            this.Results = new Results(exp, char, time, () => this.LoadHome());
+            this.Results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]));
             this.Children.splice(0, 0, this.Results);
         }
 

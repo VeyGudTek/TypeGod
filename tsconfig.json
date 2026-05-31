@@ -23,7 +23,6 @@
     "noUncheckedSideEffectImports": true,
 
     /*Paths*/
-    "baseUrl": ".",
     "paths": {
       "@Assets/*": ["./src/Assets/*"],
       "@Functions/*": ["./src/Functions/*"],

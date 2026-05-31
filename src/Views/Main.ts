@@ -15,11 +15,11 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        // this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene(), () => this.LoadHome()));
-        // this.Children.push(this.Start);
+        this.Start = new Start((newGame) => StartPicker(newGame, () => this.LoadCutscene("0"), () => this.LoadHome()));
+        this.Children.push(this.Start);
 
-        this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
-        this.Children.push(this.HomeContainer);
+        // this.HomeContainer = new HomeContainer((stageIndex) => HomePicker(stageIndex, () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
+        // this.Children.push(this.HomeContainer);
 
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);

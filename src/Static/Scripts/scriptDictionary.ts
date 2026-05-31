@@ -1,6 +1,6 @@
 import type { ScriptIndex, Script } from "@Models/.";
-import { testScript } from "./testScript";
+import { prologue } from "./prologue";
 
 export const scriptDictionary:Record<ScriptIndex, Script> = {
-    "0":testScript,
+    "0": prologue,
 }

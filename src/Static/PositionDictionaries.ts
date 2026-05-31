@@ -13,5 +13,5 @@ export const characterButtonPositionDictionary:Record<CharacterIndex, Vector2> =
 }
 
 export const stageButtonPositionDictionary:Record<StageIndex, Vector2> = {
-    "0":{x: .1, y: .4}
+    "1":{x: .1, y: .4}
 }

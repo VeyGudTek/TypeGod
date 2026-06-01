@@ -1,4 +1,4 @@
-import type { StageIndex, BasicCallback } from "@Models/.";
+import type { StageIndex } from "@Models/.";
 import { BaseView } from "@Views/Shared";
 import { EnemyManager } from "./EnemyManager";
 import { Typer } from "./Typer";

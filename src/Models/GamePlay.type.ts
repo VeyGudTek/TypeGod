@@ -1,4 +1,6 @@
-import type { StageIndex } from "./Enums";
+import type { EnemyType, StageIndex } from "./Enums";
+
+export type EntityState = "run" | "attack" | "idle" | "dead"
 
 export type StageDictionary = Record<StageIndex, StageInstructions>;
 
@@ -13,5 +15,5 @@ export interface EnemyData{
     cooldown:number;
     damage: number;
     speed: number;
-    texture: string;
+    type: EnemyType;
 }

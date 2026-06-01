@@ -15,8 +15,8 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        this.Start = new Start((newGame) => LoadCutsceneOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
-        this.Children.push(this.Start);
+        // this.Start = new Start((newGame) => LoadCutsceneOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
+        // this.Children.push(this.Start);
 
         // this.HomeContainer = new HomeContainer((stageIndex) => LoadLevelOrCutscene(stageIndex, () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
         // this.Children.push(this.HomeContainer);
@@ -24,8 +24,8 @@ export class Main extends BaseTransformView{
         // this.CutScene = new CutScene(testScript);
         // this.Children.push(this.CutScene);
 
-        // this.GameManager = new GameManager("0", (exp, char, time) => this.LoadResults(exp, char, time));
-        // this.Children.push(this.GameManager);
+        this.GameManager = new GameManager("1", (exp, char, time) => this.LoadResults(exp, char, time, "1"));
+        this.Children.push(this.GameManager);
 
         // this.Results = new Results(574, 43, 22, () => this.LoadHome());
         // this.Children.push(this.Results);

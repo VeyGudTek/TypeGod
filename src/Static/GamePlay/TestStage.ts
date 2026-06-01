@@ -1,9 +1,9 @@
 import type { StageInstructions } from "@Models/GamePlay.type";
-import { testBaseEnemyData } from "./EnemyData";
+import { GoblinData } from "./EnemyData";
 
 export const testStage:StageInstructions = [
-    {time: 1, ...testBaseEnemyData},
-    {time: 2, ...testBaseEnemyData},
-    {time: 3, ...testBaseEnemyData},
-    {time: 4, ...testBaseEnemyData},
+    {time: 1, ...GoblinData},
+    {time: 2, ...GoblinData},
+    {time: 3, ...GoblinData},
+    {time: 4, ...GoblinData},
 ];

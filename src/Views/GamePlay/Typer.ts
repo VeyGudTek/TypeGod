@@ -91,7 +91,6 @@ export class Typer extends BaseView{
     private CompleteWord(currentPrompt:Prompt){
         const { correctText } = currentPrompt.GetText();
         this.OnWordComplete(correctText.length * this.ComboTracker.GetMultiplier());
-        console.log(this.ComboTracker.GetMultiplier());
 
         this.Prompt = this.Prompt.slice(1);
         this.Prompt.push(GetRandomWord());

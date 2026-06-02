@@ -1,9 +1,11 @@
 import { Sizes } from "@Static/Styles";
-import { BaseView, Button, Label, Panel } from "@Views/Shared";
+import { BaseView, Button, Fade, Label, Panel } from "@Views/Shared";
 import { CharacterResults } from "./CharacterResults";
 import type { BasicCallback } from "@Models/Callbacks.type";
 
 export class Results extends BaseView{
+    Fade:Fade;
+
     constructor(experience:number, characters:number, time:number, onContinue:BasicCallback){
         super();
 
@@ -16,8 +18,15 @@ export class Results extends BaseView{
         const timeLabel =       new Label({x: .4, y: Sizes.text.base}, {x:.1, y:.4}, timeText, "start");
 
         const characterResults = new CharacterResults(experience);
-        const continueButton = new Button({x:.15, y: .05}, {x:.25, y:.8}, "Continue", onContinue);
+        const continueButton = new Button({x:.15, y: .05}, {x:.25, y:.8}, "Continue", () => this.OnContinueWrapper());
 
         this.Children.push(backPanel, title, charactersLabel, timeLabel, characterResults, continueButton);
+
+        this.Fade = new Fade(() => onContinue());
+        this.Children.push(this.Fade);
+    }
+
+    OnContinueWrapper(){
+        this.Fade.StartFade();
     }
 }

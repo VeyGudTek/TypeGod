@@ -7,7 +7,9 @@ export class BaseView implements View{
     protected RemoveChild(child?:View){
         if (child){
             const indexToRemove = this.Children.indexOf(child);
-            this.Children.splice(indexToRemove, 1);
+            if (indexToRemove >= 0){
+                this.Children.splice(indexToRemove, 1);
+            }
         }
     }
 }

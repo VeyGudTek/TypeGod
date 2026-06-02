@@ -3,39 +3,49 @@ import { timeService } from "@Services/.";
 import { DrawRect } from "@Functions/.";
 import type { BasicCallback } from "@Models/Callbacks.type";
 
+const FadeMultiplier = .5;
+
 export class Fade extends BaseTransformView{
     Priority: number = 2;
-    FadeOut:boolean = true;
-    Opacity:number = 0;
 
-    OnFadeMidpoint:BasicCallback;
-    OnFadeFinish:BasicCallback;
+    private FadeOut:boolean;
+    private Opacity:number;
 
-    constructor(onFadeMidpoint: BasicCallback, onFadeFinish:BasicCallback){
+    private OnFadeFinish:BasicCallback;
+
+    constructor(onFadeFinish:BasicCallback){
         super({x: 1, y: 1}, {x: .5, y: .5});
 
-        this.OnFadeMidpoint = onFadeMidpoint;
+        this.FadeOut = false;
+        this.Opacity = 1;
+
         this.OnFadeFinish = onFadeFinish;
     }
 
-    OnUpdate(){
-        const fadeMultiplier = .5;
+    StartFade(){
+        console.log("Starting Fade")
 
+        this.FadeOut = true;
+        this.Priority = 2
+    }
+
+    OnUpdate(){
         if (this.FadeOut){
-            this.Opacity += timeService.DeltaTime * fadeMultiplier;
-            if (this.Opacity > 1){
-                this.Opacity = 1;
-                this.FadeOut = false;
-                this.OnFadeMidpoint();
+            if (this.Opacity < 1){
+                this.Opacity += timeService.DeltaTime * FadeMultiplier;
+                this.Opacity = Math.min(1, this.Opacity);
+            }
+            else{
+                this.OnFadeFinish();
             }
         }
         else{
             if (this.Opacity > 0){
-                this.Opacity -= timeService.DeltaTime * fadeMultiplier;
+                this.Opacity -= timeService.DeltaTime * FadeMultiplier;
+                this.Opacity = Math.max(0, this.Opacity);
             }
             else{
-                this.Opacity = 0;
-                this.OnFadeFinish();
+                this.Priority = -1;
             }
         }
     }

@@ -1,16 +1,17 @@
-import { BaseView, Button, Label, Panel, Picture, PopUpBox } from "@Views/.";
+import { BaseView, Button, Fade, Label, Panel, Picture, PopUpBox } from "@Views/.";
 import splashLeftSource from "@Assets/Images/splashLeft.png";
 import splashRightSource from "@Assets/Images/splashRight.png";
 import { Sizes } from "@Static/.";
 import { userService } from "@Services/UserService";
 
 export class Start extends BaseView{
-    OnStart:(newGame:boolean) => void;
-    NewWarning?:PopUpBox;
+    private Fade:Fade;
+    private IsNewGame:boolean = true;
+
+    private NewWarning?:PopUpBox;
 
     constructor(onStart:(newGame:boolean) => void){
         super();
-        this.OnStart = onStart;
 
         const splashLeft = new Picture(splashLeftSource,   {x:1344, y:2226}, 1.25, {x:.17, y:.65});
         const splashRight = new Picture(splashRightSource, {x:1394, y:2595}, 1.5, {x:.85, y:.65});
@@ -21,6 +22,9 @@ export class Start extends BaseView{
         this.Children.push(splashLeft, splashRight, backPanel, prompt);
 
         this.CreateButtons();
+
+        this.Fade = new Fade(() => onStart(this.IsNewGame));
+        this.Children.push(this.Fade);
     }
 
     private CreateButtons(){
@@ -37,26 +41,29 @@ export class Start extends BaseView{
     }
 
     private OnNew(hasData:boolean){
-        const confirmStart = (newGame:boolean) => {
+        const confirmStart = () => {
             userService.ResetData();
-            this.OnStart(newGame);
+            this.IsNewGame = true;
+            this.Fade.StartFade();
         };
 
         if (hasData){
             this.NewWarning = new PopUpBox(
                         "Your existing data\n will be wiped.",
                         {callBack: () => {this.RemoveChild(this.NewWarning)}, text: "Cancel"},
-                        {callBack: () => {confirmStart(true)}, text: "Confirm"}
+                        {callBack: () => {confirmStart()}, text: "Confirm"}
                     );
             this.Children.push(this.NewWarning);
         }
         else{
-            confirmStart(true);
+            confirmStart();
         }
     }
 
     private OnContinue(){
         userService.LoadExisting();
-        this.OnStart(false);
+        
+        this.IsNewGame = false;
+        this.Fade.StartFade();
     }
 }

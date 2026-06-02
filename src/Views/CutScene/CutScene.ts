@@ -1,9 +1,11 @@
-import { BaseView, Picture } from "@Views/Shared";
+import { BaseView, Fade, Picture } from "@Views/Shared";
 import { Dialogue } from "./Dialogue";
 import type { BasicCallback, Script } from "@Models/.";
 import { SpeakerBox } from "./SpeakerBox";
 
 export class CutScene extends BaseView{
+    Fade:Fade;
+
     Script:Script;
     CurrentIndex:number = 0;
 
@@ -11,12 +13,9 @@ export class CutScene extends BaseView{
     CurrentImage:Picture;
     SpeakerBox:SpeakerBox;
 
-    OnCutSceneEnd:BasicCallback;
-
     constructor(script:Script, onCutSceneEnd:BasicCallback){
         super();
         this.Script = script;
-        this.OnCutSceneEnd = onCutSceneEnd;
 
         const firstPage = this.Script[0];
         this.Dialogue = new Dialogue(() => this.OnNextPage(), {x: .8, y: .25}, {x: .5, y: .85}, firstPage.text);
@@ -24,6 +23,9 @@ export class CutScene extends BaseView{
         this.SpeakerBox = new SpeakerBox({x: .1, y:.05}, {x:.2, y:.75}, firstPage.speaker);
 
         this.Children.push(this.CurrentImage, this.Dialogue, this.SpeakerBox);
+
+        this.Fade = new Fade(() => onCutSceneEnd());
+        this.Children.push(this.Fade);
     }
 
     OnNextPage(){
@@ -41,6 +43,6 @@ export class CutScene extends BaseView{
     }
 
     EndCutScene(){
-        this.OnCutSceneEnd();
+        this.Fade.StartFade();
     }
 }

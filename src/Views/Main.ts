@@ -1,11 +1,10 @@
 import { LoadLevelOrHome, DrawRect, LoadLevelOrCutscene, LoadCutsceneOrHome } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import { BaseTransformView, Fade, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
-import { Colors, Sizes, scriptDictionary, stageStartToScriptDictionary, stageEndToScriptDictionary } from "@Static/.";
+import { BaseTransformView, CutScene, GameManager, Start, HomeContainer, Results } from "@Views/.";
+import { Colors, Sizes, scriptDictionary, stageStartToScriptDictionary, stageEndToScriptDictionary, testScript } from "@Static/.";
 import type { ScriptIndex, StageIndex } from "@Models/.";
 
 export class Main extends BaseTransformView{
-    private Fade?:Fade;
     private Start?: Start;
     private HomeContainer?: HomeContainer;
     private CutScene?: CutScene
@@ -18,69 +17,49 @@ export class Main extends BaseTransformView{
         // this.Start = new Start((newGame) => LoadCutsceneOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
         // this.Children.push(this.Start);
 
-        // this.HomeContainer = new HomeContainer((stageIndex) => LoadLevelOrCutscene(stageIndex, () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), () => this.LoadLevel(stageIndex)));
-        // this.Children.push(this.HomeContainer);
+        // this.LoadHome();
 
-        // this.CutScene = new CutScene(testScript);
-        // this.Children.push(this.CutScene);
+        // this.LoadCutscene("prologue");
 
-        this.GameManager = new GameManager("1", (exp, char, time) => this.LoadResults(exp, char, time, "1"));
-        this.Children.push(this.GameManager);
+        this.LoadLevel("1");
 
         // this.Results = new Results(574, 43, 22, () => this.LoadHome());
         // this.Children.push(this.Results);
     }
 
     private LoadCutscene(index:ScriptIndex){
-        const onFadeMidpoint = () => {
-            this.Children = this.Children.filter(v => v === this.Fade);
-            this.CutScene = new CutScene(scriptDictionary[index], () => LoadLevelOrHome(
+        this.Children = [];
+        this.CutScene = new CutScene(
+            scriptDictionary[index], 
+            () => LoadLevelOrHome(
                 index, 
                 () => this.LoadHome(), 
                 (stageIndex) => this.LoadLevel(stageIndex)
-            ));
-            this.Children.splice(0, 0, this.CutScene);
-        }
-
-        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
-        this.Children.push(this.Fade);
+        ));
+        this.Children.push(this.CutScene);
     }
 
     private LoadHome(){
-        const onFadeMidpoint = () => {
-            this.Children = this.Children.filter(v => v === this.Fade);
-            this.HomeContainer = new HomeContainer((stageIndex) => LoadLevelOrCutscene(
+        this.Children = [];
+        this.HomeContainer = new HomeContainer((stageIndex) => 
+            LoadLevelOrCutscene(
                 stageIndex, 
                 () => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]), 
                 () => this.LoadLevel(stageIndex)
-            ));
-            this.Children.splice(0, 0, this.HomeContainer);
-        }
-
-        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
-        this.Children.push(this.Fade);
+        ));
+        this.Children.push(this.HomeContainer);
     }
 
     private LoadLevel(stageIndex:StageIndex){
-        const onFadeMidpoint = () => {
-            this.Children = this.Children.filter(v => v === this.Fade);
-            this.GameManager = new GameManager(stageIndex, (exp, char, time) => this.LoadResults(exp, char, time, stageIndex));
-            this.Children.splice(0, 0, this.GameManager);
-        }
-
-        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
-        this.Children.push(this.Fade);
+        this.Children = [];
+        this.GameManager = new GameManager(stageIndex, (exp, char, time) => this.LoadResults(exp, char, time, stageIndex));
+        this.Children.push(this.GameManager);
     }
 
     private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex){
-        const onFadeMidpoint = () => {
-            this.Children = this.Children.filter(v => v === this.Fade);
-            this.Results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]));
-            this.Children.splice(0, 0, this.Results);
-        }
-
-        this.Fade = new Fade(() => onFadeMidpoint(), () => this.RemoveChild(this.Fade));
-        this.Children.push(this.Fade);
+        this.Children = [];
+        this.Results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]));
+        this.Children.push(this.Results);
     }
 
     Render(){

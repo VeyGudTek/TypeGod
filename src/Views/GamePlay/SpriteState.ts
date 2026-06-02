@@ -6,6 +6,8 @@ import type { Picture } from "@Views/.";
 const TimePerFrame = .5;
 
 export class SpriteState{
+    private LockAnimation = false;
+
     private currentFrameIndex = 0;
     private currentFrameTime = 0;
 
@@ -20,32 +22,45 @@ export class SpriteState{
         picture.ChangePicture(this.GetCurrentSprite().image);
     }
 
-    //Need to create some logic so that attack animations are played through
     Update(newState:EntityState, picture:Picture){
         this.currentFrameTime += timeService.DeltaTime;
 
-        if (this.CurrentState !== newState){
-            this.CurrentState = newState;
-            this.currentFrameIndex = 0;
-            this.currentFrameTime = 0;
+        if (this.CurrentState !== newState && !this.LockAnimation){
+            this.ChangeState(newState, picture);
         }
 
         if (this.currentFrameTime > TimePerFrame){
             this.currentFrameTime = 0;
             const sprites = this.GetSprites();
             if (!Array.isArray(sprites)){
-                 picture.ChangePicture(sprites.image);
                 return;
             }
 
             if (this.currentFrameIndex >= sprites.length - 1){
                 this.currentFrameIndex = 0;
+
+                if (this.LockAnimation){
+                    this.LockAnimation = false;
+                    return;
+                }
             }
             else{
                 this.currentFrameIndex++;
             }
 
             picture.ChangePicture(this.GetCurrentSprite().image);
+        }
+    }
+
+    private ChangeState(newState:EntityState, picture:Picture){
+        this.CurrentState = newState;
+        this.currentFrameIndex = 0;
+        this.currentFrameTime = 0;
+        
+        picture.ChangePicture(this.GetCurrentSprite().image);
+
+        if (newState === "attack"){
+            this.LockAnimation = true;
         }
     }
 

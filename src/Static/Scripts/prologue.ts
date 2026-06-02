@@ -22,92 +22,110 @@ import page18 from "@Assets/Images/Prologue/18.jpg";
 export const prologue:Script = [
     {
         text: "onlyText has been implemented thus far",
-        background: page1,
-        speaker: "Dog"
+        src: page1,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page2,
-        speaker: "Dog"
+        src: page2,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page3,
-        speaker: "Dog"
+        src: page3,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page4,
-        speaker: "Dog"
+        src: page4,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page5,
-        speaker: "Dog"
+        src: page5,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page6,
-        speaker: "Dog"
+        src: page6,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page7,
-        speaker: "Dog"
+        src: page7,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page8,
-        speaker: "Dog"
+        src: page8,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page9,
-        speaker: "Dog"
+        src: page9,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page10,
-        speaker: "Dog"
+        src: page10,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page11,
-        speaker: "Dog"
+        src: page11,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page12,
-        speaker: "Dog"
+        src: page12,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page13,
-        speaker: "Dog"
+        src: page13,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page14,
-        speaker: "Dog"
+        src: page14,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page15,
-        speaker: "Dog"
+        src: page15,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page16,
-        speaker: "Dog"
+        src: page16,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page17,
-        speaker: "Dog"
+        src: page17,
+        speaker: "Dog",
+        image: new Image()
     },
     {
         text: "onlyText has been implemented thus far",
-        background: page18,
-        speaker: "Dog"
+        src: page18,
+        speaker: "Dog",
+        image: new Image()
     }
 ]

@@ -11,8 +11,9 @@ import goblinAttack1 from "@Assets/Images/Sprites/GoblinAttack1.jpg";
 import goblinAttack2 from "@Assets/Images/Sprites/GoblinAttack2.jpg";
 
 interface Sprite{
-    image:string,
-    size:Vector2
+    src:string,
+    size:Vector2,
+    image: HTMLImageElement
 }
 
 export interface SpriteData{
@@ -24,21 +25,21 @@ export interface SpriteData{
 export const spriteDictionary:Record<CharacterIndex | EnemyType, SpriteData> = {
     "main":{
         attack: [
-            {image:mainAttack, size:{x:477, y:316}}
+            {src:mainAttack, size:{x:477, y:316}, image: new Image()}
         ],
-        idle: {image:mainIdle, size:{x:328, y:371}}
+        idle: {src:mainIdle, size:{x:328, y:371}, image: new Image()}
     },
     "goblin":{
         run: [
-            {image:goblinRun1, size:{x:275, y:275}}, 
-            {image:goblinRun2, size:{x:275, y:275}}, 
-            {image:goblinRun3, size:{x:275, y:275}}, 
-            {image:goblinRun2, size:{x:275, y:275}}
+            {src:goblinRun1, size:{x:275, y:275}, image: new Image()}, 
+            {src:goblinRun2, size:{x:275, y:275}, image: new Image()}, 
+            {src:goblinRun3, size:{x:275, y:275}, image: new Image()}, 
+            {src:goblinRun2, size:{x:275, y:275}, image: new Image()}
         ],
         attack: [
-            {image:goblinAttack1, size:{x:275, y:275}}, 
-            {image:goblinAttack2, size:{x:275, y:275}}
+            {src:goblinAttack1, size:{x:275, y:275}, image: new Image()}, 
+            {src:goblinAttack2, size:{x:275, y:275}, image: new Image()}
         ],
-        idle: {image:goblinIdle, size:{x:275, y:275}}
+        idle: {src:goblinIdle, size:{x:275, y:275}, image: new Image()}
     }
 }

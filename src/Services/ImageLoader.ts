@@ -1,4 +1,5 @@
 import type { CharacterIndex, EnemyType, Script, ScriptIndex } from "@Models/.";
+import { miscImageDictionary, type MiscSceneNames } from "@Static/MiscImageDictionary";
 import { scriptDictionary } from "@Static/Scripts";
 import { spriteDictionary } from "@Static/SpriteDictionaries";
 
@@ -15,6 +16,14 @@ class ImageLoader{
             total: this.LoadingImages.length,
             current: this.LoadingImages.filter(i => i.complete).length
         }
+    }
+
+    LoadPage(sceneName: MiscSceneNames){
+        this.LoadingImages = [];
+
+        miscImageDictionary[sceneName].forEach(i => {
+            this.SetImageObject(i.image, i.src);
+        });
     }
 
     LoadSprites(){

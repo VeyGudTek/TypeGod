@@ -9,3 +9,5 @@ export type ScriptIndex = "prologue" | "levelOneStart" | "levelOneEnd"
 export type AttackType = "single" | "multi" | "self"
 
 export type EnemyType = "goblin"
+
+export type SceneName = "start" | "home" | "cutscene" | "level" | "results" 

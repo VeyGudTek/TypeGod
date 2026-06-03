@@ -1,3 +1,4 @@
+export * from "./Image.type";
 export * from "./Vector2.type";
 export * from "./Enums";
 export * from "./View.type";

@@ -23,8 +23,6 @@ export class Fade extends BaseTransformView{
     }
 
     StartFade(){
-        console.log("Starting Fade")
-
         this.FadeOut = true;
         this.Priority = 2
     }

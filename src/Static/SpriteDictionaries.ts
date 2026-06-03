@@ -1,5 +1,5 @@
 import type { CharacterIndex, EnemyType } from "@Models/Enums"
-import type { Vector2 } from "@Models/Vector2.type";
+import type { Vector2, ImageDataPair } from "@Models/.";
 
 import mainAttack from "@Assets/Images/Sprites/MainAttack.jpg";
 import mainIdle from "@Assets/Images/Sprites/MainIdle.jpg";
@@ -10,10 +10,8 @@ import goblinRun3 from "@Assets/Images/Sprites/GoblinRun3.jpg";
 import goblinAttack1 from "@Assets/Images/Sprites/GoblinAttack1.jpg";
 import goblinAttack2 from "@Assets/Images/Sprites/GoblinAttack2.jpg";
 
-interface Sprite{
-    src:string,
+interface Sprite extends ImageDataPair{
     size:Vector2,
-    image: HTMLImageElement
 }
 
 export interface SpriteData{

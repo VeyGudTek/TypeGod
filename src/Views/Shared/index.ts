@@ -9,3 +9,4 @@ export * from "./PopUpBox";
 export * from "./Picture";
 export * from "./Loading";
 export * from "./Fade";
+export * from "./LoaderWrapper";

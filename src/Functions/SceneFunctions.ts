@@ -1,7 +1,7 @@
 import type { BasicCallback, ScriptIndex, StageIndex } from "@Models/.";
 import { scriptEndToStageDictionary } from "@Static/SceneDictionaries";
 
-export function LoadCutsceneOrHome(newGame:boolean, LoadCutscene:BasicCallback, LoadHome:BasicCallback){
+export function LoadPrologueOrHome(newGame:boolean, LoadCutscene:BasicCallback, LoadHome:BasicCallback){
     if (newGame){
         LoadCutscene();
     }

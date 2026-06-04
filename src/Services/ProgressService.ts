@@ -20,15 +20,16 @@ class ProgressService{
     }
 
     CheckExisting(){
-        return this.ExistingData !== null && !this.CheckMalformed();
+        return this.ExistingData !== null && this.CheckValidData();
     }
 
-    private CheckMalformed(){
+    private CheckValidData(){
         if (this.ExistingData !== null){
             this.CompletedLevels = JSON.parse(this.ExistingData);
 
             return Array.isArray(this.CompletedLevels) && this.CompletedLevels.every(l => typeof l === "number");
         }
+        return true
     }
 
     GetCompletedLevels(){

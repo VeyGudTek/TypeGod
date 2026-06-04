@@ -4,3 +4,4 @@ export * from "./WindowProvider";
 export * from "./UserService";
 export * from "./RequestHandler";
 export * from "./ImageLoader";
+export * from "./ProgressService";

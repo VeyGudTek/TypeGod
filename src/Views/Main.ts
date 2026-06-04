@@ -1,6 +1,6 @@
-import { LoadLevelOrHome, DrawRect, LoadLevelOrCutscene, LoadCutsceneOrHome } from "@Functions/.";
+import { LoadLevelOrHome, DrawRect, LoadLevelOrCutscene, LoadPrologueOrHome } from "@Functions/.";
 import { windowProvider } from "@Services/.";
-import { BaseTransformView, CutScene, GameManager, HomeContainer, Results, LoaderWrapper } from "@Views/.";
+import { BaseTransformView, CutScene, GameManager, HomeContainer, Results, LoaderWrapper, Start } from "@Views/.";
 import { Colors, Sizes, scriptDictionary, stageStartToScriptDictionary, stageEndToScriptDictionary } from "@Static/.";
 import type { ScriptIndex, StageIndex } from "@Models/.";
 
@@ -8,14 +8,14 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        // this.Start = new Start((newGame) => LoadCutsceneOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
-        // this.Children.push(this.Start);
+        const start = new Start((newGame) => LoadPrologueOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
+        this.Children.push(new LoaderWrapper("start", start));
 
         // this.LoadHome();
 
         //this.LoadCutscene("prologue");
 
-        this.LoadLevel("1");
+        //this.LoadLevel("1");
 
         // this.Results = new Results(574, 43, 22, () => this.LoadHome());
         // this.Children.push(this.Results);

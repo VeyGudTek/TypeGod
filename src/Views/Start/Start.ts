@@ -2,6 +2,7 @@ import { BaseView, Button, Fade, Label, Panel, Picture, PopUpBox } from "@Views/
 import { Sizes } from "@Static/.";
 import { userService } from "@Services/UserService";
 import { miscImageDictionary } from "@Static/MiscImageDictionary";
+import { progressService } from "@Services/ProgressService";
 
 export class Start extends BaseView{
     private Fade:Fade;
@@ -27,7 +28,7 @@ export class Start extends BaseView{
     }
 
     private CreateButtons(){
-        const hasData = userService.CheckExisting();
+        const hasData = userService.CheckExisting() && progressService.CheckExisting();
         const newButtonY = hasData ? .47 : .55
 
         const newGame = new Button(         {x:.18, y:.07}, {x:.5, y:newButtonY}, "New Game", () => this.OnNew(hasData));
@@ -42,6 +43,8 @@ export class Start extends BaseView{
     private OnNew(hasData:boolean){
         const confirmStart = () => {
             userService.ResetData();
+            progressService.ResetData();
+
             this.IsNewGame = true;
             this.Fade.StartFade();
         };
@@ -61,6 +64,7 @@ export class Start extends BaseView{
 
     private OnContinue(){
         userService.LoadExisting();
+        progressService.LoadExisting();
         
         this.IsNewGame = false;
         this.Fade.StartFade();

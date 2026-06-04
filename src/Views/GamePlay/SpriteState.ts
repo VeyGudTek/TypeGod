@@ -19,7 +19,7 @@ export class SpriteState{
     }
 
     InitializePicture(picture:Picture){
-        picture.ChangePicture(this.GetCurrentSprite().src);
+        picture.ChangePicture(this.GetCurrentSprite().image);
     }
 
     Update(newState:EntityState, picture:Picture){
@@ -48,7 +48,7 @@ export class SpriteState{
                 this.currentFrameIndex++;
             }
 
-            picture.ChangePicture(this.GetCurrentSprite().src);
+            picture.ChangePicture(this.GetCurrentSprite().image);
         }
     }
 
@@ -57,7 +57,7 @@ export class SpriteState{
         this.currentFrameIndex = 0;
         this.currentFrameTime = 0;
         
-        picture.ChangePicture(this.GetCurrentSprite().src);
+        picture.ChangePicture(this.GetCurrentSprite().image);
 
         if (newState === "attack"){
             this.LockAnimation = true;
@@ -85,7 +85,7 @@ export class SpriteState{
             case "idle":
                 return this.SpriteData.idle;
             default:
-                return {src:"", size:{x:0, y:0}};
+                return {image:new Image(), size:{x:0, y:0}, src: ""};
         }
     }
 }

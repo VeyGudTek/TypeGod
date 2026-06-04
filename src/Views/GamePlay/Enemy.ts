@@ -39,7 +39,7 @@ export class Enemy extends BaseTransformView{
 
         this.GetFirstCharacter = getFirstCharacter;
 
-        this.Picture = new Picture("", {x:275, y:275}, .25, this.Position);
+        this.Picture = new Picture(new Image(), {x:275, y:275}, .25, this.Position);
         this.SpriteState.InitializePicture(this.Picture);
 
         this.healthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749");

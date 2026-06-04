@@ -1,16 +1,7 @@
 import type { AlignType, Vector2 } from "@Models/index";
 import { windowProvider } from "@Services/WindowProvider";
 
-export function DrawImage(imageName:string, position:Vector2, size:Vector2){
-    const image = new Image();
-    image.src = imageName;
-    //This is not functional at all lmao
-
-    image.onload = () => {
-        if (!image.src.includes("Run")){
-            console.log("Loaded" + image.src);
-        }
-    }
+export function DrawImage(image:HTMLImageElement, position:Vector2, size:Vector2){
     windowProvider.CanvasContext.drawImage(image, position.x, position.y, size.x, size.y);
 }
 

@@ -21,8 +21,11 @@ class ImageLoader{
     LoadPage(sceneName: MiscSceneNames){
         this.LoadingImages = [];
 
-        miscImageDictionary[sceneName].forEach(i => {
-            this.SetImageObject(i.image, i.src);
+        const sceneDictionary = miscImageDictionary[sceneName];
+
+        Object.keys(sceneDictionary).forEach(k => {
+            const imageData = sceneDictionary[k];
+            this.SetImageObject(imageData.image, imageData.src);
         });
     }
 

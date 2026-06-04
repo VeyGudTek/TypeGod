@@ -4,23 +4,23 @@ import { DrawImage, ScaleToMaxWindowSize } from "@Functions/.";
 import { windowProvider } from "@Services/WindowProvider";
 
 export class Picture extends BaseTransformView{
-    ImageName:string;
+    Image:HTMLImageElement;
 
-    constructor(imageName:string, originalSize:Vector2, scale:number, position:Vector2){
+    constructor(image:HTMLImageElement, originalSize:Vector2, scale:number, position:Vector2){
         const clampedSize = ScaleToMaxWindowSize(originalSize);
         const scaledSize = {
             x: scale * (clampedSize.x / windowProvider.WindowSize.x),
             y: scale * (clampedSize.y / windowProvider.WindowSize.y)
         }
         super(scaledSize, position);
-        this.ImageName = imageName;
+        this.Image = image;
     }
 
-    ChangePicture(imageName:string){
-        this.ImageName = imageName;
+    ChangePicture(image:HTMLImageElement){
+        this.Image = image;
     }
 
     Render(){
-        DrawImage(this.ImageName, this.Position, this.Size);
+        DrawImage(this.Image, this.Position, this.Size);
     }
 }

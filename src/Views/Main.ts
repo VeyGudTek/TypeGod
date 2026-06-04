@@ -13,9 +13,9 @@ export class Main extends BaseTransformView{
 
         // this.LoadHome();
 
-        // this.LoadCutscene("prologue");
+        this.LoadCutscene("prologue");
 
-        this.LoadLevel("1");
+        //this.LoadLevel("1");
 
         // this.Results = new Results(574, 43, 22, () => this.LoadHome());
         // this.Children.push(this.Results);

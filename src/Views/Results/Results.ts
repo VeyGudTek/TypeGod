@@ -1,13 +1,15 @@
 import { Sizes } from "@Static/Styles";
 import { BaseView, Button, Fade, Label, Panel } from "@Views/Shared";
 import { CharacterResults } from "./CharacterResults";
-import type { BasicCallback } from "@Models/Callbacks.type";
+import type { BasicCallback, StageIndex } from "@Models/.";
+import { progressService } from "@Services/ProgressService";
 
 export class Results extends BaseView{
     Fade:Fade;
 
-    constructor(experience:number, characters:number, time:number, onContinue:BasicCallback){
+    constructor(experience:number, characters:number, time:number, onContinue:BasicCallback, level:StageIndex){
         super();
+        this.SaveProgress(level);
 
         const backPanel = new Panel({x: .4, y: .8}, {x:.25, y:.5});
         const title = new Label({x: .4, y: Sizes.text.title}, {x:.25, y:.2}, "Results", "center");
@@ -28,5 +30,15 @@ export class Results extends BaseView{
 
     OnContinueWrapper(){
         this.Fade.StartFade();
+    }
+
+    private SaveProgress(level:StageIndex){
+        const parsedInt = +level;
+
+        if (isNaN(parsedInt)){
+            throw Error("StageIndex is not set to a number and cannot be saved");
+        }
+
+        progressService.SaveCompletedLevel(parsedInt);
     }
 }

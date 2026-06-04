@@ -8,14 +8,14 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        const start = new Start((newGame) => LoadPrologueOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
-        this.Children.push(new LoaderWrapper("start", start));
+        // const start = new Start((newGame) => LoadPrologueOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
+        // this.Children.push(new LoaderWrapper("start", start));
 
         // this.LoadHome();
 
         //this.LoadCutscene("prologue");
 
-        //this.LoadLevel("1");
+        this.LoadLevel("1");
 
         // this.Results = new Results(574, 43, 22, () => this.LoadHome());
         // this.Children.push(this.Results);
@@ -55,7 +55,7 @@ export class Main extends BaseTransformView{
 
     private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex){
         this.Children = [];
-        const results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]));
+        const results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]), stageIndex);
 
         this.Children.push(new LoaderWrapper("results", results));
     }

@@ -61,6 +61,10 @@ export class EnemyManager extends BaseView{
         });
     }
 
+    GetExperienceEarned(){
+        return this.Enemies.filter(e => e.Dead).length;
+    }
+
     CheckGameEnded(){
         return this.CurrentStageInstructions.length === 0 && this.Enemies.every(e => e.Dead);
     }

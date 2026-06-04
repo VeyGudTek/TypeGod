@@ -3,14 +3,18 @@ import { BaseView, Fade } from "@Views/Shared";
 import { EnemyManager } from "./EnemyManager";
 import { Typer } from "./Typer";
 import { CharacterManager } from "./CharacterManager";
+import { Timer } from "@Services/TimeService";
 
 export class GameManager extends BaseView{
-    Fade:Fade;
-    GameEnded:boolean = false;
+    private Fade:Fade;
+    private GameEnded:boolean = false;
+    private Timer:Timer;
 
-    CharacterManager:CharacterManager;
-    EnemyManager:EnemyManager;
-    Typer:Typer;
+    private CharacterManager:CharacterManager;
+    private EnemyManager:EnemyManager;
+    private Typer:Typer;
+
+
     
     constructor(stageIndex:StageIndex, onGameEnd:(exp:number, char:number, time:number) => void){
         super();
@@ -21,7 +25,12 @@ export class GameManager extends BaseView{
 
         this.Children.push(this.CharacterManager, this.EnemyManager, this.Typer);
 
-        this.Fade = new Fade(() => onGameEnd(1, 1, 1));
+        this.Timer = new Timer();
+        this.Fade = new Fade(() => onGameEnd(
+            this.EnemyManager.GetExperienceEarned(), 
+            this.Typer.TotalCorrectCharacters,
+            this.Timer.GetElapsedTime()));
+
         this.Children.push(this.Fade);
     }
 

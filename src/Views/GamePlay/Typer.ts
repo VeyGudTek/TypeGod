@@ -24,6 +24,8 @@ export class Typer extends BaseView{
     private PromptUIList:Prompt[] = [];
     private PromptMerger:PromptMerger;
 
+    TotalCorrectCharacters:number = 0;
+
     constructor(onWordComplete:NumberInputCallback){
         super();
         this.OnWordComplete = onWordComplete;
@@ -90,6 +92,8 @@ export class Typer extends BaseView{
 
     private CompleteWord(currentPrompt:Prompt){
         const { correctText } = currentPrompt.GetText();
+
+        this.TotalCorrectCharacters += correctText.length;
         this.OnWordComplete(correctText.length * this.ComboTracker.GetMultiplier());
 
         this.Prompt = this.Prompt.slice(1);

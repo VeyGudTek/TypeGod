@@ -42,6 +42,7 @@ export class Enemy extends BaseTransformView{
         this.SpriteState.InitializePicture(this.Picture);
 
         this.HealthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749", true);
+        this.HealthBar.Size.x = this.Picture.Size.x;
         this.HealthBar.SetCurrentResource(this.MaxHealth);
         
         this.Children.push(this.Picture, this.HealthBar);

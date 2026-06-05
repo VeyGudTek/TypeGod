@@ -17,12 +17,11 @@ export class Enemy extends BaseTransformView{
     private BaseCooldown:number;
     private CurrentCooldown:number = 0;
     private Damage:number;
-
     private Speed:number;
 
-    private Picture:Picture;
-    private healthBar:ResourceBar;
+    HealthBar:ResourceBar;
 
+    Picture:Picture;
     Dead:boolean = false;
 
     GetFirstCharacter:() => Character | undefined;
@@ -39,12 +38,13 @@ export class Enemy extends BaseTransformView{
 
         this.GetFirstCharacter = getFirstCharacter;
 
-        this.Picture = new Picture(new Image(), {x:275, y:275}, .25, this.Position);
+        this.Picture = new Picture(new Image(), {x:275, y:275}, .25, this.Position, true);
         this.SpriteState.InitializePicture(this.Picture);
 
-        this.healthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749");
-        this.healthBar.SetCurrentResource(this.MaxHealth);
-        this.Children.push(this.Picture, this.healthBar);
+        this.HealthBar = new ResourceBar({x: size.x, y: size.y / 5}, {x:position.x, y: position.y - .09}, this.MaxHealth, "#cbb749", true);
+        this.HealthBar.SetCurrentResource(this.MaxHealth);
+        
+        this.Children.push(this.Picture, this.HealthBar);
     }
 
     TakeDamage(damage:number){
@@ -55,7 +55,7 @@ export class Enemy extends BaseTransformView{
             this.State = "dead";
         }
 
-        this.healthBar.SetCurrentResource(this.CurrentHealth);
+        this.HealthBar.SetCurrentResource(this.CurrentHealth);
     }
 
     OnUpdate(){
@@ -84,9 +84,9 @@ export class Enemy extends BaseTransformView{
             x: this.Position.x - (this.Speed * timeService.DeltaTime * (windowProvider.WindowSize.x / 100)),
             y: this.Position.y
         }
-        this.healthBar.Position = {
+        this.HealthBar.Position = {
             x: this.Position.x,
-            y: this.healthBar.Position.y
+            y: this.HealthBar.Position.y
         }
 
         this.State = "run";

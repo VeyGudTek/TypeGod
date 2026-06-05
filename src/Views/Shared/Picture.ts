@@ -4,9 +4,10 @@ import { DrawImage, ScaleToMaxWindowSize } from "@Functions/.";
 import { windowProvider } from "@Services/WindowProvider";
 
 export class Picture extends BaseTransformView{
-    Image:HTMLImageElement;
+    private Image:HTMLImageElement;
+    private IsManualRender:boolean
 
-    constructor(image:HTMLImageElement, originalSize:Vector2, scale:number, position:Vector2){
+    constructor(image:HTMLImageElement, originalSize:Vector2, scale:number, position:Vector2, isManualRender = false){
         const clampedSize = ScaleToMaxWindowSize(originalSize);
         const scaledSize = {
             x: scale * (clampedSize.x / windowProvider.WindowSize.x),
@@ -14,6 +15,7 @@ export class Picture extends BaseTransformView{
         }
         super(scaledSize, position);
         this.Image = image;
+        this.IsManualRender = isManualRender;
     }
 
     ChangePicture(image:HTMLImageElement){
@@ -21,6 +23,12 @@ export class Picture extends BaseTransformView{
     }
 
     Render(){
+        if (!this.IsManualRender){
+            this.ManualRender();
+        }
+    }
+
+    ManualRender(){
         DrawImage(this.Image, this.Position, this.Size);
     }
 }

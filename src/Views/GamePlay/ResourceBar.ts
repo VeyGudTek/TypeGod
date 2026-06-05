@@ -8,11 +8,14 @@ export class ResourceBar extends BaseTransformView{
     private readonly Color:string;
     private CurrentResource:number = 0;
 
-    constructor(size:Vector2, position:Vector2, maxResource:number, color:string){
+    private IsManualRender:boolean;
+
+    constructor(size:Vector2, position:Vector2, maxResource:number, color:string, isManualRender = false){
         super(size, position);
 
         this.MaxResource = maxResource;
         this.Color = color;
+        this.IsManualRender = isManualRender;
     }
 
     SetCurrentResource(resource:number){
@@ -28,6 +31,12 @@ export class ResourceBar extends BaseTransformView{
     }
 
     Render(){
+        if (!this.IsManualRender){
+            this.ManualRender();
+        }
+    }
+
+    ManualRender(){
         const percentHealth = this.CurrentResource / this.MaxResource;
 
         DrawRect(this.Position, this.Size, "#6d6d6d", Colors.border.base, Sizes.border.base);

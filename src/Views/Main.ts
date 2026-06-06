@@ -46,14 +46,14 @@ export class Main extends BaseTransformView{
 
     private LoadLevel(stageIndex:StageIndex){
         this.Children = [];
-        const level = new GameManager(stageIndex, (exp, char, time) => this.LoadResults(exp, char, time, stageIndex));
+        const level = new GameManager(stageIndex, (exp, char, time, levelSucceed) => this.LoadResults(exp, char, time, stageIndex, levelSucceed));
 
         this.Children.push(new LoaderWrapper("level", level));
     }
 
-    private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex){
+    private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex, levelSucceed:boolean){
         this.Children = [];
-        const results = new Results(exp, char, time, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]), stageIndex);
+        const results = new Results(exp, char, time, levelSucceed, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]), stageIndex);
 
         this.Children.push(new LoaderWrapper("results", results));
     }

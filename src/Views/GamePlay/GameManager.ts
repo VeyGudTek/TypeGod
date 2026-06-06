@@ -8,6 +8,7 @@ import { GamePlayRenderer } from "./GamePlayRenderer";
 
 export class GameManager extends BaseView{
     private Fade:Fade;
+    private LevelSucceed:boolean = false;
     private GameEnded:boolean = false;
     private Timer:Timer;
 
@@ -16,7 +17,7 @@ export class GameManager extends BaseView{
     private Typer:Typer;
     private GamePlayRenderer:GamePlayRenderer;
     
-    constructor(stageIndex:StageIndex, onGameEnd:(exp:number, char:number, time:number) => void){
+    constructor(stageIndex:StageIndex, onGameEnd:(exp:number, char:number, time:number, levelSucceed:boolean) => void){
         super();
         
         this.CharacterManager = new CharacterManager((damage, type) => this.EnemyManager.DamageEnemies(damage, type));
@@ -30,7 +31,9 @@ export class GameManager extends BaseView{
         this.Fade = new Fade(() => onGameEnd(
             this.EnemyManager.GetExperienceEarned(), 
             this.Typer.TotalCorrectCharacters,
-            this.Timer.GetElapsedTime()));
+            this.Timer.GetElapsedTime(),
+            this.LevelSucceed
+        ));
 
         this.Children.push(this.Fade);
     }
@@ -38,10 +41,12 @@ export class GameManager extends BaseView{
     OnUpdate(){
         if (!this.GameEnded && this.EnemyManager.CheckGameEnded()){
             this.GameEnded = true;
+            this.LevelSucceed = true;
             this.Fade.StartFade();
         }
         else if (!this.GameEnded && this.CharacterManager.CheckGameOver()){
             this.GameEnded = true;
+            this.LevelSucceed = false;
             this.Fade.StartFade();
         }
     }

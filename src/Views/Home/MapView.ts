@@ -16,7 +16,7 @@ export class MapView extends BaseView{
     }
 
     private CreateLevelButtons(loadCutscene:StageIndexCallback, loadLevel:StageIndexCallback){
-        const completedLevels = progressService.GetCompletedLevels();
+        const attemptedLevels = progressService.GetAttemptedLevels();
 
         Object.keys(stageDictionary).forEach((stageIndex) => {
             const index = stageIndex as StageIndex;
@@ -26,7 +26,7 @@ export class MapView extends BaseView{
                 {x:.05, y:.05}, 
                 stageButtonPositionDictionary[index], 
                 index, 
-                () => this.WrapperOnLevelSelect(() => loadCutscene(index), () => loadLevel(index), completedLevels.includes(intIndex))
+                () => this.WrapperOnLevelSelect(() => loadCutscene(index), () => loadLevel(index), attemptedLevels.includes(intIndex))
             );
 
             this.Children.push(stageButton);

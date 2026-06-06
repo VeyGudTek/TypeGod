@@ -1,11 +1,15 @@
 class ProgressService{
-    private readonly StorageIndex = "progress"
+    private readonly AttemptedIndex = "attemptedLevels"
+    private readonly CompletedIndex = "completedLevels"
 
+    private AttemptedLevels:number[] = [];
     private CompletedLevels:number[] = [];
-    private ExistingData:string | null;
+    private ExistingAttempted:string | null;
+    private ExistingCompleted:string | null;
 
     constructor(){
-        this.ExistingData = window.localStorage.getItem(this.StorageIndex);
+        this.ExistingCompleted = window.localStorage.getItem(this.CompletedIndex);
+        this.ExistingAttempted = window.localStorage.getItem(this.AttemptedIndex);
     }
 
     ResetData(){
@@ -15,25 +19,41 @@ class ProgressService{
         
     LoadExisting(){
         if (this.CheckExisting()){
-            this.CompletedLevels = JSON.parse(this.ExistingData as string);
+            this.AttemptedLevels = JSON.parse(this.ExistingAttempted as string);
+            this.CompletedLevels = JSON.parse(this.ExistingCompleted as string);
         }
     }
 
     CheckExisting(){
-        return this.ExistingData !== null && this.CheckValidData();
+        return this.CheckValidData();
     }
 
     private CheckValidData(){
-        if (this.ExistingData !== null){
-            this.CompletedLevels = JSON.parse(this.ExistingData);
+        if (this.ExistingCompleted !== null && this.ExistingAttempted !== null){
+            const completedLevels = JSON.parse(this.ExistingCompleted);
+            const attemptedLevels = JSON.parse(this.ExistingAttempted);
 
-            return Array.isArray(this.CompletedLevels) && this.CompletedLevels.every(l => typeof l === "number");
+            const validCompleted = Array.isArray(completedLevels) && completedLevels.every(l => typeof l === "number");
+            const validAttempted = Array.isArray(attemptedLevels) && attemptedLevels.every(l => typeof l === "number");
+
+            return validAttempted && validCompleted;
         }
-        return true
+        return false;
+    }
+
+    GetAttemptedLevels(){
+        return [...this.AttemptedLevels];
     }
 
     GetCompletedLevels(){
         return [...this.CompletedLevels];
+    }
+
+    SaveAttemptedLevel(level:number){
+        if (!this.AttemptedLevels.includes(level)){
+            this.AttemptedLevels.push(level);
+            this.Save();
+        }
     }
     
     SaveCompletedLevel(level:number){
@@ -44,7 +64,8 @@ class ProgressService{
     }
     
     private Save(){
-        window.localStorage.setItem(this.StorageIndex, JSON.stringify(this.CompletedLevels));
+        window.localStorage.setItem(this.CompletedIndex, JSON.stringify(this.CompletedLevels));
+        window.localStorage.setItem(this.AttemptedIndex, JSON.stringify(this.AttemptedLevels));
     }
 }
 

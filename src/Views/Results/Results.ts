@@ -8,9 +8,9 @@ import { ParseInt } from "@Functions/Parser";
 export class Results extends BaseView{
     Fade:Fade;
 
-    constructor(experience:number, characters:number, time:number, onContinue:BasicCallback, level:StageIndex){
+    constructor(experience:number, characters:number, time:number, levelSucceed:boolean, onContinue:BasicCallback, level:StageIndex){
         super();
-        this.SaveProgress(level);
+        this.SaveProgress(level, levelSucceed);
 
         const backPanel = new Panel({x: .4, y: .8}, {x:.25, y:.5});
         const title = new Label({x: .4, y: Sizes.text.title}, {x:.25, y:.2}, "Results", "center");
@@ -33,7 +33,10 @@ export class Results extends BaseView{
         this.Fade.StartFade();
     }
 
-    private SaveProgress(level:StageIndex){
-        progressService.SaveCompletedLevel(ParseInt(level));
+    private SaveProgress(level:StageIndex, levelSucceed:boolean){
+        if (levelSucceed){
+            progressService.SaveCompletedLevel(ParseInt(level));
+        }
+        progressService.SaveAttemptedLevel(ParseInt(level));
     }
 }

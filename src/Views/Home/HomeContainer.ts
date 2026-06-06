@@ -7,25 +7,27 @@ import { MapView } from "./MapView";
 export class HomeContainer extends BaseView{
     Fade:Fade;
     SelectedLevel:StageIndex = "1";
+    PlayCutscene:boolean = true;
 
     Home:Home;
     CharacterUpgrade?:CharacterUpgrade;
     Map:MapView;
 
-    constructor(onLevelSelect:StageIndexCallback){
+    constructor(loadCutscene:StageIndexCallback, loadStage:StageIndexCallback){
         super();
 
         this.Home = new Home((index:CharacterIndex) => this.OnCharacterButton(index), () => this.OnMap());
-        this.Map = new MapView(() => this.ToHome(), (index) => this.WrappedLevelSelect(index));
+        this.Map = new MapView(() => this.ToHome(), (index) => this.WrappedLevelSelect(index, true), (index) => this.WrappedLevelSelect(index, false));
 
         this.Children.push(this.Home);
 
-        this.Fade = new Fade(() => onLevelSelect(this.SelectedLevel));
+        this.Fade = new Fade(() => this.PlayCutscene ? loadCutscene(this.SelectedLevel) : loadStage(this.SelectedLevel));
         this.Children.push(this.Fade);
     }
 
-    private WrappedLevelSelect(index:StageIndex){
+    private WrappedLevelSelect(index:StageIndex, playCutscene:boolean){
         this.SelectedLevel = index;
+        this.PlayCutscene = playCutscene;
         this.Fade.StartFade();
     }
 

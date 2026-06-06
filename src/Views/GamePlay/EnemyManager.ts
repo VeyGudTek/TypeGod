@@ -15,7 +15,7 @@ export class EnemyManager extends BaseView{
     constructor(stageIndex:StageIndex, getFirstCharacter:() => Character | undefined){
         super();
         
-        this.CurrentStageInstructions = stageDictionary[stageIndex].sort((a, b) => a.time - b.time);
+        this.CurrentStageInstructions = [...stageDictionary[stageIndex].sort((a, b) => a.time - b.time)];
         this.Children = this.Enemies;
         this.GetFirstCharacter = getFirstCharacter;
     }

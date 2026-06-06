@@ -36,7 +36,10 @@ export class Main extends BaseTransformView{
 
     private LoadHome(){
         this.Children = [];
-        const home = new HomeContainer((stageIndex) => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]));
+        const home = new HomeContainer(
+            (stageIndex) => this.LoadCutscene(stageStartToScriptDictionary[stageIndex]),
+            (stageIndex) => this.LoadLevel(stageIndex)
+        );
 
         this.Children.push(new LoaderWrapper("home", home));
     }

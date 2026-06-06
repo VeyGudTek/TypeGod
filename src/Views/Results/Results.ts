@@ -3,6 +3,7 @@ import { BaseView, Button, Fade, Label, Panel } from "@Views/Shared";
 import { CharacterResults } from "./CharacterResults";
 import type { BasicCallback, StageIndex } from "@Models/.";
 import { progressService } from "@Services/ProgressService";
+import { ParseInt } from "@Functions/Parser";
 
 export class Results extends BaseView{
     Fade:Fade;
@@ -33,12 +34,6 @@ export class Results extends BaseView{
     }
 
     private SaveProgress(level:StageIndex){
-        const parsedInt = +level;
-
-        if (isNaN(parsedInt)){
-            throw Error("StageIndex is not set to a number and cannot be saved");
-        }
-
-        progressService.SaveCompletedLevel(parsedInt);
+        progressService.SaveCompletedLevel(ParseInt(level));
     }
 }

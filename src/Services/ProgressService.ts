@@ -37,8 +37,10 @@ class ProgressService{
     }
     
     SaveCompletedLevel(level:number){
-        this.CompletedLevels.push(level);
-        this.Save();
+        if (!this.CompletedLevels.includes(level)){
+            this.CompletedLevels.push(level);
+            this.Save();
+        }
     }
     
     private Save(){

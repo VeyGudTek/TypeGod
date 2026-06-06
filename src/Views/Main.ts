@@ -53,7 +53,15 @@ export class Main extends BaseTransformView{
 
     private LoadResults(exp:number, char:number, time:number, stageIndex:StageIndex, levelSucceed:boolean){
         this.Children = [];
-        const results = new Results(exp, char, time, levelSucceed, () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]), stageIndex);
+        const results = new Results(
+            exp, 
+            char, 
+            time, 
+            levelSucceed, 
+            () => this.LoadHome(), 
+            () => this.LoadCutscene(stageEndToScriptDictionary[stageIndex]), 
+            stageIndex
+        );
 
         this.Children.push(new LoaderWrapper("results", results));
     }

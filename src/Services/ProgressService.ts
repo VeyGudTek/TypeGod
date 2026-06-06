@@ -14,6 +14,7 @@ class ProgressService{
 
     ResetData(){
             this.CompletedLevels = [];
+            this.AttemptedLevels = [];
             this.Save();
         }
         

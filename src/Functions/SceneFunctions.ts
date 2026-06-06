@@ -18,15 +18,3 @@ export function LoadLevelOrHome(scriptIndex:ScriptIndex, LoadHome:BasicCallback,
         LoadHome();
     }
 }
-
-export function LoadLevelOrCutscene(level:StageIndex, LoadCutscene:BasicCallback, LoadLevel:BasicCallback){
-    //check user data here
-
-    let hasCompletedLevel = false;
-    if (hasCompletedLevel){
-        LoadLevel();
-    }
-    else{
-        LoadCutscene();
-    }
-}

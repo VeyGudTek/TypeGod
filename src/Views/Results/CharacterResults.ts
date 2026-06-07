@@ -55,7 +55,7 @@ export class CharacterResults extends BaseView{
 
             const indexLabel = new Label({x:.1, y:Sizes.text.base}, {x:.075, y:yPosition}, index, "start");
             const expLabel = new Label({x:.1, y:Sizes.text.base}, {x:.15, y:yPosition}, leftOverText, "start");
-            const levelLabel = new Label({x:.1, y:Sizes.text.base}, {x:.225, y:yPosition}, levelUpsText, "start");
+            const levelLabel = new Label({x:.1, y:Sizes.text.base}, {x:.275, y:yPosition}, levelUpsText, "start");
 
             this.Children.push(indexLabel, expLabel, levelLabel);
             yPosition += .1;

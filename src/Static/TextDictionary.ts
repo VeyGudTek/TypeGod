@@ -57,12 +57,38 @@ import comma from "@Assets/Images/Text/Comma.png";
 import question from "@Assets/Images/Text/Question.png";
 import period from "@Assets/Images/Text/Period.png";
 import apostrophe from "@Assets/Images/Text/Apostrophe.png";
+import slash from "@Assets/Images/Text/Slash.png";
+import quotation from "@Assets/Images/Text/Quotation.png";
+
+import one from "@Assets/Images/Text/1.png";
+import two from "@Assets/Images/Text/2.png";
+import three from "@Assets/Images/Text/3.png";
+import four from "@Assets/Images/Text/4.png";
+import five from "@Assets/Images/Text/5.png";
+import six from "@Assets/Images/Text/6.png";
+import seven from "@Assets/Images/Text/7.png";
+import eight from "@Assets/Images/Text/8.png";
+import nine from "@Assets/Images/Text/9.png";
+import zero from "@Assets/Images/Text/0.png";
 
 export const textDictionary: Record<string, ImageDataPair> = {
     ",": {src:comma, image: new Image()},
     "?": {src:question, image: new Image()},
     ".": {src:period, image: new Image()},
     "'": {src:apostrophe, image: new Image()},
+    '"': {src:quotation, image: new Image()},
+    "/": {src:slash, image: new Image()},
+
+    "1": {src:one, image: new Image()},
+    "2": {src:two, image: new Image()},
+    "3": {src:three, image: new Image()},
+    "4": {src:four, image: new Image()},
+    "5": {src:five, image: new Image()},
+    "6": {src:six, image: new Image()},
+    "7": {src:seven, image: new Image()},
+    "8": {src:eight, image: new Image()},
+    "9": {src:nine, image: new Image()},
+    "0": {src:zero, image: new Image()},
 
     "A": {src: A, image: new Image()},
     "a": {src: a, image: new Image()},

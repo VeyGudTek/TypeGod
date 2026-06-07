@@ -23,13 +23,17 @@ export function DrawText(text:string, color:string, position:Vector2, align: Ali
     const lines = text.split("\n");
     const totalLines = lines.length;
     
-    const midIndex = Math.round((totalLines - 1) / 2);
+    let midIndex = Math.round((totalLines - 1) / 2);
+    if (totalLines % 2 === 1){
+        midIndex += .5;
+    }
+
     const scaledSize = {
         x: (textSize / originalCharSize.y) * originalCharSize.x,
         y: textSize
     }
 
-    let yOffset = align === "start" ? 0 : -((midIndex + .5) * scaledSize.y);
+    let yOffset = align === "start" ? 0 : -(midIndex * scaledSize.y);
     lines.forEach((line) => {
         const linePosition = {
             x: position.x,
@@ -43,9 +47,13 @@ export function DrawText(text:string, color:string, position:Vector2, align: Ali
 
 function DrawLine(text:string, color:string, position:Vector2, scaledSize:Vector2, align: AlignType){
     const totalCharacters = text.length;
-    const midIndex = Math.round((totalCharacters - 1) / 2);
+    let midIndex = Math.round((totalCharacters - 1) / 2);
 
-    let xOffset = align === "start" ? 0 : -((midIndex + .5) * scaledSize.x);
+    if (totalCharacters % 2 === 1){
+        midIndex += .5;
+    }
+
+    let xOffset = align === "start" ? 0 : -(midIndex * scaledSize.x);
     for (const char of text){
         const charImageData = textDictionary[char];
         if (charImageData === undefined){

@@ -10,7 +10,7 @@ export class Button extends BaseHoverView{
         super(size, position);
 
         this.ClickCallBack = clickCallBack;
-        const labelSize = {x: size.x * .8, y: size.y * .8}
+        const labelSize = {x: size.x * .9, y: size.y * .9}
         this.Children.push(new Label(labelSize, position, text, "center"))
     }
 

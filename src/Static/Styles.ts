@@ -26,7 +26,7 @@ export const Colors = {
 
 export const Sizes = {
     text: {
-        base: .04,
+        base: .06,
         title: .1
     },
     border:{

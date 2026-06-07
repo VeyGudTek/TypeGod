@@ -3,6 +3,7 @@ import type { Vector2 } from "@Models/.";
 import { Colors, Sizes } from "@Static/.";
 import { BaseHoverView } from "@Views/Shared/.";
 
+//This class is deprecated
 export class TextBox extends BaseHoverView{
     Text:string = "";
     Selected:boolean = false;

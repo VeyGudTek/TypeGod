@@ -58,8 +58,7 @@ function DrawLine(text:string, color:string, position:Vector2, scaledSize:Vector
             y: position.y
         }
 
-        windowProvider.CanvasContext.drawImage(charImageData.image, charPosition.x, charPosition.y, scaledSize.x, scaledSize.y);
-        //DrawTintedImage(charImageData.image, color, charPosition, scaledSize);
+        DrawTintedImage(charImageData.image, color, charPosition, scaledSize);
         xOffset += scaledSize.x;
     }
 }
@@ -68,7 +67,7 @@ function DrawTintedImage(image:HTMLImageElement, color:string, position:Vector2,
     windowProvider.SecondaryCanvasElement.width = size.x;
     windowProvider.SecondaryCanvasElement.height = size.y;
 
-    windowProvider.SecondaryCanvasContext.drawImage(image, 0, 0,);
+    windowProvider.SecondaryCanvasContext.drawImage(image, 0, 0, size.x, size.y);
     windowProvider.SecondaryCanvasContext.globalCompositeOperation = "source-in";
     windowProvider.SecondaryCanvasContext.fillStyle = color;
     windowProvider.SecondaryCanvasContext.fillRect(0, 0, size.x, size.y);

@@ -23,8 +23,8 @@ export class Results extends BaseView{
 
         const charactersText = `Characters: ${characters}`;
         const timeText = `Time: ${time}`;
-        const charactersLabel = new Label({x: .4, y: Sizes.text.base}, {x:.1, y:.3}, charactersText, "start");
-        const timeLabel =       new Label({x: .4, y: Sizes.text.base}, {x:.1, y:.4}, timeText, "start");
+        const charactersLabel = new Label({x: .4, y: Sizes.text.base}, {x:.075, y:.3}, charactersText, "start");
+        const timeLabel =       new Label({x: .4, y: Sizes.text.base}, {x:.075, y:.4}, timeText, "start");
 
         const characterResults = new CharacterResults(experience);
         const continueButton = new Button({x:.15, y: .05}, {x:.25, y:.8}, "Continue", () => this.OnContinueWrapper());

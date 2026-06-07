@@ -1,7 +1,7 @@
 import { BaseTransformView } from "@Views/Shared";
 import type { Prompt } from "./Prompt";
 import { DrawText, GetCenterFromPosition } from "@Functions/index";
-import { Colors } from "@Static/index";
+import { Colors, Sizes } from "@Static/index";
 
 function GetPadding(padding:number){
     let spaces = "";
@@ -19,7 +19,7 @@ export class PromptMerger extends BaseTransformView{
     private MergedIncorrect:string = "";
 
     constructor(){
-        super({x:.75, y: .05}, {x: .43, y: .1});
+        super({x:.75, y: Sizes.text.base}, {x: .43, y: .1});
     }
 
     UpdatePrompt(promptList:Prompt[]){
@@ -54,7 +54,7 @@ export class PromptMerger extends BaseTransformView{
             combinedIncorrect += GetPadding((midIndex - halfCount) * 2);
         }
 
-        const maxLength = 48;
+        const maxLength = 45;
         if (combinedCorrect.length > maxLength){
             const startSplice = Math.floor((combinedCorrect.length - maxLength) / 2);
 

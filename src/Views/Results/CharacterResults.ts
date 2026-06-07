@@ -53,9 +53,9 @@ export class CharacterResults extends BaseView{
             const leftOverText = `${leftOver}/${GetMaxExperience(userData[index].level)}`;
             const levelUpsText = `+${this.LevelUps.get(index)} levels`;
 
-            const indexLabel = new Label({x:.1, y:Sizes.text.base}, {x:.1, y:yPosition}, index, "start");
-            const expLabel = new Label({x:.1, y:Sizes.text.base}, {x:.2, y:yPosition}, leftOverText, "start");
-            const levelLabel = new Label({x:.1, y:Sizes.text.base}, {x:.3, y:yPosition}, levelUpsText, "start");
+            const indexLabel = new Label({x:.1, y:Sizes.text.base}, {x:.075, y:yPosition}, index, "start");
+            const expLabel = new Label({x:.1, y:Sizes.text.base}, {x:.15, y:yPosition}, leftOverText, "start");
+            const levelLabel = new Label({x:.1, y:Sizes.text.base}, {x:.225, y:yPosition}, levelUpsText, "start");
 
             this.Children.push(indexLabel, expLabel, levelLabel);
             yPosition += .1;

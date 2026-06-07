@@ -1,6 +1,9 @@
 import type { Vector2 } from "@Models/.";
 
 class WindowProvider{
+    readonly SecondaryCanvasElement:HTMLCanvasElement;
+    readonly SecondaryCanvasContext:CanvasRenderingContext2D;
+
     readonly CanvasElement: HTMLCanvasElement;
     readonly CanvasContext: CanvasRenderingContext2D;
     LeftCanvasOffSet:number = 0;
@@ -16,6 +19,9 @@ class WindowProvider{
 
         this.ResizeWindow();
         this.OnScroll();
+
+        this.SecondaryCanvasElement = document.createElement('canvas');
+        this.SecondaryCanvasContext = this.SecondaryCanvasElement.getContext("2d") as CanvasRenderingContext2D;
     }
 
     ResizeWindow(){

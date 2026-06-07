@@ -2,6 +2,7 @@ import type { CharacterIndex, EnemyType, Script, ScriptIndex } from "@Models/.";
 import { miscImageDictionary, type MiscSceneNames } from "@Static/MiscImageDictionary";
 import { scriptDictionary } from "@Static/Scripts";
 import { spriteDictionary } from "@Static/SpriteDictionaries";
+import { textDictionary } from "@Static/TextDictionary";
 
 export interface LoadingProgress{
     total:number
@@ -19,8 +20,7 @@ class ImageLoader{
     }
 
     LoadPage(sceneName: MiscSceneNames){
-        this.LoadingImages = [];
-
+        this.ResetAndLoadText();
         const sceneDictionary = miscImageDictionary[sceneName];
 
         Object.keys(sceneDictionary).forEach(k => {
@@ -30,8 +30,7 @@ class ImageLoader{
     }
 
     LoadSprites(){
-        this.LoadingImages = [];
-
+        this.ResetAndLoadText();
         Object.keys(spriteDictionary).forEach(spriteKey => {
             const index = spriteKey as CharacterIndex | EnemyType
 
@@ -48,11 +47,20 @@ class ImageLoader{
     }
 
     LoadCutsceneScript(index:ScriptIndex){
-        this.LoadingImages = [];
+        this.ResetAndLoadText();
         const script:Script = scriptDictionary[index];
 
         script.forEach(page => {
             this.SetImageObject(page.image, page.src);
+        });
+    }
+
+    private ResetAndLoadText(){
+        this.LoadingImages = [];
+
+        Object.keys(textDictionary).forEach(c => {
+            const imageData = textDictionary[c];
+            this.SetImageObject(imageData.image, imageData.src);
         });
     }
 

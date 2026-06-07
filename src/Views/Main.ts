@@ -8,10 +8,10 @@ export class Main extends BaseTransformView{
     constructor(){
         super(windowProvider.WindowSize, {x:0, y:0});
 
-        // const start = new Start((newGame) => LoadPrologueOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
-        // this.Children.push(new LoaderWrapper("start", start));
+        const start = new Start((newGame) => LoadPrologueOrHome(newGame, () => this.LoadCutscene("prologue"), () => this.LoadHome()));
+        this.Children.push(new LoaderWrapper("start", start));
 
-        this.LoadHome();
+        //this.LoadHome();
 
         //this.LoadCutscene("prologue");
 

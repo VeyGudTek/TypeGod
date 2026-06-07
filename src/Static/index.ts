@@ -6,3 +6,4 @@ export * from "./DynamicUIConstants";
 export * from "./PositionDictionaries";
 export * from "./SceneDictionaries";
 export * from "./SpriteDictionaries";
+export * from "./TextDictionary";

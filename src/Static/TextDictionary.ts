@@ -59,6 +59,7 @@ import period from "@Assets/Images/Text/Period.png";
 import apostrophe from "@Assets/Images/Text/Apostrophe.png";
 import slash from "@Assets/Images/Text/Slash.png";
 import quotation from "@Assets/Images/Text/Quotation.png";
+import colon from "@Assets/Images/Text/Colon.png";
 
 import one from "@Assets/Images/Text/1.png";
 import two from "@Assets/Images/Text/2.png";
@@ -78,6 +79,7 @@ export const textDictionary: Record<string, ImageDataPair> = {
     "'": {src:apostrophe, image: new Image()},
     '"': {src:quotation, image: new Image()},
     "/": {src:slash, image: new Image()},
+    ":": {src:colon, image: new Image()},
 
     "1": {src:one, image: new Image()},
     "2": {src:two, image: new Image()},

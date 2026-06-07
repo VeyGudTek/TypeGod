@@ -10,7 +10,7 @@ export class Dialogue extends BaseHoverView{
         super(size, position);
 
         this.BackPanel = new Panel(size, position);
-        this.TextDialogue = new DialogueText(() => nextPage(), {x: size.x * .8, y: size.y * .6}, position);
+        this.TextDialogue = new DialogueText(() => nextPage(), {x: size.x * .9, y: size.y * .5}, position);
         this.TextDialogue.SetDialogueText(initialText);
 
         this.Children.push(this.BackPanel, this.TextDialogue);

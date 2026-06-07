@@ -18,9 +18,9 @@ export class CutScene extends BaseView{
         this.Script = script;
 
         const firstPage = this.Script[0];
-        this.Dialogue = new Dialogue(() => this.OnNextPage(), {x: .8, y: .25}, {x: .5, y: .85}, firstPage.text);
+        this.Dialogue = new Dialogue(() => this.OnNextPage(), {x: .8, y: .2}, {x: .5, y: .85}, firstPage.text);
         this.CurrentImage = new Picture(firstPage.image, {x:1920, y:1080}, 1, {x:.5, y:.5})
-        this.SpeakerBox = new SpeakerBox({x: .1, y:.05}, {x:.2, y:.75}, firstPage.speaker);
+        this.SpeakerBox = new SpeakerBox({x: .1, y:.05}, {x:.2, y:.775}, firstPage.speaker);
 
         this.Children.push(this.CurrentImage, this.Dialogue, this.SpeakerBox);
 

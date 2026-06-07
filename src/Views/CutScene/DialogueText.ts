@@ -47,7 +47,7 @@ export class DialogueText extends BaseTransformView{
             Colors.font.base,
             this.Position,
             "start",
-            this.Size.y / 6
+            this.Size.y / 2
         );
     }
 }
